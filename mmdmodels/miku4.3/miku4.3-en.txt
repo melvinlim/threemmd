@@ -1,0 +1,65 @@
+﻿Hatsune Miku
+Ver.4.3
+
+by outro
+
+What is this
+-------------
+3D data for MikuMikuDance
+
+How to use
+-------------
+click "load" on "model manipulation"and choose the PMX file or drag and drop directly.
+
+
+Notes
+------------
+You are allowed to use this MMD model only if you follow the guideline
+set by Crypton Future Media, INC. for the usage of its characters.
+For detail, see: http://piapro.net/en_for_creators.html
+
+You are allowed to edit and redistribute this model if you follow the guideline.
+But if you redistribute this file, you must inscribe my name "outro".
+
+
+You must not use this model for commerce.
+
+Please use this Model Data at your own risk.
+ I can not be held liable or responsible for any damages caused by using this data.
+
+--------------------
+
+Sorry for poor english.
+Enjoy!
+
+
+Change log
+----------------
+2014.10.23	release
+2014-10-26	retouch textures
+		retouch weight
+		move arm bone
+		add morph
+		add "sleeve" bone
+2014.11.01	remodel face, clothes
+2014.12.17	reduce face polygon
+		retouch underwear
+		add microphone
+		revise morph
+2015.07.15	revise hair model and weight
+		revise bone
+		retouch textures
+		adapt sphire
+		adapt AutoLuminous
+2015.08.12	retouch skin, eye textures
+2015.08.31	retouch sphire
+		revise hair,sleeve weight
+2015.10.15	retouch hair and skin texture, toon
+		tail:remodel,increase bone,revise weight
+		add to glow in AutoLuminous
+		revise finger model and weight
+2016.01.30	remodel face, body and hair
+2016.09.04	remodel hair model and retouch sphire
+		revise UV mouth and tongue
+2017.08.29	remake model
+2018.03.15	remodel face, head and headphone
