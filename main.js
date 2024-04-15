@@ -43,10 +43,14 @@ const helper = new MMDAnimationHelper();
 
 loadMMD(scene, helper, modelPath, animationPath);
 
+const settings = {
+	gravity: new THREE.Vector3(),
+};
 let doInitGUI = function () {
 	if (!helper || !helper.objects || !helper.meshes ||
 		!helper.objects.get(helper.meshes[0]) ||
-		!helper.objects.get(helper.meshes[0]).mixer) {
+		!helper.objects.get(helper.meshes[0]).mixer ||
+		!helper.objects.get(helper.meshes[0]).physics) {
 		setTimeout(doInitGUI, 250);
 	} else {
 		initGUI(helper, light);

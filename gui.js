@@ -11,7 +11,16 @@ class ColorGUIHelper {
         this.object[this.prop].set(hexString);
     }
 }
+
+let helperPtr;
+
+function updateGravity() {
+    let gravity = helperPtr.objects.get(helperPtr.meshes[0]).physics.gravity
+    helperPtr.objects.get(helperPtr.meshes[0]).physics.setGravity(gravity);
+}
+
 export function initGUI(helper, light) {
+    helperPtr = helper;
     var gui = new GUI({ injectStyles: false });
 
     const colorHelper = new ColorGUIHelper(light, 'color');
@@ -24,6 +33,9 @@ export function initGUI(helper, light) {
     gui.add(helper.enabled, 'physics');
 
     gui.add(helper.objects.get(helper.meshes[0]).mixer, 'timeScale', 0, 2, 0.1);
+    gui.add(helper.objects.get(helper.meshes[0]).physics.gravity, 'y', -200, 200, 1);
+
+    gui.onFinishChange(updateGravity);
 
     //set default values to avoid warnings.
     gui.children[0].$text.id = 'color-selector';
