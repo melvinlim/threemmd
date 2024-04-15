@@ -12,8 +12,8 @@ class ColorGUIHelper {
     }
 }
 export class MyGui {
-    constructor(container, light) {
-        this.gui = new GUI({ container: container, injectStyles: false });
+    constructor(light) {
+        this.gui = new GUI({ injectStyles: false });
 
         const colorHelper = new ColorGUIHelper(light, 'color');
 

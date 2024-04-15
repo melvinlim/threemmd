@@ -19,8 +19,7 @@ const camera = initCamera(renderer);
 
 renderer.setSize(window.innerWidth, window.innerHeight);
 
-const div = document.getElementById('canvascontainer');
-div.appendChild(renderer.domElement);
+document.body.append(renderer.domElement);
 
 function createCheckerboard(scene, planeSize) {
 
@@ -50,8 +49,7 @@ const intensity = 1;
 const light = new THREE.AmbientLight(color, intensity);
 scene.add(light);
 
-const guiContainer = document.getElementById("gui");
-const gui = new MyGui(guiContainer, light);
+const gui = new MyGui(light);
 
 const modelPath = 'mmdmodels/miku4.3/miku4.3.pmx'
 //const modelPath = 'mmdmodels/miku-yyb-default/YYB Hatsune Miku_default_1.0ver.pmx'
@@ -137,7 +135,7 @@ function render() {
 
 	delta = clock.getDelta();
 
-	helper.update(delta);
+	//helper.update(delta);
 
 	//if (physics !== undefined) physics.update(delta);
 
