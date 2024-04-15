@@ -2,14 +2,15 @@ import * as THREE from 'three';
 import { MMDLoader } from 'three/addons/loaders/MMDLoader.js';
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 
-import GUI from 'lilgui'
+import GUI from 'lilgui';
+
+import { ColorGUIHelper } from './gui.js';
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
-//document.body.appendChild(renderer.domElement);
 
 const div = document.getElementById('canvascontainer');
 div.appendChild(renderer.domElement);
@@ -24,19 +25,6 @@ camera.position.z = 25;
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.target.set(0, 10, 0);		//camera looks at this point if using orbitcontrols.
 controls.update();
-
-class ColorGUIHelper {
-  constructor(object, prop) {
-    this.object = object;
-    this.prop = prop;
-  }
-  get value() {
-    return `#${this.object[this.prop].getHexString()}`;
-  }
-  set value(hexString) {
-    this.object[this.prop].set(hexString);
-  }
-}
 
 function createCheckerboard(scene, planeSize) {
 
