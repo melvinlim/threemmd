@@ -5,5 +5,5 @@
 from http.server import HTTPServer, BaseHTTPRequestHandler
 
 from http.server import test, SimpleHTTPRequestHandler as RH
-RH.extensions_map={k:v+';charset=UTF-8' for k,v in RH.extensions_map.items()}
+RH.extensions_map={k:v+';charset=utf-8' for k,v in RH.extensions_map.items()}
 test(RH)
