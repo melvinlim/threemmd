@@ -11,7 +11,7 @@ class ColorGUIHelper {
         this.object[this.prop].set(hexString);
     }
 }
-export function initGUI(settings, light) {
+export function initGUI(helper, light) {
     var gui = new GUI({ injectStyles: false });
 
     const colorHelper = new ColorGUIHelper(light, 'color');
@@ -20,8 +20,10 @@ export function initGUI(settings, light) {
     gui.addColor(colorHelper, 'value').name('color');
     gui.add(light, 'intensity', 0, 2, 0.01).name('light');
 
-    gui.add(settings, 'animation');
-    gui.add(settings, 'physics');
+    gui.add(helper.enabled, 'animation');
+    gui.add(helper.enabled, 'physics');
+
+    gui.add(helper.objects.get(helper.meshes[0]).mixer, 'timeScale', 0, 2, 0.1);
 
     //set default values to avoid warnings.
     gui.children[0].$text.id = 'color-selector';

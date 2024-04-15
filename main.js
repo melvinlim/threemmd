@@ -41,7 +41,6 @@ const animationPath = 'mmdanimations/default2.vmd'
 
 const helper = new MMDAnimationHelper();
 
-initGUI(helper.enabled, light);
 
 let mmdModel;
 
@@ -107,6 +106,17 @@ new MMDLoader(manager).loadWithAnimation(
 		console.log('An error happened');
 	}
 );
+
+let doInitGUI = function () {
+	if (!helper || !helper.objects || !helper.meshes ||
+		!helper.objects.get(helper.meshes[0]) ||
+		!helper.objects.get(helper.meshes[0]).mixer) {
+		setTimeout(doInitGUI, 250);
+	} else {
+		initGUI(helper, light);
+	}
+}
+doInitGUI();
 
 const clock = new THREE.Clock();
 clock.start();
