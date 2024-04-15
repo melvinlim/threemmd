@@ -1,10 +1,9 @@
 import * as THREE from 'three';
 import { MMDLoader } from 'three/addons/loaders/MMDLoader.js';
-import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
-import GUI from 'lilgui';
 
-import { ColorGUIHelper } from './gui.js';
+import { MyGui } from './gui.js';
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
@@ -53,19 +52,9 @@ const color = 0xFFFFFF;
 const intensity = 1;
 const light = new THREE.AmbientLight(color, intensity);
 scene.add(light);
-const container = document.getElementById("gui");
 
-const gui = new GUI({ container: container, injectStyles: false});
-
-const colorHelper = new ColorGUIHelper(light, 'color');
-
-//gui.addColor(new ColorGUIHelper(light, 'color'), 'value').name('color');
-gui.addColor(colorHelper, 'value').name('color');
-gui.add(light, 'intensity', 0, 2, 0.01).name('light');
-
-//set default values to avoid warnings.
-gui.children[0].$text.id = 0xffffff;
-gui.children[1].$input.id = 1;
+const guiContainer = document.getElementById("gui");
+const gui = new MyGui(guiContainer, light);
 
 const manager = new THREE.LoadingManager();
 manager.onStart = function ( url, itemsLoaded, itemsTotal ) {
