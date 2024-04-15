@@ -20,10 +20,12 @@ export function initGUI(settings, light) {
     gui.addColor(colorHelper, 'value').name('color');
     gui.add(light, 'intensity', 0, 2, 0.01).name('light');
 
-    gui.add(settings, 'animating');
+    gui.add(settings, 'animation');
+    gui.add(settings, 'physics');
 
     //set default values to avoid warnings.
-    gui.children[0].$text.id = 0xffffff;
-    gui.children[1].$input.id = 1;
-    gui.children[2].$input.id = 'checkbox';
+    gui.children[0].$text.id = 'color-selector';
+    gui.children[1].$input.id = 'light-slider';
+    gui.children[2].$input.id = 'animation-checkbox';
+    gui.children[3].$input.id = 'physics-checkbox';
 }

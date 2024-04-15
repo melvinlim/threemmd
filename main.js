@@ -32,12 +32,6 @@ const intensity = 1;
 const light = new THREE.AmbientLight(color, intensity);
 scene.add(light);
 
-const settings = {
-	animating: true,
-};
-
-initGUI(settings, light);
-
 const modelPath = 'mmdmodels/miku4.3/miku4.3.pmx'
 //const modelPath = 'mmdmodels/miku-yyb-default/YYB Hatsune Miku_default_1.0ver.pmx'
 
@@ -47,6 +41,7 @@ const animationPath = 'mmdanimations/default2.vmd'
 
 const helper = new MMDAnimationHelper();
 
+initGUI(helper.enabled, light);
 
 let mmdModel;
 
@@ -122,10 +117,8 @@ function render() {
 
 	delta = clock.getDelta();
 
-	if (settings.animating) {
-		helper.update(delta);
-		if (physics !== undefined) physics.update(delta);
-	}
+	helper.update(delta);
+	//if (physics !== undefined) physics.update(delta);
 
 	renderer.render(scene, camera);
 }
