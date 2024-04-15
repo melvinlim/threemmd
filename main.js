@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import { MMDAnimationHelper } from 'three/addons/animation/MMDAnimationHelper.js';
 import { MMDLoader } from 'three/addons/loaders/MMDLoader.js';
 
-import { MyGui } from './gui.js';
+import { initGUI } from './gui.js';
 import { initCamera } from './camera.js';
 import { loadMMDModel } from './mmd.js';
 import { loadMMDAnimation } from './mmd.js';
@@ -49,7 +49,7 @@ const intensity = 1;
 const light = new THREE.AmbientLight(color, intensity);
 scene.add(light);
 
-const gui = new MyGui(light);
+initGUI(light);
 
 const modelPath = 'mmdmodels/miku4.3/miku4.3.pmx'
 //const modelPath = 'mmdmodels/miku-yyb-default/YYB Hatsune Miku_default_1.0ver.pmx'
