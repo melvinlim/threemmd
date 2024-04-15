@@ -9,7 +9,10 @@ const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.inner
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
-document.body.appendChild( renderer.domElement );
+//document.body.appendChild(renderer.domElement);
+
+const div = document.getElementById('canvascontainer');
+div.appendChild(renderer.domElement);
 
 //this is pointless if using orbitcontrols.
 //camera.up = new THREE.Vector3(0, 0, -1);
@@ -62,10 +65,19 @@ const color = 0xFFFFFF;
 const intensity = 1;
 const light = new THREE.AmbientLight(color, intensity);
 scene.add(light);
+const container = document.getElementById("gui");
 
-const gui = new GUI();
-gui.addColor(new ColorGUIHelper(light, 'color'), 'value').name('color');
-gui.add(light, 'intensity', 0, 2, 0.01);
+const gui = new GUI({ container: container, injectStyles: false});
+
+const colorHelper = new ColorGUIHelper(light, 'color');
+
+//gui.addColor(new ColorGUIHelper(light, 'color'), 'value').name('color');
+gui.addColor(colorHelper, 'value').name('color');
+gui.add(light, 'intensity', 0, 2, 0.01).name('light');
+
+//set default values to avoid warnings.
+gui.children[0].$text.id = 0xffffff;
+gui.children[1].$input.id = 1;
 
 const manager = new THREE.LoadingManager();
 manager.onStart = function ( url, itemsLoaded, itemsTotal ) {

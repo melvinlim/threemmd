@@ -5,19 +5,129 @@
 		<title>Miku Miku Dance Scene</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<style>
-			body { margin: 0; }
+			body {
+                margin: 0;
+			}
+            #canvascontainer{
+                position: absolute;
+            }
+            #gui {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                flex-wrap: wrap;
+                align-content: flex-start;
+                font-family: var(--font-family);
+                font-size: var(--font-size);
+                line-height: 1;
+                font-weight: normal;
+                font-style: normal;
+                text-align: left;
+                color: var(--text-color);
+                -webkit-user-select: none;
+                user-select: none;
+                touch-action: manipulation;
+                --background-color: #1f1f1f;
+                --text-color: #ebebeb;
+                --title-background-color: #111111;
+                --title-text-color: #ebebeb;
+                --widget-color: #424242;
+                --hover-color: #4f4f4f;
+                --focus-color: #595959;
+                --number-color: #2cc9ff;
+                --string-color: #a2db3c;
+                --font-size: 11px;
+                --input-font-size: 11px;
+                --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+                --font-family-mono: Menlo, Monaco, Consolas, "Droid Sans Mono", monospace;
+                --padding: 0px;
+                --spacing: 0px;
+                --widget-height: 20px;
+                --title-height: calc(var(--widget-height) + var(--spacing)* 1.25);
+                --name-width: 45%;
+                --slider-knob-width: 2px;
+                --slider-input-width: 27%;
+                --color-input-width: 27%;
+                --slider-input-min-width: 45px;
+                --color-input-min-width: 45px;
+                --folder-indent: 7px;
+                --widget-padding: 0 0 0 3px;
+                --widget-border-radius: 2px;
+                --checkbox-size: calc(0.75* var(--widget-height));
+                --scrollbar-width: 5px;
+            }
+            .slider {
+                width: 100%;
+                height: var(--widget-height);
+                background-color: var(--widget-color);
+                border-radius: var(--widget-border-radius);
+                padding-right: var(--slider-knob-width);
+                overflow: hidden;
+                cursor: ew-resize;
+                touch-action: pan-y;
+            }
+            .fill {
+                height: 100%;
+                border-right: var(--slider-knob-width) solid var(--number-color);
+                box-sizing: content-box;
+            }
+            .widget {
+                position: relative;
+                display: flex;
+                align-items: center;
+                width: 100%;
+                min-height: var(--widget-height);
+            }
+            .controller {
+                display: flex;
+                align-items: center;
+                padding: 0 var(--padding);
+                margin: var(--spacing) 0;
+            }
+            #container > * {
+                flex-shrink: 0;
+                margin-left: 18px;
+                margin-top: 18px;
+            }
+            input[type="color"] {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                border: none;
+                padding: 0;
+            }
+            input[type="text"] {
+                margin-left: var(--spacing);
+                width: var(--slider-input-width);
+                min-width: var(--slider-input-min-width);
+                flex-shrink: 0;
+            }
+            .name {
+                min-width: var(--name-width);
+                flex-shrink: 0;
+                white-space: pre;
+                padding-right: var(--spacing);
+                line-height: var(--widget-height);
+            }
+            .display {
+                width: 100%;
+                height: var(--widget-height);
+                background-color: var(--widget-color);
+            }
 		</style>
 		<script type="importmap">
 			{
 				"imports": {
 					"three": "https://cdn.jsdelivr.net/npm/three@0.163.0/build/three.module.js",
 					"three/addons/": "https://cdn.jsdelivr.net/npm/three@0.163.0/examples/jsm/",
-					"lilgui": "https://cdn.jsdelivr.net/npm/lil-gui@0.19/+esm"
+					"lilgui": "https://cdn.jsdelivr.net/npm/lil-gui@0.19.1/+esm"
 				}
 			}
 		</script>
 	</head>
-	<body>
-		<script type="module" src="/main.js"></script>
-	</body>
+    <body>
+        <div id="canvascontainer"></div>
+        <div id="gui"></div>
+        <script type="module" src="/main.js"></script>
+    </body>
 </html>
