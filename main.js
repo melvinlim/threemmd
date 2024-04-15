@@ -1,8 +1,8 @@
 import * as THREE from 'three';
-import { MMDLoader } from 'three/addons/loaders/MMDLoader.js';
 
 import { MyGui } from './gui.js';
 import { initCamera } from './camera.js';
+import { loadMMDModel } from './mmd.js';
 
 const scene = new THREE.Scene();
 const renderer = new THREE.WebGLRenderer();
@@ -44,44 +44,9 @@ scene.add(light);
 const guiContainer = document.getElementById("gui");
 const gui = new MyGui(guiContainer, light);
 
-const manager = new THREE.LoadingManager();
-manager.onStart = function ( url, itemsLoaded, itemsTotal ) {
-	console.log( 'Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
-};
-
-manager.onLoad = function ( ) {
-	console.log( 'Loading complete!');
-	scene.add( miku );
-};
-
-manager.onProgress = function ( url, itemsLoaded, itemsTotal ) {
-	console.log( 'Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
-};
-
-manager.onError = function ( url ) {
-	console.log( 'There was an error loading ' + url );
-};
-
-const loader = new MMDLoader(manager);
-
 const modelPath = 'mmdmodels/miku4.3/miku4.3.pmx'
 
-const miku = await loader.loadAsync(
-	modelPath,
-/*
-//if i add the mesh to the scene here, it will appear before all parts have been fully loaded.
-	function ( mesh ) {
-		scene.add( mesh );
-	},
-*/
-	function ( xhr ) {
-		console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-	},
-	function ( error ) {
-		console.log( 'An error happened' );
-	}
-);
-
+const miku = await loadMMDModel(scene, modelPath);
 function animate() {
 	requestAnimationFrame( animate );
 	//miku.rotation.x += 0.01;
