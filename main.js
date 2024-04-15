@@ -33,7 +33,7 @@ const light = new THREE.AmbientLight(color, intensity);
 scene.add(light);
 
 const settings = {
-	animating: false,
+	animating: true,
 };
 
 initGUI(settings, light);
