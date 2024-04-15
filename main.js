@@ -62,7 +62,13 @@ const animationPath = 'mmdanimations/default2.vmd'
 
 const helper = new MMDAnimationHelper();
 
+
+let mmdModel;
+
 const manager = new THREE.LoadingManager();
+
+
+
 manager.onStart = function (url, itemsLoaded, itemsTotal) {
 	console.log('Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
 };
@@ -70,6 +76,32 @@ manager.onStart = function (url, itemsLoaded, itemsTotal) {
 manager.onLoad = function () {
 	console.log('Loading complete!');
 	//scene.add(mmdModel);
+
+	helper.add(mmdModel.mesh, {
+		animation: mmdModel.animation,
+		physics: true
+	});
+
+	//physics = new MMDPhysics(mmd.mesh)
+
+	scene.add(mmdModel.mesh);
+	/*
+	new THREE.AudioLoader().load(
+		'audios/mmd/song.mp3',
+		function (buffer) {
+
+			const listener = new THREE.AudioListener();
+			const audio = new THREE.Audio(listener).setBuffer(buffer);
+
+			listener.position.z = 1;
+
+			scene.add(audio);
+			scene.add(listener);
+
+		}
+
+	);
+*/
 };
 
 manager.onProgress = function (url, itemsLoaded, itemsTotal) {
@@ -86,31 +118,7 @@ new MMDLoader(manager).loadWithAnimation(
 	animationPath,
 	function (mmd) {
 
-		helper.add(mmd.mesh, {
-			animation: mmd.animation,
-			physics: true
-		});
-
-		//physics = new MMDPhysics(mmd.mesh)
-
-		scene.add(mmd.mesh);
-		/*
-		new THREE.AudioLoader().load(
-			'audios/mmd/song.mp3',
-			function (buffer) {
-
-				const listener = new THREE.AudioListener();
-				const audio = new THREE.Audio(listener).setBuffer(buffer);
-
-				listener.position.z = 1;
-
-				scene.add(audio);
-				scene.add(listener);
-
-			}
-
-		);
-*/
+		mmdModel = mmd;
 	},
 	function (xhr) {
 		console.log((xhr.loaded / xhr.total * 100) + '% loaded');
