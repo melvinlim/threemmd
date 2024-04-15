@@ -6,6 +6,10 @@
 
 ## MMD Models
 [Miku4.3](https://bowlroll.net/file/145960)
+[Miku-YYB-default](https://bowlroll.net/file/284016)
+
+## MMD Animations
+[トリコロール モーション](https://bowlroll.net/file/312068)
 
 ### Support or Contact
 

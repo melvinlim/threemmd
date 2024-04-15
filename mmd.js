@@ -1,5 +1,6 @@
 import { MMDLoader } from 'three/addons/loaders/MMDLoader.js';
 import { LoadingManager } from 'three';
+
 export async function loadMMDModel(scene, modelPath) {
 
 	const manager = new LoadingManager();
@@ -22,15 +23,12 @@ export async function loadMMDModel(scene, modelPath) {
 
 	const loader = new MMDLoader(manager);
 
-
 	const mmdModel = await loader.loadAsync(
 		modelPath,
-		/*
-		//if i add the mesh to the scene here, it will appear before all parts have been fully loaded.
 			function ( mesh ) {
-				scene.add( mesh );
+				//if i add the mesh to the scene here, it will appear before all parts have been fully loaded.
+				//scene.add( mesh );
 			},
-		*/
 		function (xhr) {
 			console.log((xhr.loaded / xhr.total * 100) + '% loaded');
 		},
@@ -41,4 +39,26 @@ export async function loadMMDModel(scene, modelPath) {
 
 	return mmdModel;
 
+}
+
+export async function loadMMDAnimation(mmdModel, animationPath) {
+	const loader = new MMDLoader();
+	const result = loader.loadAnimation(
+		animationPath,
+		mmdModel,
+		function (animationClip) {
+			console.log('loaded animation.');
+			mmdModel.animations.push(animationClip);
+			return animationClip;
+		},
+		function (xhr) {
+			console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+		},
+		function (error) {
+			console.log('An error happened');
+		}
+	);
+	//wait 4 seconds...?
+	await new Promise((resolve, reject) => setTimeout(resolve, 4000));
+	return result;
 }
