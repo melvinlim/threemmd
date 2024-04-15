@@ -4,6 +4,7 @@ import { MyGui } from './gui.js';
 import { initCamera } from './camera.js';
 import { loadMMDModel } from './mmd.js';
 import { loadMMDAnimation } from './mmd.js';
+import { loadMMD } from './mmd.js';
 
 const scene = new THREE.Scene();
 const renderer = new THREE.WebGLRenderer();
@@ -47,26 +48,21 @@ const gui = new MyGui(guiContainer, light);
 
 const modelPath = 'mmdmodels/miku4.3/miku4.3.pmx'
 //const modelPath = 'mmdmodels/miku-yyb-default/YYB Hatsune Miku_default_1.0ver.pmx'
-const miku = await loadMMDModel(scene, modelPath);
 
 //const animationPath = 'mmdanimations/トリコロール_モーション_こざくらみる配布/トリコロール_モーション_YYB初音ミクdefault.vmd'
 const animationPath = 'mmdanimations/default2.vmd'
-const animation = await loadMMDAnimation(miku, animationPath);
 
-/*
-while (miku.animations.length == 0) {
-	setTimeout(() => {
-		console.log("waiting 1 second...");
-	}, 1000);
-}
-*/
+//const miku = await loadMMDModel(scene, modelPath);
+//const animation = await loadMMDAnimation(miku, animationPath);
 
-const mixer = new THREE.AnimationMixer(miku);
-const clips = miku.animations;
+const miku = await loadMMD(scene, modelPath, animationPath);
+scene.add(miku.mesh);
+const mixer = new THREE.AnimationMixer(miku.mesh);
+miku.mesh.animations.push(miku.animation);
 
-function update() {
-	mixer.update(deltaSeconds);
-}
+//mixer.clipAction(miku.animation).play();
+const clips = miku.mesh.animations;
+
 clips.forEach(function (clip) {
 	mixer.clipAction(clip).play();
 });
