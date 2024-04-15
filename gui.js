@@ -30,4 +30,5 @@ export function initGUI(helper, light) {
     gui.children[1].$input.id = 'light-slider';
     gui.children[2].$input.id = 'animation-checkbox';
     gui.children[3].$input.id = 'physics-checkbox';
+    gui.children[4].$input.id = 'timescale-slider';
 }

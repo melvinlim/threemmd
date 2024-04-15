@@ -62,9 +62,11 @@ export async function loadMMDAnimation(mmdModel, animationPath) {
 	await new Promise((resolve, reject) => setTimeout(resolve, 4000));
 	return result;
 }
-export async function loadMMD(scene, modelPath, animationPath) {
+export function loadMMD(scene, helper, modelPath, animationPath) {
 
+	let mmdModel;
 	const manager = new LoadingManager();
+
 	manager.onStart = function (url, itemsLoaded, itemsTotal) {
 		console.log('Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
 	};
@@ -72,8 +74,33 @@ export async function loadMMD(scene, modelPath, animationPath) {
 	manager.onLoad = function () {
 		console.log('Loading complete!');
 		//scene.add(mmdModel);
-	};
 
+		helper.add(mmdModel.mesh, {
+			animation: mmdModel.animation,
+			physics: true
+		});
+
+		//physics = new MMDPhysics(mmd.mesh)
+
+		scene.add(mmdModel.mesh);
+		/*
+		new THREE.AudioLoader().load(
+			'audios/mmd/song.mp3',
+			function (buffer) {
+	
+				const listener = new THREE.AudioListener();
+				const audio = new THREE.Audio(listener).setBuffer(buffer);
+	
+				listener.position.z = 1;
+	
+				scene.add(audio);
+				scene.add(listener);
+	
+			}
+	
+		);
+	*/
+	};
 	manager.onProgress = function (url, itemsLoaded, itemsTotal) {
 		console.log('Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
 	};
@@ -82,19 +109,13 @@ export async function loadMMD(scene, modelPath, animationPath) {
 		console.log('There was an error loading ' + url);
 	};
 
-	const loader = new MMDLoader(manager);
-
-	var result;
-
-	await loader.loadWithAnimation(
+	// Load MMD resources and add to helper
+	new MMDLoader(manager).loadWithAnimation(
 		modelPath,
 		animationPath,
-		function (mesh) {
-			console.log('mesh loaded');
-			result = mesh;
-			return result;
-			//if i add the mesh to the scene here, it will appear before all parts have been fully loaded.
-			//scene.add( mesh );
+		function (mmd) {
+
+			mmdModel = mmd;
 		},
 		function (xhr) {
 			console.log((xhr.loaded / xhr.total * 100) + '% loaded');
@@ -103,9 +124,4 @@ export async function loadMMD(scene, modelPath, animationPath) {
 			console.log('An error happened');
 		}
 	);
-
-	//wait 5 seconds...?
-	await new Promise((resolve, reject) => setTimeout(resolve, 5000));
-	return result;
-
 }
