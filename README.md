@@ -2,7 +2,8 @@
 
 ## Javascript Libraries
 [Three.js](https://threejs.org/)
-[lil-gui](https://lil-gui.georgealways.com/)
+[lil-gui](https://lil-gui.georgealways.com)
+[ammo.js](https://github.com/kripken/ammo.js/)
 
 ## MMD Models
 [Miku4.3](https://bowlroll.net/file/145960)
