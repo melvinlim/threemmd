@@ -1,18 +1,14 @@
 import { MMDLoader } from 'three/addons/loaders/MMDLoader.js';
 import { LoadingManager } from 'three';
-
-export async function loadMMDModel(scene, modelPath) {
-
+export function loadMMDModel(scene, mmdModels, modelPath) {
 	const manager = new LoadingManager();
 	manager.onStart = function (url, itemsLoaded, itemsTotal) {
 		console.log('Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
 	};
 	manager.onLoad = function () {
 		console.log('Loading complete!');
-		scene.add(mmdModel);	//mmdModel is declared further down but javascript can access it here.
-		return mmdModel;
+		scene.add(mmdModels[0]);
 	};
-
 	manager.onProgress = function (url, itemsLoaded, itemsTotal) {
 		console.log('Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
 	};
@@ -23,10 +19,10 @@ export async function loadMMDModel(scene, modelPath) {
 
 	const loader = new MMDLoader(manager);
 
-	//MMDLoader.loadAsync is the only function which returns the model.
-	const mmdModel = await loader.loadAsync(
+	loader.load(
 		modelPath,
-		function ( mesh ) {
+		function (mesh) {
+			mmdModels.push(mesh);
 		//if i add the mesh to the scene here, it will appear before all parts have been fully loaded.
 		//scene.add( mesh );
 		},

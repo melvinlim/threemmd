@@ -41,9 +41,19 @@ const helper = new MMDAnimationHelper();
 
 loadMMD(scene, helper, modelPath, animationPath);
 
-const settings = {
-	gravity: new THREE.Vector3(),
-};
+const mmdModels = []
+loadMMDModel(scene, mmdModels, modelPath);
+
+let waitForModel = function () {
+	if (mmdModels.length==0) {
+		setTimeout(waitForModel, 250);
+	} else {
+		let anotherMiku = mmdModels[0];
+		anotherMiku.position.x += 20;
+	}
+}
+waitForModel();
+
 let doInitGUI = function () {
 	if (!helper || !helper.objects || !helper.meshes ||
 		!helper.objects.get(helper.meshes[0]) ||
