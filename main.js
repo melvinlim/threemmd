@@ -12,23 +12,35 @@ import { loadMMD } from './mmd.js';
 
 import { createCheckerboard } from './misc.js';
 
+const shadows = true;
 //let physics;
 
 const scene = new THREE.Scene();
 const renderer = new THREE.WebGLRenderer();
 const camera = initCamera(renderer);
 
+if (shadows) {
+	renderer.shadowMap.enabled = true;
+}
+
 renderer.setSize(window.innerWidth, window.innerHeight);
 
 document.body.append(renderer.domElement);
-
 
 const planeSize = 40;
 createCheckerboard(scene, planeSize);
 
 const color = 0xFFFFFF;
-const intensity = 1;
-const light = new THREE.AmbientLight(color, intensity);
+//const intensity = 1;
+//const light = new THREE.AmbientLight(color, intensity);
+const intensity = 500;
+const light = new THREE.PointLight(color, intensity);
+light.position.set(20, 20, 20);
+
+if (shadows) {
+	light.castShadow = true;
+}
+
 scene.add(light);
 
 const modelPath = 'mmdmodels/miku4.3/miku4.3.pmx'
@@ -48,6 +60,13 @@ let waitForModel = function () {
 	} else {
 		let anotherMiku = scene.getObjectByName('miku1');
 		anotherMiku.position.x += 20;
+		if (shadows) {
+			let floor = scene.getObjectByName('checkerboard')
+			floor.receiveShadow = true;
+			anotherMiku.castShadow = true;
+			let miku = scene.getObjectByName('miku2');
+			miku.castShadow = true;
+		}
 	}
 }
 waitForModel();

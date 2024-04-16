@@ -25,7 +25,8 @@ export function initGUI(helper, light) {
 
     const colorHelper = new ColorGUIHelper(light, 'color');
     gui.addColor(colorHelper, 'value').name('color');
-    gui.add(light, 'intensity', 0, 2, 0.01).name('light');
+    //gui.add(light, 'intensity', 0, 2, 0.01).name('light');  //ambientlight
+    gui.add(light, 'intensity', 100, 1000, 10).name('light');  //pointlight
 
     gui.add(helper.enabled, 'animation');
     gui.add(helper.enabled, 'physics');

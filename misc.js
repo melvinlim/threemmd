@@ -21,6 +21,7 @@ export function createCheckerboard(scene, planeSize) {
 	mesh.matrixAutoUpdate = false;
 	mesh.updateMatrix();
 	mesh.updateMatrixWorld();
-	scene.add(mesh);
 
+	mesh.name = 'checkerboard';
+	scene.add(mesh);
 }
