@@ -24,8 +24,6 @@ export function initGUI(helper, light) {
     var gui = new GUI({ injectStyles: false });
 
     const colorHelper = new ColorGUIHelper(light, 'color');
-
-    //gui.addColor(new ColorGUIHelper(light, 'color'), 'value').name('color');
     gui.addColor(colorHelper, 'value').name('color');
     gui.add(light, 'intensity', 0, 2, 0.01).name('light');
 
