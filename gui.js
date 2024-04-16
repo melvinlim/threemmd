@@ -32,9 +32,11 @@ export function initGUI(helper, light) {
     gui.add(helper.enabled, 'physics');
 
     gui.add(helper.objects.get(helper.meshes[0]).mixer, 'timeScale', 0, 2, 0.1);
-    gui.add(helper.objects.get(helper.meshes[0]).physics.gravity, 'y', -200, 200, 1);
+    gui.add(helper.objects.get(helper.meshes[0]).physics.gravity, 'y', -200, 200, 1)
+        .name('gravity')
+        .onChange(updateGravity);
 
-    gui.onFinishChange(updateGravity);
+//    gui.onFinishChange(updateGravity);
 
     //set default values to avoid warnings.
     gui.children[0].$text.id = 'color-selector';
