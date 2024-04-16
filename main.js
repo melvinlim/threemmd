@@ -53,9 +53,16 @@ let doInitGUI = function () {
 		setTimeout(doInitGUI, 250);
 	} else {
 		initGUI(helper, light);
+		const FaceAnimationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_face_expressions_YYB_miku.vmd';
+		loadMMDAnimation(helper, helper.meshes[0], FaceAnimationPath);
 	}
 }
 doInitGUI();
+
+
+let mixSecondAnimation = function () {
+//	if(!helper.objects.get(helper.meshes[0]).animations)
+}
 
 const clock = new THREE.Clock();
 clock.start();

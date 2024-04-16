@@ -41,14 +41,17 @@ export async function loadMMDModel(scene, modelPath) {
 
 }
 
-export async function loadMMDAnimation(mmdModel, animationPath) {
+export function loadMMDAnimation(helper, mmdModel, animationPath) {
+	let helperPtr = helper;
 	const loader = new MMDLoader();
 	const result = loader.loadAnimation(
 		animationPath,
 		mmdModel,
 		function (animationClip) {
 			console.log('loaded animation.');
-			mmdModel.animations.push(animationClip);
+			helper.objects.get(helper.meshes[0]).mixer.clipAction(animationClip).play();
+
+			//mmdModel.animations.push(animationClip);
 			return animationClip;
 		},
 		function (xhr) {
@@ -58,8 +61,6 @@ export async function loadMMDAnimation(mmdModel, animationPath) {
 			console.log('An error happened');
 		}
 	);
-	//wait 4 seconds...?
-	await new Promise((resolve, reject) => setTimeout(resolve, 4000));
 	return result;
 }
 export function loadMMD(scene, helper, modelPath, animationPath) {
