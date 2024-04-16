@@ -1,7 +1,6 @@
 import * as THREE from 'three';
 
 import { MMDAnimationHelper } from 'three/addons/animation/MMDAnimationHelper.js';
-import { MMDLoader } from 'three/addons/loaders/MMDLoader.js';
 
 import { initGUI } from './gui.js';
 import { initCamera } from './camera.js';
@@ -9,11 +8,11 @@ import { loadMMDModel } from './mmd.js';
 import { loadMMDAnimation } from './mmd.js';
 import { loadMMD } from './mmd.js';
 
-import { MMDPhysics } from 'three/addons/animation/MMDPhysics.js';
+//import { MMDPhysics } from 'three/addons/animation/MMDPhysics.js';
 
 import { createCheckerboard } from './misc.js';
 
-let physics;
+//let physics;
 
 const scene = new THREE.Scene();
 const renderer = new THREE.WebGLRenderer();
@@ -62,11 +61,6 @@ let doInitGUI = function () {
 }
 doInitGUI();
 
-
-let mixSecondAnimation = function () {
-//	if(!helper.objects.get(helper.meshes[0]).animations)
-}
-
 const clock = new THREE.Clock();
 clock.start();
 
@@ -87,34 +81,3 @@ function animate() {
 	render();
 }
 animate();
-
-//const miku = await loadMMDModel(scene, modelPath);
-//const animation = await loadMMDAnimation(miku, animationPath);
-/*
-const miku = await loadMMD(scene, modelPath, animationPath);
-scene.add(miku.mesh);
-const mixer = new THREE.AnimationMixer(miku.mesh);
-miku.mesh.animations.push(miku.animation);
-
-//mixer.clipAction(miku.animation).play();
-const clips = miku.mesh.animations;
-
-clips.forEach(function (clip) {
-	mixer.clipAction(clip).play();
-});
-
-const clock = new THREE.Clock();
-clock.start();
-
-var deltaSeconds;
-
-function animate() {
-	requestAnimationFrame( animate );
-	//miku.rotation.x += 0.01;
-	//miku.rotation.y += 0.01;
-	deltaSeconds = clock.getDelta();
-	mixer.update(deltaSeconds);
-	renderer.render( scene, camera );
-}
-animate();
-*/

@@ -16,6 +16,7 @@ export function createCheckerboard(scene, planeSize) {
 		side: THREE.DoubleSide,
 	});
 	const mesh = new THREE.Mesh(planeGeo, planeMat);
+	mesh.geometry.scale(10, 10, 10);
 	mesh.rotation.x = Math.PI * -.5;
 	mesh.matrixAutoUpdate = false;
 	mesh.updateMatrix();

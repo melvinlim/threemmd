@@ -42,7 +42,6 @@ export async function loadMMDModel(scene, modelPath) {
 }
 
 export function loadMMDAnimation(helper, mmdModel, animationPath) {
-	let helperPtr = helper;
 	const loader = new MMDLoader();
 	const result = loader.loadAnimation(
 		animationPath,
@@ -51,7 +50,6 @@ export function loadMMDAnimation(helper, mmdModel, animationPath) {
 			console.log('loaded animation.');
 			helper.objects.get(helper.meshes[0]).mixer.clipAction(animationClip).play();
 
-			//mmdModel.animations.push(animationClip);
 			return animationClip;
 		},
 		function (xhr) {
@@ -74,14 +72,11 @@ export function loadMMD(scene, helper, modelPath, animationPath) {
 
 	manager.onLoad = function () {
 		console.log('Loading complete!');
-		//scene.add(mmdModel);
 
 		helper.add(mmdModel.mesh, {
 			animation: mmdModel.animation,
 			physics: true
 		});
-
-		//physics = new MMDPhysics(mmd.mesh)
 
 		scene.add(mmdModel.mesh);
 		/*
