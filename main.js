@@ -36,7 +36,7 @@ const modelPath = 'mmdmodels/miku4.3/miku4.3.pmx'
 //const modelPath = 'mmdmodels/miku-yyb-default/YYB Hatsune Miku_default_1.0ver.pmx'
 
 const animationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor-motion-yyb-miku-nt.vmd'
-
+//const animationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_face_expressions_YYB_miku.vmd'
 
 const helper = new MMDAnimationHelper();
 
@@ -53,7 +53,8 @@ let doInitGUI = function () {
 		setTimeout(doInitGUI, 250);
 	} else {
 		initGUI(helper, light);
-		const FaceAnimationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_face_expressions_YYB_miku.vmd';
+		//const FaceAnimationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_face_expressions_YYB_miku.vmd';
+		const FaceAnimationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_face_expressions_light_blinking_eyes.vmd'
 		loadMMDAnimation(helper, helper.meshes[0], FaceAnimationPath);
 	}
 }
