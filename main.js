@@ -35,8 +35,7 @@ scene.add(light);
 const modelPath = 'mmdmodels/miku4.3/miku4.3.pmx'
 //const modelPath = 'mmdmodels/miku-yyb-default/YYB Hatsune Miku_default_1.0ver.pmx'
 
-//const animationPath = 'mmdanimations/トリコロール_モーション_こざくらみる配布/トリコロール_モーション_YYB初音ミクdefault.vmd'
-const animationPath = 'mmdanimations/default2.vmd'
+const animationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor-motion-yyb-miku-nt.vmd'
 
 
 const helper = new MMDAnimationHelper();
