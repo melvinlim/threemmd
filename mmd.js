@@ -1,13 +1,16 @@
 import { MMDLoader } from 'three/addons/loaders/MMDLoader.js';
 import { LoadingManager } from 'three';
-export function loadMMDModel(scene, mmdModels, modelPath) {
+export function loadMMDModel(scene, mmdName, modelPath) {
+	let mmdModel;
 	const manager = new LoadingManager();
 	manager.onStart = function (url, itemsLoaded, itemsTotal) {
 		console.log('Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
 	};
 	manager.onLoad = function () {
 		console.log('Loading complete!');
-		scene.add(mmdModels[0]);
+		mmdModel.name = mmdName;
+		scene.add(mmdModel);
+		
 	};
 	manager.onProgress = function (url, itemsLoaded, itemsTotal) {
 		console.log('Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
@@ -22,7 +25,7 @@ export function loadMMDModel(scene, mmdModels, modelPath) {
 	loader.load(
 		modelPath,
 		function (mesh) {
-			mmdModels.push(mesh);
+			mmdModel = mesh;
 		//if i add the mesh to the scene here, it will appear before all parts have been fully loaded.
 		//scene.add( mesh );
 		},
@@ -54,7 +57,7 @@ export function loadMMDAnimation(helper, mmdModel, animationPath) {
 		}
 	);
 }
-export function loadMMD(scene, helper, modelPath, animationPath) {
+export function loadMMD(helper, scene, mmdName, modelPath, animationPath) {
 
 	let mmdModel;
 	const manager = new LoadingManager();
@@ -70,7 +73,7 @@ export function loadMMD(scene, helper, modelPath, animationPath) {
 			animation: mmdModel.animation,
 			physics: true
 		});
-
+		mmdModel.mesh.name = mmdName;
 		scene.add(mmdModel.mesh);
 		/*
 		new THREE.AudioLoader().load(

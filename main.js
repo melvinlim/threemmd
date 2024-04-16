@@ -39,16 +39,14 @@ const animationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/t
 
 const helper = new MMDAnimationHelper();
 
-loadMMD(scene, helper, modelPath, animationPath);
-
-const mmdModels = []
-loadMMDModel(scene, mmdModels, modelPath);
+loadMMDModel(scene, 'miku1', modelPath);
+loadMMD(helper, scene, 'miku2', modelPath, animationPath);
 
 let waitForModel = function () {
-	if (mmdModels.length==0) {
+	if (!scene.getObjectByName('miku1')) {
 		setTimeout(waitForModel, 250);
 	} else {
-		let anotherMiku = mmdModels[0];
+		let anotherMiku = scene.getObjectByName('miku1');
 		anotherMiku.position.x += 20;
 	}
 }
