@@ -56,6 +56,8 @@ let doInitGUI = function () {
 		//const FaceAnimationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_face_expressions_YYB_miku.vmd';
 		const FaceAnimationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_face_expressions_light_blinking_eyes.vmd'
 		loadMMDAnimation(helper, helper.meshes[0], FaceAnimationPath);
+		const LipAnimationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_lip_motion_nothing.vmd'
+		loadMMDAnimation(helper, helper.meshes[0], LipAnimationPath);
 	}
 }
 doInitGUI();
