@@ -55,7 +55,8 @@ loadMMDModel(scene, 'miku1', modelPath);
 loadMMD(helper, scene, 'miku2', modelPath, animationPath);
 
 let waitForModel = function () {
-	if (!scene.getObjectByName('miku1')) {
+	if (!scene.getObjectByName('miku1') ||
+		!scene.getObjectByName('miku2')) {
 		setTimeout(waitForModel, 250);
 	} else {
 		let anotherMiku = scene.getObjectByName('miku1');
@@ -78,7 +79,7 @@ let doInitGUI = function () {
 		!helper.objects.get(helper.meshes[0]).physics) {
 		setTimeout(doInitGUI, 250);
 	} else {
-		initGUI(helper, light);
+		initGUI(scene, renderer, helper, light);
 		//const FaceAnimationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_face_expressions_YYB_miku.vmd';
 		const FaceAnimationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_face_expressions_light_blinking_eyes.vmd'
 		loadMMDAnimation(helper, helper.meshes[0], FaceAnimationPath);

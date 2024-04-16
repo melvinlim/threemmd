@@ -11,7 +11,8 @@ class ColorGUIHelper {
         this.object[this.prop].set(hexString);
     }
 }
-
+let scenePtr;
+let rendererPtr;
 let helperPtr;
 
 function updateGravity() {
@@ -19,7 +20,17 @@ function updateGravity() {
     helperPtr.objects.get(helperPtr.meshes[0]).physics.setGravity(gravity);
 }
 
-export function initGUI(helper, light) {
+function shadowHelper() {
+    if (rendererPtr.shadowMap.enabled) {
+        scenePtr.children[0].receiveShadow = true;
+    } else {
+        scenePtr.children[0].receiveShadow = false;
+    }
+}
+
+export function initGUI(scene, renderer, helper, light) {
+    scenePtr = scene;
+    rendererPtr = renderer;
     helperPtr = helper;
     var gui = new GUI({ injectStyles: false });
 
@@ -35,6 +46,10 @@ export function initGUI(helper, light) {
     gui.add(helper.objects.get(helper.meshes[0]).physics.gravity, 'y', -200, 200, 1)
         .name('gravity')
         .onChange(updateGravity);
+
+    gui.add(renderer.shadowMap, 'enabled')
+        .name('shadows')
+        .onChange(shadowHelper);
 
 //    gui.onFinishChange(updateGravity);
 
