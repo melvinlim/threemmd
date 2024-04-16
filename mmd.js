@@ -7,10 +7,10 @@ export async function loadMMDModel(scene, modelPath) {
 	manager.onStart = function (url, itemsLoaded, itemsTotal) {
 		console.log('Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
 	};
-
 	manager.onLoad = function () {
 		console.log('Loading complete!');
-		scene.add(mmdModel);
+		scene.add(mmdModel);	//mmdModel is declared further down but javascript can access it here.
+		return mmdModel;
 	};
 
 	manager.onProgress = function (url, itemsLoaded, itemsTotal) {
@@ -23,12 +23,13 @@ export async function loadMMDModel(scene, modelPath) {
 
 	const loader = new MMDLoader(manager);
 
+	//MMDLoader.loadAsync is the only function which returns the model.
 	const mmdModel = await loader.loadAsync(
 		modelPath,
-			function ( mesh ) {
-				//if i add the mesh to the scene here, it will appear before all parts have been fully loaded.
-				//scene.add( mesh );
-			},
+		function ( mesh ) {
+		//if i add the mesh to the scene here, it will appear before all parts have been fully loaded.
+		//scene.add( mesh );
+		},
 		function (xhr) {
 			console.log((xhr.loaded / xhr.total * 100) + '% loaded');
 		},
@@ -36,14 +37,11 @@ export async function loadMMDModel(scene, modelPath) {
 			console.log('An error happened');
 		}
 	);
-
-	return mmdModel;
-
 }
 
 export function loadMMDAnimation(helper, mmdModel, animationPath) {
 	const loader = new MMDLoader();
-	const result = loader.loadAnimation(
+	loader.loadAnimation(
 		animationPath,
 		mmdModel,
 		function (animationClip) {
@@ -59,7 +57,6 @@ export function loadMMDAnimation(helper, mmdModel, animationPath) {
 			console.log('An error happened');
 		}
 	);
-	return result;
 }
 export function loadMMD(scene, helper, modelPath, animationPath) {
 
