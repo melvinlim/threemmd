@@ -60,7 +60,9 @@ const helper = new MMDAnimationHelper();
 
 const miku1_offset = new THREE.Vector3(10, 0, 0);
 const goodMoodLoopPath = 'mmdanimations/good_mood_loop/good_mood_loop_140f_no_movement.vmd';
-loadMMD(helper, scene, 'miku1', modelPath, goodMoodLoopPath, miku1_offset);
+const waitingLoopPath = 'mmdanimations/waiting_loop/waiting_465f.vmd'
+//loadMMD(helper, scene, 'miku1', modelPath, goodMoodLoopPath, miku1_offset);
+loadMMD(helper, scene, 'miku1', modelPath, waitingLoopPath, miku1_offset);
 
 const miku2_offset = new THREE.Vector3(-10, 0, 0);
 const paths = [FaceAnimationPath, LipAnimationPath];
