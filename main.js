@@ -53,20 +53,21 @@ const helper = new MMDAnimationHelper();
 
 loadMMDModel(scene, 'miku1', modelPath);
 loadMMD(helper, scene, 'miku2', modelPath, animationPath);
+let miku1, miku2, floor;
 
 let waitForModel = function () {
 	if (!scene.getObjectByName('miku1') ||
 		!scene.getObjectByName('miku2')) {
 		setTimeout(waitForModel, 250);
 	} else {
-		let anotherMiku = scene.getObjectByName('miku1');
-		anotherMiku.position.x += 20;
+		miku1 = scene.getObjectByName('miku1');
+		miku1.position.x += 20;
 		if (shadows) {
-			let floor = scene.getObjectByName('checkerboard')
+			floor = scene.getObjectByName('checkerboard')
 			floor.receiveShadow = true;
-			anotherMiku.castShadow = true;
-			let miku = scene.getObjectByName('miku2');
-			miku.castShadow = true;
+			miku1.castShadow = true;
+			miku2 = scene.getObjectByName('miku2');
+			miku2.castShadow = true;
 		}
 	}
 }
@@ -74,17 +75,17 @@ waitForModel();
 
 let doInitGUI = function () {
 	if (!helper || !helper.objects || !helper.meshes ||
-		!helper.objects.get(helper.meshes[0]) ||
-		!helper.objects.get(helper.meshes[0]).mixer ||
-		!helper.objects.get(helper.meshes[0]).physics) {
+		!helper.objects.get(miku2) ||
+		!helper.objects.get(miku2).mixer ||
+		!helper.objects.get(miku2).physics) {
 		setTimeout(doInitGUI, 250);
 	} else {
 		initGUI(scene, renderer, helper, light);
 		//const FaceAnimationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_face_expressions_YYB_miku.vmd';
 		const FaceAnimationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_face_expressions_light_blinking_eyes.vmd'
-		loadMMDAnimation(helper, helper.meshes[0], FaceAnimationPath);
+		loadMMDAnimation(helper, miku2, FaceAnimationPath);
 		const LipAnimationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_lip_motion_nothing.vmd'
-		loadMMDAnimation(helper, helper.meshes[0], LipAnimationPath);
+		loadMMDAnimation(helper, miku2, LipAnimationPath);
 	}
 }
 doInitGUI();
