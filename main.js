@@ -46,15 +46,20 @@ scene.add(light);
 const modelPath = 'mmdmodels/miku4.3/miku4.3.pmx'
 //const modelPath = 'mmdmodels/miku-yyb-default/YYB Hatsune Miku_default_1.0ver.pmx'
 
+//const FaceAnimationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_face_expressions_YYB_miku.vmd';
+const FaceAnimationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_face_expressions_light_blinking_eyes.vmd'
+const LipAnimationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_lip_motion_nothing.vmd'
 const animationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor-motion-yyb-miku-nt.vmd'
 //const animationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_face_expressions_YYB_miku.vmd'
 
 const helper = new MMDAnimationHelper();
 
 const m1_offset = new THREE.Vector3(20, 0, 0);
-
 loadMMDModel(scene, 'miku1', modelPath, m1_offset);
-loadMMD(helper, scene, 'miku2', modelPath, animationPath);
+
+const paths = [FaceAnimationPath, LipAnimationPath, animationPath];
+loadMMD(helper, scene, 'miku2', modelPath, paths);
+
 let miku1, miku2, floor;
 
 const waitForModel = function () {
@@ -84,11 +89,6 @@ const doInitGUI = function () {
 		setTimeout(doInitGUI, 250);
 	} else {
 		initGUI(scene, renderer, helper, light);
-		//const FaceAnimationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_face_expressions_YYB_miku.vmd';
-		const FaceAnimationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_face_expressions_light_blinking_eyes.vmd'
-		loadMMDAnimation(helper, miku2, FaceAnimationPath);
-		const LipAnimationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_lip_motion_nothing.vmd'
-		loadMMDAnimation(helper, miku2, LipAnimationPath);
 	}
 }
 doInitGUI();
