@@ -67,17 +67,19 @@ loadMMD(helper, scene, 'miku2', modelPath, paths);
 
 let miku1, miku2, floor;
 
-const waitForModel = function () {
+const waitForModels = function () {
 	if (!scene.getObjectByName('miku1') ||
 		!scene.getObjectByName('miku2') ||
 		!scene.getObjectByName('checkerboard')) {
-		setTimeout(waitForModel, 250);
+		setTimeout(waitForModels, 250);
 	} else {
 		miku1 = scene.getObjectByName('miku1');
 		miku2 = scene.getObjectByName('miku2');
 		floor = scene.getObjectByName('checkerboard')
 		//the helper.add function called in loadMMD resets all durations to most recent model.
 		helper.meshes.forEach(function (mesh) { mesh.animations[0].resetDuration(); })
+		helper.objects.get(miku1).mixer._actions[0].setLoop(THREE.LoopPingPong);
+
 		//miku1.position.x += 20;
 		if (shadows) {
 			floor.receiveShadow = true;
@@ -86,7 +88,7 @@ const waitForModel = function () {
 		}
 	}
 }
-waitForModel();
+waitForModels();
 
 const doInitGUI = function () {
 	if (!helper || !helper.objects || !helper.meshes ||
