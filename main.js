@@ -77,7 +77,7 @@ const waitForModels = function () {
 		miku2 = scene.getObjectByName('miku2');
 		floor = scene.getObjectByName('checkerboard')
 		//the helper.add function called in loadMMD resets all durations to most recent model.
-		helper.meshes.forEach(function (mesh) { mesh.animations[0].resetDuration(); })
+		helper.meshes.forEach(function (mesh) { mesh.animations[0].resetDuration(); });
 		helper.objects.get(miku1).mixer._actions[0].setLoop(THREE.LoopPingPong);
 
 		//miku1.position.x += 20;

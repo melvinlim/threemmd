@@ -15,9 +15,12 @@ let scenePtr;
 let rendererPtr;
 let helperPtr;
 
-function updateGravity() {
-    let gravity = helperPtr.objects.get(helperPtr.meshes[0]).physics.gravity
-    helperPtr.objects.get(helperPtr.meshes[0]).physics.setGravity(gravity);
+function updateGravity(value) {
+    helperPtr.meshes.forEach(function (mesh) {
+        let gravity = helperPtr.objects.get(mesh).physics.gravity
+        gravity.y = value;
+        helperPtr.objects.get(mesh).physics.setGravity(gravity);
+    });
 }
 
 function shadowHelper() {
