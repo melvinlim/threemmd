@@ -57,13 +57,13 @@ const LipAnimationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distributio
 
 const helper = new MMDAnimationHelper();
 
-const m1_offset = new THREE.Vector3(20, 0, 0);
+const miku1_offset = new THREE.Vector3(10, 0, 0);
 const goodMoodLoopPath = 'mmdanimations/good_mood_loop/good_mood_loop_140f_no_movement.vmd'
-//loadMMDModel(scene, 'miku1', modelPath, m1_offset);
-loadMMD(helper, scene, 'miku1', modelPath, goodMoodLoopPath, m1_offset);
+loadMMD(helper, scene, 'miku1', modelPath, goodMoodLoopPath, miku1_offset);
 
+const miku2_offset = new THREE.Vector3(-10, 0, 0);
 const paths = [FaceAnimationPath, LipAnimationPath];
-loadMMD(helper, scene, 'miku2', modelPath, paths);
+loadMMD(helper, scene, 'miku2', modelPath, paths, miku2_offset);
 
 let miku1, miku2, floor;
 
