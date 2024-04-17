@@ -88,7 +88,7 @@ const doInitGUI = function () {
 	} else {
 		initGUI(scene, renderer, helper, light);
 		const animationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor-motion-yyb-miku-nt.vmd'
-		loadMMDAnimation(helper, miku2, animationPath);
+		loadMMDAnimation(helper, miku2, 'danceAnimation', animationPath);
 	}
 }
 doInitGUI();

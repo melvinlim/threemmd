@@ -43,13 +43,16 @@ export function loadMMDModel(scene, mmdName, modelPath, offset = undefined) {
 	);
 }
 
-export function loadMMDAnimation(helper, mmdModel, animationPath) {
+export function loadMMDAnimation(helper, mmdModel, animationName, animationPath) {
 	const loader = new MMDLoader();
 	loader.loadAnimation(
 		animationPath,
 		mmdModel,
 		function (animationClip) {
 			console.log('loaded animation.');
+			animationClip.name = animationName;
+			mmdModel.animations.push(animationClip);
+			//now animation can be stopped with helper.objects.get(miku2).mixer.existingAction("danceAnimation").stop()
 			helper.objects.get(mmdModel).mixer.clipAction(animationClip).play();
 		},
 		function (xhr) {
