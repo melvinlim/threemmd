@@ -55,7 +55,7 @@ loadMMDModel(scene, 'miku1', modelPath);
 loadMMD(helper, scene, 'miku2', modelPath, animationPath);
 let miku1, miku2, floor;
 
-let waitForModel = function () {
+const waitForModel = function () {
 	if (!scene.getObjectByName('miku1') ||
 		!scene.getObjectByName('miku2')) {
 		setTimeout(waitForModel, 250);
@@ -73,7 +73,7 @@ let waitForModel = function () {
 }
 waitForModel();
 
-let doInitGUI = function () {
+const doInitGUI = function () {
 	if (!helper || !helper.objects || !helper.meshes ||
 		!helper.objects.get(miku2) ||
 		!helper.objects.get(miku2).mixer ||
