@@ -22,6 +22,11 @@ function updateGravity(value) {
         helperPtr.objects.get(mesh).physics.setGravity(gravity);
     });
 }
+function updateSpeed(value) {
+    helperPtr.meshes.forEach(function (mesh) {
+        helperPtr.objects.get(mesh).mixer.timeScale = value;
+    });
+}
 
 function shadowHelper() {
     if (rendererPtr.shadowMap.enabled) {
@@ -45,7 +50,9 @@ export function initGUI(scene, renderer, helper, light) {
     gui.add(helper.enabled, 'animation');
     gui.add(helper.enabled, 'physics');
 
-    gui.add(helper.objects.get(helper.meshes[0]).mixer, 'timeScale', 0, 2, 0.1);
+    gui.add(helper.objects.get(helper.meshes[0]).mixer, 'timeScale', 0, 2, 0.1)
+        .onChange(updateSpeed);
+
     gui.add(helper.objects.get(helper.meshes[0]).physics.gravity, 'y', -200, 200, 1)
         .name('gravity')
         .onChange(updateGravity);
