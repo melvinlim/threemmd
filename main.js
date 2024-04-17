@@ -79,11 +79,10 @@ const waitForModels = function () {
 	} else {
 		miku1 = scene.getObjectByName('miku1');
 		miku2 = scene.getObjectByName('miku2');
-		floor = scene.getObjectByName('checkerboard')
+		floor = scene.getObjectByName('checkerboard');
 		//the helper.add function called in loadMMD resets all durations to most recent model.
 		helper.meshes.forEach(function (mesh) { mesh.animations[0].resetDuration(); });
 		helper.objects.get(miku1).mixer._actions[0].setLoop(THREE.LoopPingPong);
-		helper.objects.get(camera).mixer._actions[0].reset();
 
 		//miku1.position.x += 20;
 		if (shadows) {
@@ -108,6 +107,17 @@ const doInitGUI = function () {
 	}
 }
 doInitGUI();
+
+const waitForAnimations = function () {
+	if (!miku2 || miku2.animations.length < 2) {
+		setTimeout(waitForAnimations, 250);
+	} else {
+		helper.objects.get(camera).mixer._actions[0].reset();
+		miku1.visible = true;
+		miku2.visible = true;
+	}
+}
+waitForAnimations();
 
 const clock = new THREE.Clock();
 clock.start();

@@ -14,8 +14,8 @@ export function loadMMDModel(scene, mmdName, modelPath, offset = undefined) {
 			mmdModel.position.y += offset.y;
 			mmdModel.position.z += offset.z;
 		}
+		mmdModel.visible = false;
 		scene.add(mmdModel);
-		
 	};
 	manager.onProgress = function (url, itemsLoaded, itemsTotal) {
 		console.log('Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
@@ -114,6 +114,7 @@ export function loadMMD(helper, scene, mmdName, modelPath, animationPath, offset
 			mmdModel.mesh.position.y += offset.y;
 			mmdModel.mesh.position.z += offset.z;
 		}
+		mmdModel.mesh.visible = false;
 		scene.add(mmdModel.mesh);
 		/*
 		new THREE.AudioLoader().load(
