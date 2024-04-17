@@ -51,8 +51,6 @@ export function loadMMDAnimation(helper, mmdModel, animationPath) {
 		function (animationClip) {
 			console.log('loaded animation.');
 			helper.objects.get(helper.meshes[0]).mixer.clipAction(animationClip).play();
-
-			return animationClip;
 		},
 		function (xhr) {
 			console.log((xhr.loaded / xhr.total * 100) + '% loaded');

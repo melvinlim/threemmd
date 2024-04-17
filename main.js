@@ -49,15 +49,13 @@ const modelPath = 'mmdmodels/miku4.3/miku4.3.pmx'
 //const FaceAnimationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_face_expressions_YYB_miku.vmd';
 const FaceAnimationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_face_expressions_light_blinking_eyes.vmd'
 const LipAnimationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_lip_motion_nothing.vmd'
-const animationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor-motion-yyb-miku-nt.vmd'
-//const animationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_face_expressions_YYB_miku.vmd'
 
 const helper = new MMDAnimationHelper();
 
 const m1_offset = new THREE.Vector3(20, 0, 0);
 loadMMDModel(scene, 'miku1', modelPath, m1_offset);
 
-const paths = [FaceAnimationPath, LipAnimationPath, animationPath];
+const paths = [FaceAnimationPath, LipAnimationPath];
 loadMMD(helper, scene, 'miku2', modelPath, paths);
 
 let miku1, miku2, floor;
@@ -89,6 +87,8 @@ const doInitGUI = function () {
 		setTimeout(doInitGUI, 250);
 	} else {
 		initGUI(scene, renderer, helper, light);
+		const animationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor-motion-yyb-miku-nt.vmd'
+		loadMMDAnimation(helper, miku2, animationPath);
 	}
 }
 doInitGUI();
