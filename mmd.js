@@ -1,6 +1,6 @@
 import { MMDLoader } from 'three/addons/loaders/MMDLoader.js';
 import { LoadingManager } from 'three';
-export function loadMMDModel(scene, mmdName, modelPath) {
+export function loadMMDModel(scene, mmdName, modelPath, offset = undefined) {
 	let mmdModel;
 	const manager = new LoadingManager();
 	manager.onStart = function (url, itemsLoaded, itemsTotal) {
@@ -9,6 +9,11 @@ export function loadMMDModel(scene, mmdName, modelPath) {
 	manager.onLoad = function () {
 		console.log('Loading complete!');
 		mmdModel.name = mmdName;
+		if (offset) {
+			mmdModel.position.x += offset.x;
+			mmdModel.position.y += offset.y;
+			mmdModel.position.z += offset.z;
+		}
 		scene.add(mmdModel);
 		
 	};

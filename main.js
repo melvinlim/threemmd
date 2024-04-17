@@ -51,22 +51,25 @@ const animationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/t
 
 const helper = new MMDAnimationHelper();
 
-loadMMDModel(scene, 'miku1', modelPath);
+const m1_offset = new THREE.Vector3(20, 0, 0);
+
+loadMMDModel(scene, 'miku1', modelPath, m1_offset);
 loadMMD(helper, scene, 'miku2', modelPath, animationPath);
 let miku1, miku2, floor;
 
 const waitForModel = function () {
 	if (!scene.getObjectByName('miku1') ||
-		!scene.getObjectByName('miku2')) {
+		!scene.getObjectByName('miku2') ||
+		!scene.getObjectByName('checkerboard')) {
 		setTimeout(waitForModel, 250);
 	} else {
 		miku1 = scene.getObjectByName('miku1');
-		miku1.position.x += 20;
+		miku2 = scene.getObjectByName('miku2');
+		floor = scene.getObjectByName('checkerboard')
+		//miku1.position.x += 20;
 		if (shadows) {
-			floor = scene.getObjectByName('checkerboard')
 			floor.receiveShadow = true;
 			miku1.castShadow = true;
-			miku2 = scene.getObjectByName('miku2');
 			miku2.castShadow = true;
 		}
 	}
