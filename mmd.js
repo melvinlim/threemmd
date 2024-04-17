@@ -43,6 +43,32 @@ export function loadMMDModel(scene, mmdName, modelPath, offset = undefined) {
 	);
 }
 
+export function loadMMDCamera(helper, mmdModel, animationName, animationPath) {
+	const loader = new MMDLoader();
+	loader.loadAnimation(
+		animationPath,
+		mmdModel,
+		function (animationClip) {
+			console.log('loaded animation.');
+			animationClip.name = animationName;
+			animationClip.resetDuration();
+			mmdModel.animations.push(animationClip);
+			//now animation can be stopped with helper.objects.get(miku2).mixer.existingAction("danceAnimation").stop()
+			//helper.objects.get(mmdModel).mixer.clipAction(animationClip).play();
+			helper.add(mmdModel, {
+				animation: animationClip,
+				physics: false
+			});
+		},
+		function (xhr) {
+			console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+		},
+		function (error) {
+			console.log('An error happened');
+		}
+	);
+}
+
 export function loadMMDAnimation(helper, mmdModel, animationName, animationPath) {
 	const loader = new MMDLoader();
 	loader.loadAnimation(

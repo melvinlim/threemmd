@@ -6,6 +6,7 @@ import { initGUI } from './gui.js';
 import { initCamera } from './camera.js';
 import { loadMMDModel } from './mmd.js';
 import { loadMMDAnimation } from './mmd.js';
+import { loadMMDCamera } from './mmd.js';
 import { loadMMD } from './mmd.js';
 
 //import { MMDPhysics } from 'three/addons/animation/MMDPhysics.js';
@@ -52,18 +53,21 @@ const modelPath = 'mmdmodels/miku4.3/miku4.3.pmx'
 //const modelPath = 'mmdmodels/miku-yyb-default/YYB Hatsune Miku_default_1.0ver.pmx'
 
 //const FaceAnimationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_face_expressions_YYB_miku.vmd';
-const FaceAnimationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_face_expressions_light_blinking_eyes.vmd'
-const LipAnimationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_lip_motion_nothing.vmd'
+const FaceAnimationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_face_expressions_light_blinking_eyes.vmd';
+const LipAnimationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_lip_motion_nothing.vmd';
 
 const helper = new MMDAnimationHelper();
 
-const miku1_offset = new THREE.Vector3(10, 0, 0);
-const goodMoodLoopPath = 'mmdanimations/good_mood_loop/good_mood_loop_140f_no_movement.vmd'
+const miku1_offset = new THREE.Vector3(20, 0, 0);
+const goodMoodLoopPath = 'mmdanimations/good_mood_loop/good_mood_loop_140f_no_movement.vmd';
 loadMMD(helper, scene, 'miku1', modelPath, goodMoodLoopPath, miku1_offset);
 
-const miku2_offset = new THREE.Vector3(-10, 0, 0);
+const miku2_offset = new THREE.Vector3(0, 0, 0);
 const paths = [FaceAnimationPath, LipAnimationPath];
 loadMMD(helper, scene, 'miku2', modelPath, paths, miku2_offset);
+
+const cameraAnimationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor-camera-yyb-miku-nt.vmd';
+loadMMDCamera(helper, camera, 'camera', cameraAnimationPath);
 
 let miku1, miku2, floor;
 
@@ -79,6 +83,7 @@ const waitForModels = function () {
 		//the helper.add function called in loadMMD resets all durations to most recent model.
 		helper.meshes.forEach(function (mesh) { mesh.animations[0].resetDuration(); });
 		helper.objects.get(miku1).mixer._actions[0].setLoop(THREE.LoopPingPong);
+		helper.objects.get(camera).mixer._actions[0].reset();
 
 		//miku1.position.x += 20;
 		if (shadows) {
