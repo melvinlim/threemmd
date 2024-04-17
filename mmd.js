@@ -80,6 +80,7 @@ export function loadMMD(helper, scene, mmdName, modelPath, animationPath) {
 			physics: true
 		});
 		mmdModel.mesh.name = mmdName;
+		mmdModel.mesh.animations.push(mmdModel.animation);
 		scene.add(mmdModel.mesh);
 		/*
 		new THREE.AudioLoader().load(
