@@ -51,6 +51,7 @@ export function loadMMDAnimation(helper, mmdModel, animationName, animationPath)
 		function (animationClip) {
 			console.log('loaded animation.');
 			animationClip.name = animationName;
+			animationClip.resetDuration();
 			mmdModel.animations.push(animationClip);
 			//now animation can be stopped with helper.objects.get(miku2).mixer.existingAction("danceAnimation").stop()
 			helper.objects.get(mmdModel).mixer.clipAction(animationClip).play();
@@ -63,7 +64,7 @@ export function loadMMDAnimation(helper, mmdModel, animationName, animationPath)
 		}
 	);
 }
-export function loadMMD(helper, scene, mmdName, modelPath, animationPath) {
+export function loadMMD(helper, scene, mmdName, modelPath, animationPath, offset = undefined) {
 
 	let mmdModel;
 	const manager = new LoadingManager();
@@ -75,12 +76,18 @@ export function loadMMD(helper, scene, mmdName, modelPath, animationPath) {
 	manager.onLoad = function () {
 		console.log('Loading complete!');
 
+		mmdModel.animation.resetDuration();
 		helper.add(mmdModel.mesh, {
 			animation: mmdModel.animation,
 			physics: true
 		});
 		mmdModel.mesh.name = mmdName;
 		mmdModel.mesh.animations.push(mmdModel.animation);
+		if (offset) {
+			mmdModel.mesh.position.x += offset.x;
+			mmdModel.mesh.position.y += offset.y;
+			mmdModel.mesh.position.z += offset.z;
+		}
 		scene.add(mmdModel.mesh);
 		/*
 		new THREE.AudioLoader().load(

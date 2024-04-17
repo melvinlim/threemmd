@@ -24,6 +24,11 @@ if (shadows) {
 }
 
 renderer.setSize(window.innerWidth, window.innerHeight);
+window.addEventListener('resize', function (event) {
+	//renderer.setPixelRatio(window.devicePixelRatio);
+	//renderer.setSize(window.innerWidth, window.innerHeight);
+	//renderer.setSize(renderer.getSize().x, renderer.getSize().y);
+}, true);
 
 document.body.append(renderer.domElement);
 
@@ -53,7 +58,9 @@ const LipAnimationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distributio
 const helper = new MMDAnimationHelper();
 
 const m1_offset = new THREE.Vector3(20, 0, 0);
-loadMMDModel(scene, 'miku1', modelPath, m1_offset);
+const goodMoodLoopPath = 'mmdanimations/good_mood_loop/good_mood_loop_140f_no_movement.vmd'
+//loadMMDModel(scene, 'miku1', modelPath, m1_offset);
+loadMMD(helper, scene, 'miku1', modelPath, goodMoodLoopPath, m1_offset);
 
 const paths = [FaceAnimationPath, LipAnimationPath];
 loadMMD(helper, scene, 'miku2', modelPath, paths);
@@ -69,6 +76,8 @@ const waitForModel = function () {
 		miku1 = scene.getObjectByName('miku1');
 		miku2 = scene.getObjectByName('miku2');
 		floor = scene.getObjectByName('checkerboard')
+		//the helper.add function called in loadMMD resets all durations to most recent model.
+		helper.meshes.forEach(function (mesh) { mesh.animations[0].resetDuration(); })
 		//miku1.position.x += 20;
 		if (shadows) {
 			floor.receiveShadow = true;

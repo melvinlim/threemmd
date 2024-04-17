@@ -60,4 +60,5 @@ export function initGUI(scene, renderer, helper, light) {
     gui.children[3].$input.id = 'physics-checkbox';
     gui.children[4].$input.id = 'timescale-slider';
     gui.children[5].$input.id = 'gravity-slider';
+    gui.children[6].$input.id = 'shadows-checkbox';
 }
