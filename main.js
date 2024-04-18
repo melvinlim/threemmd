@@ -23,12 +23,12 @@ const camera = initCamera(renderer);
 if (shadows) {
 	renderer.shadowMap.enabled = true;
 }
-
 renderer.setSize(window.innerWidth, window.innerHeight);
 window.addEventListener('resize', function (event) {
 	//renderer.setPixelRatio(window.devicePixelRatio);
-	//renderer.setSize(window.innerWidth, window.innerHeight);
-	//renderer.setSize(renderer.getSize().x, renderer.getSize().y);
+	renderer.setSize(window.innerWidth, window.innerHeight);
+	camera.aspect = window.innerWidth / window.innerHeight;
+	camera.updateProjectionMatrix();
 }, true);
 
 document.body.append(renderer.domElement);
