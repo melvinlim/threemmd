@@ -24,7 +24,7 @@ export function loadMMDModel(scene, mmdName, modelPath, offset = undefined) {
 	};
 
 	manager.onError = function (url) {
-		console.log('There was an error loading ' + url);
+		console.error('There was an error loading ' + url);
 	};
 
 	const loader = new MMDLoader(manager);
@@ -40,7 +40,7 @@ export function loadMMDModel(scene, mmdName, modelPath, offset = undefined) {
 			console.log((xhr.loaded / xhr.total * 100) + '% loaded');
 		},
 		function (error) {
-			console.log('An error happened');
+			console.error(error);
 		}
 	);
 }
@@ -66,7 +66,7 @@ export function loadMMDCamera(helper, mmdModel, animationName, animationPath) {
 			console.log((xhr.loaded / xhr.total * 100) + '% loaded');
 		},
 		function (error) {
-			console.log('An error happened');
+			console.error(error);
 		}
 	);
 }
@@ -91,7 +91,7 @@ export function loadMMDAnimation(helper, mmdModel, animationName, animationPath)
 			console.log((xhr.loaded / xhr.total * 100) + '% loaded');
 		},
 		function (error) {
-			console.log('An error happened');
+			console.error(error);
 		}
 	);
 }
@@ -144,7 +144,7 @@ export function loadMMD(helper, scene, mmdName, modelPath, animationPath, offset
 	};
 
 	manager.onError = function (url) {
-		console.log('There was an error loading ' + url);
+		console.error('There was an error loading ' + url);
 	};
 
 	// Load MMD resources and add to helper
@@ -159,7 +159,7 @@ export function loadMMD(helper, scene, mmdName, modelPath, animationPath, offset
 			console.log((xhr.loaded / xhr.total * 100) + '% loaded');
 		},
 		function (error) {
-			console.log('An error happened');
+			console.error(error);
 		}
 	);
 }
