@@ -50,7 +50,7 @@ export function initGUI(scene, renderer, helper, light) {
     gui.add(helper.enabled, 'animation');
     gui.add(helper.enabled, 'physics');
 
-    gui.add(helper.objects.get(helper.meshes[0]).mixer, 'timeScale', 0, 2, 0.1)
+    gui.add(helper.objects.get(helper.meshes[0]).mixer, 'timeScale', 0, 4, 0.1)
         .onChange(updateSpeed);
 
     gui.add(helper.objects.get(helper.meshes[0]).physics.gravity, 'y', -200, 200, 1)

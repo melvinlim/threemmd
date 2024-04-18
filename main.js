@@ -134,6 +134,7 @@ function loopCallback(ev) {
 function finishedCallback(ev) {
 	console.log('finished: ' + ev.action._clip.name)
 	if (ev.action._clip.name == 'dance') {
+		mixers['miku2'].existingAction('wait').setLoop(THREE.LoopRepeat, Infinity);
 		fadeToAction(mixers['miku2'].existingAction('dance'), mixers['miku2'].existingAction('wait'), 20);
 	}
 }
