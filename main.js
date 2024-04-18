@@ -58,6 +58,7 @@ const LipAnimationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distributio
 
 const helper = new MMDAnimationHelper();
 helper.configuration.resetPhysicsOnLoop = false;
+helper.enabled.cameraAnimation = false;
 
 const miku1_offset = new THREE.Vector3(10, 0, 0);
 const goodMoodLoopPath = 'mmdanimations/good_mood_loop/good_mood_loop_140f_no_movement.vmd';
@@ -70,7 +71,7 @@ const paths = [FaceAnimationPath, LipAnimationPath];
 loadMMD(helper, scene, 'miku2', modelPath, paths, miku2_offset);
 
 const cameraAnimationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor-camera-yyb-miku-nt.vmd';
-//loadMMDCamera(helper, camera, 'camera', cameraAnimationPath);
+loadMMDCamera(helper, camera, 'camera', cameraAnimationPath);
 
 let miku1, miku2, floor;
 
