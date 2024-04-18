@@ -57,6 +57,7 @@ const FaceAnimationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distributi
 const LipAnimationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_lip_motion_nothing.vmd';
 
 const helper = new MMDAnimationHelper();
+helper.configuration.resetPhysicsOnLoop = false;
 
 const miku1_offset = new THREE.Vector3(10, 0, 0);
 const goodMoodLoopPath = 'mmdanimations/good_mood_loop/good_mood_loop_140f_no_movement.vmd';
