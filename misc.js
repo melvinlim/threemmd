@@ -19,6 +19,7 @@ export function createCheckerboard(scene, planeSize) {
 	mesh.geometry.scale(10, 10, 10);
 	mesh.rotation.x = Math.PI * -.5;
 	mesh.matrixAutoUpdate = false;
+	mesh.matrixWorldAutoUpdate = false;
 	mesh.updateMatrix();
 	mesh.updateMatrixWorld();
 
