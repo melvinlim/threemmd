@@ -83,9 +83,10 @@ export function loadMMDAnimation(helper, mmdModel, animationName, animationPath)
 			mmdModel.animations.push(animationClip);
 			let action = helper.objects.get(mmdModel).mixer.clipAction(animationClip);
 			action.stop();
-			//action.setLoop(THREE.LoopOnce);
-			action.setLoop(THREE.LoopPingPong);
-			action.repetitions = 1;
+			action.setLoop(THREE.LoopOnce);
+			//action.setLoop(THREE.LoopPingPong);
+			//action.repetitions = 1;
+			action.clampWhenFinished = true;
 		},
 		function (xhr) {
 			console.log((xhr.loaded / xhr.total * 100) + '% loaded');
