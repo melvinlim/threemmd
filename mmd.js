@@ -1,5 +1,7 @@
 import { MMDLoader } from 'three/addons/loaders/MMDLoader.js';
 import { LoadingManager } from 'three';
+import * as THREE from 'three';
+
 export function loadMMDModel(scene, mmdName, modelPath, offset = undefined) {
 	let mmdModel;
 	const manager = new LoadingManager();
@@ -79,8 +81,11 @@ export function loadMMDAnimation(helper, mmdModel, animationName, animationPath)
 			animationClip.name = animationName;
 			animationClip.resetDuration();
 			mmdModel.animations.push(animationClip);
-			//now animation can be stopped with helper.objects.get(miku2).mixer.existingAction("danceAnimation").stop()
-			helper.objects.get(mmdModel).mixer.clipAction(animationClip).play();
+			let action = helper.objects.get(mmdModel).mixer.clipAction(animationClip);
+			action.stop();
+			//action.setLoop(THREE.LoopOnce);
+			action.setLoop(THREE.LoopPingPong);
+			action.repetitions = 1;
 		},
 		function (xhr) {
 			console.log((xhr.loaded / xhr.total * 100) + '% loaded');

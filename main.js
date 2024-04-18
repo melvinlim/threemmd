@@ -33,6 +33,8 @@ window.addEventListener('resize', function (event) {
 
 document.body.append(renderer.domElement);
 
+const timeOutDelay = 100;
+
 const planeSize = 40;
 createCheckerboard(scene, planeSize);
 
@@ -79,7 +81,7 @@ const waitForModels = function () {
 	if (!scene.getObjectByName('miku1') ||
 		!scene.getObjectByName('miku2') ||
 		!scene.getObjectByName('checkerboard')) {
-		setTimeout(waitForModels, 250);
+		setTimeout(waitForModels, timeOutDelay);
 	} else {
 		miku1 = scene.getObjectByName('miku1');
 		miku2 = scene.getObjectByName('miku2');
@@ -98,23 +100,48 @@ const waitForModels = function () {
 }
 waitForModels();
 
-const doInitGUI = function () {
+const waitForModel = function () {
 	if (!helper || !helper.objects || !helper.meshes ||
 		!helper.objects.get(miku2) ||
 		!helper.objects.get(miku2).mixer ||
 		!helper.objects.get(miku2).physics) {
-		setTimeout(doInitGUI, 250);
+		setTimeout(waitForModel, timeOutDelay);
 	} else {
-		initGUI(scene, renderer, helper, light);
 		const animationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor-motion-yyb-miku-nt.vmd'
-		loadMMDAnimation(helper, miku2, 'danceAnimation', animationPath);
+		loadMMDAnimation(helper, miku2, 'dance', animationPath);
+		loadMMDAnimation(helper, miku2, 'wait', waitingLoopPath);
+		loadMMDAnimation(helper, miku2, 'happy', goodMoodLoopPath);
 	}
 }
-doInitGUI();
+waitForModel();
 
+const mixers = {};
+
+function fadeToAction(action1, action2, duration) {
+	action1.repetitions = 0;
+	action1.fadeOut(duration);
+	action2
+		.reset()
+		.setEffectiveTimeScale(1)
+		.setEffectiveWeight(1)
+		.fadeIn(duration)
+		.play();
+}
+
+function loopCallback(ev) {
+	console.log('looped: ' + ev.action._clip.name)
+}
+function finishedCallback(ev) {
+	console.log('finished: ' + ev.action._clip.name)
+	if (ev.action._clip.name == 'dance') {
+		fadeToAction(mixers['miku2'].existingAction('dance'), mixers['miku2'].existingAction('wait'), 20);
+	}
+}
 const waitForAnimations = function () {
-	if (!miku2 || miku2.animations.length < 2) {
-		setTimeout(waitForAnimations, 250);
+	if (!miku2 || miku2.animations.length < 4 ||
+		!helper.objects.get(miku2).mixer
+	) {
+		setTimeout(waitForAnimations, timeOutDelay);
 	} else {
 		if (helper.objects.get(camera)) {
 			helper.objects.get(camera).mixer._actions[0].reset();
@@ -122,6 +149,21 @@ const waitForAnimations = function () {
 		}
 		miku1.visible = true;
 		miku2.visible = true;
+		mixers['miku1'] = helper.objects.get(miku1).mixer;
+		mixers['miku2'] = helper.objects.get(miku2).mixer;
+		mixers['camera'] = helper.objects.get(camera).mixer;
+		mixers['miku2'].existingAction('wait').stop();
+		//mixers['miku2'].existingAction('wait').play();
+		//mixers['miku2'].existingAction('dance').stop();
+		//mixers['miku2'].existingAction('dance').reset();
+		mixers['miku2'].existingAction('dance').play();
+		mixers['miku2'].existingAction('happy').stop();
+		//mixers['miku2'].existingAction('happy').play();
+		//mixers['miku2'].existingAction('wait').crossFadeTo(mixers['miku2'].existingAction('happy'), 20);
+		mixers['miku2'].addEventListener('loop', loopCallback);
+		mixers['miku2'].addEventListener('finished', finishedCallback);
+		//fadeToAction(mixers['miku2'].existingAction('wait'), mixers['miku2'].existingAction('happy'), 20);
+		initGUI(scene, renderer, helper, light);
 	}
 }
 waitForAnimations();
