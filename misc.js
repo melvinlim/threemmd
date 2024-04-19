@@ -26,3 +26,15 @@ export function createCheckerboard(scene, planeSize) {
 	mesh.name = 'checkerboard';
 	scene.add(mesh);
 }
+
+export function fadeToAction(action1, action2, duration) {
+	action1.repetitions = 0;
+	action1.paused = true;
+	action1.fadeOut(duration);
+	action2
+		.reset()
+		.setEffectiveTimeScale(1)
+		.setEffectiveWeight(1)
+		.fadeIn(duration)
+		.play();
+}

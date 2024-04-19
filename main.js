@@ -8,6 +8,7 @@ import { loadMMDModel } from './mmd.js';
 import { loadMMDAnimation } from './mmd.js';
 import { loadMMDCamera } from './mmd.js';
 import { loadMMD } from './mmd.js';
+import { fadeToAction } from './misc.js';
 
 //import { MMDPhysics } from 'three/addons/animation/MMDPhysics.js';
 
@@ -117,16 +118,6 @@ waitForModel();
 
 const mixers = {};
 
-function fadeToAction(action1, action2, duration) {
-	action1.repetitions = 0;
-	action1.fadeOut(duration);
-	action2
-		.reset()
-		.setEffectiveTimeScale(1)
-		.setEffectiveWeight(1)
-		.fadeIn(duration)
-		.play();
-}
 
 function loopCallback(ev) {
 	console.log('looped: ' + ev.action._clip.name)
@@ -169,7 +160,7 @@ const waitForAnimations = function () {
 		helper.meshes.forEach(function (mesh) { mesh.animations[0].resetDuration(); });
 		mixers['miku1']._actions[0].setLoop(THREE.LoopPingPong);
 
-		initGUI(scene, renderer, helper, ambientLight, pointLight);
+		initGUI(scene, renderer, helper, ambientLight, pointLight, mixers);
 	}
 }
 waitForAnimations();

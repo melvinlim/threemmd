@@ -1,4 +1,5 @@
 import GUI from 'lilgui';
+import { fadeToAction } from './misc.js';
 class ColorGUIHelper {
     constructor(object, prop) {
         this.object = object;
@@ -14,7 +15,7 @@ class ColorGUIHelper {
 let scenePtr;
 let rendererPtr;
 let helperPtr;
-
+let pMixers;
 function updateGravity(value) {
     helperPtr.meshes.forEach(function (mesh) {
         let gravity = helperPtr.objects.get(mesh).physics.gravity
@@ -36,10 +37,19 @@ function shadowHelper() {
     }
 }
 
-export function initGUI(scene, renderer, helper, ambientLight, pointLight) {
+function danceToWait() {
+    fadeToAction(pMixers['miku2'].existingAction('dance'), pMixers['miku2'].existingAction('wait'), 5);
+}
+
+const actions = {
+    danceToWait: danceToWait,
+};
+
+export function initGUI(scene, renderer, helper, ambientLight, pointLight, mixers) {
     scenePtr = scene;
     rendererPtr = renderer;
     helperPtr = helper;
+    pMixers = mixers;
     var gui = new GUI({ injectStyles: false });
 
     const colorHelper = new ColorGUIHelper(ambientLight, 'color');
@@ -61,7 +71,7 @@ export function initGUI(scene, renderer, helper, ambientLight, pointLight) {
         .name('shadows')
         .onChange(shadowHelper);
 
-//    gui.onFinishChange(updateGravity);
+    gui.add(actions, 'danceToWait').name('danceToWait');
 
     //set default values to avoid warnings.
     gui.children[0].$text.id = 'color-selector';
@@ -72,4 +82,5 @@ export function initGUI(scene, renderer, helper, ambientLight, pointLight) {
     gui.children[5].$input.id = 'timescale-slider';
     gui.children[6].$input.id = 'gravity-slider';
     gui.children[7].$input.id = 'shadows-checkbox';
+    //gui.children[8].$input.id = 'dance2wait-button';
 }
