@@ -105,7 +105,7 @@ waitForModels();
 const waitForModel = function () {
 	if (!helper || !helper.objects || !helper.meshes ||
 		!helper.objects.get(miku2) ||
-		//!helper.objects.get(miku2).mixer ||
+		!helper.objects.get(miku2).mixer ||
 		!helper.objects.get(miku2).physics) {
 		setTimeout(waitForModel, timeOutDelay);
 	} else {
