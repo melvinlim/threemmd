@@ -39,17 +39,18 @@ const planeSize = 40;
 createCheckerboard(scene, planeSize);
 
 const color = 0xFFFFFF;
-//const intensity = 1;
-//const light = new THREE.AmbientLight(color, intensity);
-const intensity = 500;
-const light = new THREE.PointLight(color, intensity);
-light.position.set(20, 20, 20);
+const ambientIntensity = 0.05;
+const ambientLight = new THREE.AmbientLight(color, ambientIntensity);
+const pointIntensity = 500;
+const pointLight = new THREE.PointLight(color, pointIntensity);
+pointLight.position.set(20, 20, 20);
 
 if (shadows) {
-	light.castShadow = true;
+	pointLight.castShadow = true;
 }
 
-scene.add(light);
+scene.add(ambientLight);
+scene.add(pointLight);
 
 const modelPath = 'mmdmodels/miku4.3/miku4.3.pmx'
 //const modelPath = 'mmdmodels/miku-yyb-default/YYB Hatsune Miku_default_1.0ver.pmx'
@@ -168,7 +169,7 @@ const waitForAnimations = function () {
 		helper.meshes.forEach(function (mesh) { mesh.animations[0].resetDuration(); });
 		mixers['miku1']._actions[0].setLoop(THREE.LoopPingPong);
 
-		initGUI(scene, renderer, helper, light);
+		initGUI(scene, renderer, helper, ambientLight, pointLight);
 	}
 }
 waitForAnimations();

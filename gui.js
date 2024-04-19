@@ -36,16 +36,16 @@ function shadowHelper() {
     }
 }
 
-export function initGUI(scene, renderer, helper, light) {
+export function initGUI(scene, renderer, helper, ambientLight, pointLight) {
     scenePtr = scene;
     rendererPtr = renderer;
     helperPtr = helper;
     var gui = new GUI({ injectStyles: false });
 
-    const colorHelper = new ColorGUIHelper(light, 'color');
+    const colorHelper = new ColorGUIHelper(ambientLight, 'color');
     gui.addColor(colorHelper, 'value').name('color');
-    //gui.add(light, 'intensity', 0, 2, 0.01).name('light');  //ambientlight
-    gui.add(light, 'intensity', 100, 1000, 10).name('light');  //pointlight
+    gui.add(ambientLight, 'intensity', 0, 0.5, 0.01).name('ambientLight');  //ambientlight
+    gui.add(pointLight, 'intensity', 100, 1000, 10).name('pointLight');  //pointlight
 
     gui.add(helper.enabled, 'animation');
     gui.add(helper.enabled, 'physics');
@@ -65,10 +65,11 @@ export function initGUI(scene, renderer, helper, light) {
 
     //set default values to avoid warnings.
     gui.children[0].$text.id = 'color-selector';
-    gui.children[1].$input.id = 'light-slider';
-    gui.children[2].$input.id = 'animation-checkbox';
-    gui.children[3].$input.id = 'physics-checkbox';
-    gui.children[4].$input.id = 'timescale-slider';
-    gui.children[5].$input.id = 'gravity-slider';
-    gui.children[6].$input.id = 'shadows-checkbox';
+    gui.children[1].$input.id = 'light-slider1';
+    gui.children[2].$input.id = 'light-slider2';
+    gui.children[3].$input.id = 'animation-checkbox';
+    gui.children[4].$input.id = 'physics-checkbox';
+    gui.children[5].$input.id = 'timescale-slider';
+    gui.children[6].$input.id = 'gravity-slider';
+    gui.children[7].$input.id = 'shadows-checkbox';
 }
