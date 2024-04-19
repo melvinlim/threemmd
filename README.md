@@ -14,6 +14,10 @@
 
 ## MMD Animations
 [トリコロール モーション](https://bowlroll.net/file/312068)
+<br>
+[リアライズ モーション](https://www.nicovideo.jp/watch/sm43256748)
+<br>
+[Highway Lover モーション](https://www.nicovideo.jp/watch/sm43444918)
 
 ### Support or Contact
 My email address is : dxlim@outlook.com
