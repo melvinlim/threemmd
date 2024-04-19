@@ -112,7 +112,8 @@ export function loadMMD(helper, scene, mmdName, modelPath, animName, animationPa
 		console.log('Loading complete!');
 
 		const waitForAnimation = function () {
-			if (!mmdModel.animation) {
+			if (!mmdModel ||
+				!mmdModel.animation) {
 				setTimeout(waitForAnimation, 100);
 			} else {
 				mmdModel.animation.name = animName;
