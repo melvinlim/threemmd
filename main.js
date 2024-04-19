@@ -10,12 +10,9 @@ import { loadMMDCamera } from './mmd.js';
 import { loadMMD } from './mmd.js';
 import { fadeToAction } from './misc.js';
 
-//import { MMDPhysics } from 'three/addons/animation/MMDPhysics.js';
-
 import { createCheckerboard } from './misc.js';
 
 const shadows = true;
-//let physics;
 
 const scene = new THREE.Scene();
 const renderer = new THREE.WebGLRenderer();
@@ -64,7 +61,6 @@ scene.add(ambientLight);
 scene.add(pointLight);
 
 const modelPath = 'mmdmodels/miku4.3/miku4.3.pmx'
-//const modelPath = 'mmdmodels/miku-yyb-default/YYB Hatsune Miku_default_1.0ver.pmx'
 
 //const FaceAnimationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_face_expressions_YYB_miku.vmd';
 const FaceAnimationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_face_expressions_light_blinking_eyes.vmd';
@@ -74,21 +70,16 @@ const helper = new MMDAnimationHelper();
 helper.configuration.resetPhysicsOnLoop = false;
 helper.enabled.cameraAnimation = false;
 
-const miku1_offset = new THREE.Vector3(10, 0, 0);
 const goodMoodLoopPath = 'mmdanimations/good_mood_loop/good_mood_loop_140f_no_movement.vmd';
 const waitingLoopPath = 'mmdanimations/waiting_loop/waiting_465f.vmd'
-//loadMMD(helper, scene, 'miku1', modelPath, goodMoodLoopPath, miku1_offset);
-loadMMD(helper, scene, 'miku1', modelPath, 'wait', waitingLoopPath, miku1_offset);
-
-const miku2_offset = new THREE.Vector3(-10, 0, 0);
-//const singingPaths = [FaceAnimationPath, LipAnimationPath];
-loadMMD(helper, scene, 'miku2', modelPath, 'wait', waitingLoopPath, miku2_offset);
-//loadMMDModel does not work because helper.mixer is never created and set up.
-//i could create helper.mixer manually in loadMMDModel, but it wouldn't be configured...
-//not doing it for now because it's a hassle to implement.
-//loadMMDModel(helper, scene, 'miku2', modelPath, miku2_offset);
-
 const cameraAnimationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor-camera-yyb-miku-nt.vmd';
+
+const miku1_offset = new THREE.Vector3(10, 0, 0);
+const miku2_offset = new THREE.Vector3(-10, 0, 0);
+
+loadMMD(helper, scene, 'miku1', modelPath, 'wait', waitingLoopPath, miku1_offset);
+loadMMD(helper, scene, 'miku2', modelPath, 'wait', waitingLoopPath, miku2_offset);
+
 loadMMDCamera(helper, camera, 'camera', cameraAnimationPath);
 
 let miku1, miku2, floor;
@@ -147,10 +138,6 @@ const waitForAnimations = function () {
 	) {
 		setTimeout(waitForAnimations, timeOutDelay);
 	} else {
-		if (helper.objects.get(camera)) {
-			helper.objects.get(camera).mixer._actions[0].reset();
-			//helper.objects.get(camera).mixer._actions[0].stop();
-		}
 		miku1.visible = true;
 		miku2.visible = true;
 		mixers['miku1'] = helper.objects.get(miku1).mixer;
@@ -173,6 +160,10 @@ const waitForAnimations = function () {
 		//the helper.add function called in loadMMD resets all durations to most recent model.
 		helper.meshes.forEach(function (mesh) { mesh.animations[0].resetDuration(); });
 		mixers['miku1']._actions[0].setLoop(THREE.LoopPingPong);
+		if (mixers['camera']) {
+			mixers['camera']._actions[0].reset();
+			mixers['camera']._actions[0].stop();
+		}
 
 		initGUI(scene, renderer, helper, ambientLight, pointLight, mixers);
 	}
@@ -183,13 +174,11 @@ const clock = new THREE.Clock();
 clock.start();
 
 let delta;
-
 function render() {
 
 	delta = clock.getDelta();
 
 	helper.update(delta);
-	//if (physics !== undefined) physics.update(delta);
 
 	renderer.render(scene, camera);
 }

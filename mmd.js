@@ -3,6 +3,10 @@ import { LoadingManager } from 'three';
 //import * as THREE from 'three';
 import { LoopOnce } from 'three';
 
+//loadMMDModel does not work because helper.mixer is never created and set up.
+//i could create helper.mixer manually in loadMMDModel, but it wouldn't be configured...
+//not doing it for now because it's a hassle to implement.
+//also need to verify in wait loop that mmdModel has been assigned.  in manager.onLoad.
 export function loadMMDModel(helper, scene, mmdName, modelPath, offset = undefined) {
 	let mmdModel;
 	const manager = new LoadingManager();
@@ -10,7 +14,7 @@ export function loadMMDModel(helper, scene, mmdName, modelPath, offset = undefin
 		console.log('Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
 	};
 	manager.onLoad = function () {
-		console.log('Loading complete!');
+		//console.log('Loading complete!');
 		mmdModel.name = mmdName;
 		if (offset) {
 			mmdModel.position.x += offset.x;
@@ -109,7 +113,7 @@ export function loadMMD(helper, scene, mmdName, modelPath, animName, animationPa
 	};
 
 	manager.onLoad = function () {
-		console.log('Loading complete!');
+		//console.log('Loading complete!');
 
 		const waitForAnimation = function () {
 			if (!mmdModel ||
