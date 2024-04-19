@@ -2,7 +2,7 @@ import { MMDLoader } from 'three/addons/loaders/MMDLoader.js';
 import { LoadingManager } from 'three';
 import * as THREE from 'three';
 
-export function loadMMDModel(scene, mmdName, modelPath, offset = undefined) {
+export function loadMMDModel(helper, scene, mmdName, modelPath, offset = undefined) {
 	let mmdModel;
 	const manager = new LoadingManager();
 	manager.onStart = function (url, itemsLoaded, itemsTotal) {
@@ -17,6 +17,9 @@ export function loadMMDModel(scene, mmdName, modelPath, offset = undefined) {
 			mmdModel.position.z += offset.z;
 		}
 		mmdModel.visible = false;
+		helper.add(mmdModel, {
+			physics: true
+		});
 		scene.add(mmdModel);
 	};
 	manager.onProgress = function (url, itemsLoaded, itemsTotal) {
@@ -96,7 +99,7 @@ export function loadMMDAnimation(helper, mmdModel, animationName, animationPath)
 		}
 	);
 }
-export function loadMMD(helper, scene, mmdName, modelPath, animationPath, offset = undefined) {
+export function loadMMD(helper, scene, mmdName, modelPath, animName, animationPath, offset = undefined) {
 
 	let mmdModel;
 	const manager = new LoadingManager();
@@ -108,6 +111,7 @@ export function loadMMD(helper, scene, mmdName, modelPath, animationPath, offset
 	manager.onLoad = function () {
 		console.log('Loading complete!');
 
+		mmdModel.animation.name = animName;
 		mmdModel.animation.resetDuration();
 		helper.add(mmdModel.mesh, {
 			animation: mmdModel.animation,

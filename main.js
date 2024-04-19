@@ -66,11 +66,15 @@ const miku1_offset = new THREE.Vector3(10, 0, 0);
 const goodMoodLoopPath = 'mmdanimations/good_mood_loop/good_mood_loop_140f_no_movement.vmd';
 const waitingLoopPath = 'mmdanimations/waiting_loop/waiting_465f.vmd'
 //loadMMD(helper, scene, 'miku1', modelPath, goodMoodLoopPath, miku1_offset);
-loadMMD(helper, scene, 'miku1', modelPath, waitingLoopPath, miku1_offset);
+loadMMD(helper, scene, 'miku1', modelPath, 'wait', waitingLoopPath, miku1_offset);
 
 const miku2_offset = new THREE.Vector3(-10, 0, 0);
-const paths = [FaceAnimationPath, LipAnimationPath];
-loadMMD(helper, scene, 'miku2', modelPath, paths, miku2_offset);
+//const singingPaths = [FaceAnimationPath, LipAnimationPath];
+loadMMD(helper, scene, 'miku2', modelPath, 'face', FaceAnimationPath, miku2_offset);
+//loadMMDModel does not work because helper.mixer is never created and set up.
+//i could create helper.mixer manually in loadMMDModel, but it wouldn't be configured...
+//not doing it for now because it's a hassle to implement.
+//loadMMDModel(helper, scene, 'miku2', modelPath, miku2_offset);
 
 const cameraAnimationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor-camera-yyb-miku-nt.vmd';
 loadMMDCamera(helper, camera, 'camera', cameraAnimationPath);
@@ -87,8 +91,6 @@ const waitForModels = function () {
 		miku2 = scene.getObjectByName('miku2');
 		floor = scene.getObjectByName('checkerboard');
 		//the helper.add function called in loadMMD resets all durations to most recent model.
-		helper.meshes.forEach(function (mesh) { mesh.animations[0].resetDuration(); });
-		helper.objects.get(miku1).mixer._actions[0].setLoop(THREE.LoopPingPong);
 
 		//miku1.position.x += 20;
 		if (shadows) {
@@ -103,7 +105,7 @@ waitForModels();
 const waitForModel = function () {
 	if (!helper || !helper.objects || !helper.meshes ||
 		!helper.objects.get(miku2) ||
-		!helper.objects.get(miku2).mixer ||
+		//!helper.objects.get(miku2).mixer ||
 		!helper.objects.get(miku2).physics) {
 		setTimeout(waitForModel, timeOutDelay);
 	} else {
@@ -111,6 +113,7 @@ const waitForModel = function () {
 		loadMMDAnimation(helper, miku2, 'dance', animationPath);
 		loadMMDAnimation(helper, miku2, 'wait', waitingLoopPath);
 		loadMMDAnimation(helper, miku2, 'happy', goodMoodLoopPath);
+		loadMMDAnimation(helper, miku2, 'sing', LipAnimationPath);
 	}
 }
 waitForModel();
@@ -139,7 +142,7 @@ function finishedCallback(ev) {
 	}
 }
 const waitForAnimations = function () {
-	if (!miku2 || miku2.animations.length < 4 ||
+	if (!miku2 || miku2.animations.length < 5 ||
 		!helper.objects.get(miku2).mixer
 	) {
 		setTimeout(waitForAnimations, timeOutDelay);
@@ -153,6 +156,8 @@ const waitForAnimations = function () {
 		mixers['miku1'] = helper.objects.get(miku1).mixer;
 		mixers['miku2'] = helper.objects.get(miku2).mixer;
 		mixers['camera'] = helper.objects.get(camera).mixer;
+		mixers['miku2'].existingAction('face').play();
+		mixers['miku2'].existingAction('sing').play();
 		mixers['miku2'].existingAction('wait').stop();
 		//mixers['miku2'].existingAction('wait').play();
 		//mixers['miku2'].existingAction('dance').stop();
@@ -164,6 +169,9 @@ const waitForAnimations = function () {
 		mixers['miku2'].addEventListener('loop', loopCallback);
 		mixers['miku2'].addEventListener('finished', finishedCallback);
 		//fadeToAction(mixers['miku2'].existingAction('wait'), mixers['miku2'].existingAction('happy'), 20);
+		helper.meshes.forEach(function (mesh) { mesh.animations[0].resetDuration(); });
+		helper.objects.get(miku1).mixer._actions[0].setLoop(THREE.LoopPingPong);
+
 		initGUI(scene, renderer, helper, light);
 	}
 }
