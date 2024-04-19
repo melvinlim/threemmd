@@ -111,21 +111,29 @@ export function loadMMD(helper, scene, mmdName, modelPath, animName, animationPa
 	manager.onLoad = function () {
 		console.log('Loading complete!');
 
-		mmdModel.animation.name = animName;
-		mmdModel.animation.resetDuration();
-		helper.add(mmdModel.mesh, {
-			animation: mmdModel.animation,
-			physics: true
-		});
-		mmdModel.mesh.name = mmdName;
-		mmdModel.mesh.animations.push(mmdModel.animation);
-		if (offset) {
-			mmdModel.mesh.position.x += offset.x;
-			mmdModel.mesh.position.y += offset.y;
-			mmdModel.mesh.position.z += offset.z;
+		const waitForAnimation = function () {
+			if (!mmdModel.animation) {
+				setTimeout(waitForAnimation, 100);
+			} else {
+				mmdModel.animation.name = animName;
+				mmdModel.animation.resetDuration();
+				helper.add(mmdModel.mesh, {
+					animation: mmdModel.animation,
+					physics: true
+				});
+				mmdModel.mesh.name = mmdName;
+				mmdModel.mesh.animations.push(mmdModel.animation);
+				if (offset) {
+					mmdModel.mesh.position.x += offset.x;
+					mmdModel.mesh.position.y += offset.y;
+					mmdModel.mesh.position.z += offset.z;
+				}
+				mmdModel.mesh.visible = false;
+				scene.add(mmdModel.mesh);
+			}
 		}
-		mmdModel.mesh.visible = false;
-		scene.add(mmdModel.mesh);
+		waitForAnimation();
+
 		/*
 		new THREE.AudioLoader().load(
 			'audios/mmd/song.mp3',
