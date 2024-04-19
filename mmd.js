@@ -41,7 +41,7 @@ export function loadMMDModel(helper, scene, mmdName, modelPath, offset = undefin
 		//scene.add( mesh );
 		},
 		function (xhr) {
-			console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+			//console.log((xhr.loaded / xhr.total * 100) + '% loaded');
 		},
 		function (error) {
 			console.error(error);
@@ -66,7 +66,7 @@ export function loadMMDCamera(helper, mmdModel, animationName, animationPath) {
 			});
 		},
 		function (xhr) {
-			console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+			//console.log((xhr.loaded / xhr.total * 100) + '% loaded');
 		},
 		function (error) {
 			console.error(error);
@@ -92,7 +92,7 @@ export function loadMMDAnimation(helper, mmdModel, animationName, animationPath)
 			action.clampWhenFinished = true;
 		},
 		function (xhr) {
-			console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+			//console.log((xhr.loaded / xhr.total * 100) + '% loaded');
 		},
 		function (error) {
 			console.error(error);
@@ -161,7 +161,7 @@ export function loadMMD(helper, scene, mmdName, modelPath, animName, animationPa
 			mmdModel = mmd;
 		},
 		function (xhr) {
-			console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+			//console.log((xhr.loaded / xhr.total * 100) + '% loaded');
 		},
 		function (error) {
 			console.error(error);

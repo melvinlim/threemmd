@@ -1,0 +1,2 @@
+animation starts standing facing backwards.
+animation ends standing forwards.

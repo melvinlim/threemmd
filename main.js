@@ -72,7 +72,7 @@ loadMMD(helper, scene, 'miku1', modelPath, 'wait', waitingLoopPath, miku1_offset
 
 const miku2_offset = new THREE.Vector3(-10, 0, 0);
 //const singingPaths = [FaceAnimationPath, LipAnimationPath];
-loadMMD(helper, scene, 'miku2', modelPath, 'face', FaceAnimationPath, miku2_offset);
+loadMMD(helper, scene, 'miku2', modelPath, 'wait', waitingLoopPath, miku2_offset);
 //loadMMDModel does not work because helper.mixer is never created and set up.
 //i could create helper.mixer manually in loadMMDModel, but it wouldn't be configured...
 //not doing it for now because it's a hassle to implement.
@@ -107,9 +107,11 @@ const waitForModel = function () {
 		!helper.objects.get(miku2).mixer) {
 		setTimeout(waitForModel, timeOutDelay);
 	} else {
-		const animationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor-motion-yyb-miku-nt.vmd'
+		//const animationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor-motion-yyb-miku-nt.vmd'
+		//const animationPath = 'mmdanimations/realize_motion/realize_motion.vmd'
+		const animationPath = 'mmdanimations/highway_lover/highway_lover_motion.vmd'
 		loadMMDAnimation(helper, miku2, 'dance', animationPath);
-		loadMMDAnimation(helper, miku2, 'wait', waitingLoopPath);
+		loadMMDAnimation(helper, miku2, 'face', FaceAnimationPath);
 		loadMMDAnimation(helper, miku2, 'happy', goodMoodLoopPath);
 		loadMMDAnimation(helper, miku2, 'sing', LipAnimationPath);
 	}
@@ -146,6 +148,8 @@ const waitForAnimations = function () {
 		mixers['camera'] = helper.objects.get(camera).mixer;
 		mixers['miku2'].existingAction('face').play();
 		mixers['miku2'].existingAction('sing').play();
+		mixers['miku2'].existingAction('face').stop();
+		mixers['miku2'].existingAction('sing').stop();
 		mixers['miku2'].existingAction('wait').stop();
 		//mixers['miku2'].existingAction('wait').play();
 		//mixers['miku2'].existingAction('dance').stop();
