@@ -90,9 +90,6 @@ const waitForModels = function () {
 		miku1 = scene.getObjectByName('miku1');
 		miku2 = scene.getObjectByName('miku2');
 		floor = scene.getObjectByName('checkerboard');
-		//the helper.add function called in loadMMD resets all durations to most recent model.
-
-		//miku1.position.x += 20;
 		if (shadows) {
 			floor.receiveShadow = true;
 			miku1.castShadow = true;
@@ -105,8 +102,7 @@ waitForModels();
 const waitForModel = function () {
 	if (!helper || !helper.objects || !helper.meshes ||
 		!helper.objects.get(miku2) ||
-		!helper.objects.get(miku2).mixer ||
-		!helper.objects.get(miku2).physics) {
+		!helper.objects.get(miku2).mixer) {
 		setTimeout(waitForModel, timeOutDelay);
 	} else {
 		const animationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor-motion-yyb-miku-nt.vmd'
@@ -165,12 +161,12 @@ const waitForAnimations = function () {
 		mixers['miku2'].existingAction('dance').play();
 		mixers['miku2'].existingAction('happy').stop();
 		//mixers['miku2'].existingAction('happy').play();
-		//mixers['miku2'].existingAction('wait').crossFadeTo(mixers['miku2'].existingAction('happy'), 20);
 		mixers['miku2'].addEventListener('loop', loopCallback);
 		mixers['miku2'].addEventListener('finished', finishedCallback);
 		//fadeToAction(mixers['miku2'].existingAction('wait'), mixers['miku2'].existingAction('happy'), 20);
+		//the helper.add function called in loadMMD resets all durations to most recent model.
 		helper.meshes.forEach(function (mesh) { mesh.animations[0].resetDuration(); });
-		helper.objects.get(miku1).mixer._actions[0].setLoop(THREE.LoopPingPong);
+		mixers['miku1']._actions[0].setLoop(THREE.LoopPingPong);
 
 		initGUI(scene, renderer, helper, light);
 	}

@@ -1,6 +1,7 @@
 import { MMDLoader } from 'three/addons/loaders/MMDLoader.js';
 import { LoadingManager } from 'three';
-import * as THREE from 'three';
+//import * as THREE from 'three';
+import { LoopOnce } from 'three';
 
 export function loadMMDModel(helper, scene, mmdName, modelPath, offset = undefined) {
 	let mmdModel;
@@ -58,7 +59,6 @@ export function loadMMDCamera(helper, mmdModel, animationName, animationPath) {
 			animationClip.name = animationName;
 			animationClip.resetDuration();
 			mmdModel.animations.push(animationClip);
-			//now animation can be stopped with helper.objects.get(miku2).mixer.existingAction("danceAnimation").stop()
 			//helper.objects.get(mmdModel).mixer.clipAction(animationClip).play();
 			helper.add(mmdModel, {
 				animation: animationClip,
@@ -86,7 +86,7 @@ export function loadMMDAnimation(helper, mmdModel, animationName, animationPath)
 			mmdModel.animations.push(animationClip);
 			let action = helper.objects.get(mmdModel).mixer.clipAction(animationClip);
 			action.stop();
-			action.setLoop(THREE.LoopOnce);
+			action.setLoop(LoopOnce);
 			//action.setLoop(THREE.LoopPingPong);
 			//action.repetitions = 1;
 			action.clampWhenFinished = true;
