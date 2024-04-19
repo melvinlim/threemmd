@@ -19,5 +19,8 @@
 <br>
 [Highway Lover ƒ‚[ƒVƒ‡ƒ“](https://www.nicovideo.jp/watch/sm43444918)
 
+## Equirectangular Skymap
+[Kloppenheim 02 (Pure Sky)](https://polyhaven.com/a/kloppenheim_02_puresky)
+
 ### Support or Contact
 My email address is : dxlim@outlook.com

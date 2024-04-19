@@ -21,6 +21,16 @@ const scene = new THREE.Scene();
 const renderer = new THREE.WebGLRenderer();
 const camera = initCamera(renderer);
 
+const loader = new THREE.TextureLoader();
+const texture = loader.load(
+	'nightsky_1k.jpg',
+	() => {
+		texture.mapping = THREE.EquirectangularReflectionMapping;
+		texture.colorSpace = THREE.SRGBColorSpace;
+		scene.background = texture;
+	});
+scene.background = texture;
+
 if (shadows) {
 	renderer.shadowMap.enabled = true;
 }

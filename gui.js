@@ -71,7 +71,7 @@ export function initGUI(scene, renderer, helper, ambientLight, pointLight, mixer
         .name('shadows')
         .onChange(shadowHelper);
 
-    gui.add(actions, 'danceToWait').name('danceToWait');
+    //gui.add(actions, 'danceToWait').name('danceToWait');
 
     //set default values to avoid warnings.
     gui.children[0].$text.id = 'color-selector';
