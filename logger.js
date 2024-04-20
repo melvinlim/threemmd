@@ -11,9 +11,17 @@ export class Logger {
         this.line = 0;
         document.getElementById('info').textContent = '';
     }
+    error(msg) {
+        console.error(msg);
+        document.getElementById('info').style.color = '#FF0000';
+        this._log(msg);
+    }
     log(msg) {
-//        document.getElementById('info').style.color = '#FF0000';
+        console.log(msg);
         document.getElementById('info').style.color = '#FFFFFF';
+        this._log(msg);
+    }
+    _log(msg) {
         window.clearInterval(this.timer);
         if (this.line >= this.lines) {
             this.msgs.shift();
