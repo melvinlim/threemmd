@@ -27,8 +27,8 @@ export function createCheckerboard(scene, planeSize) {
 	scene.add(mesh);
 }
 
-export function fadeToAction(action1, action2, duration) {
-	action1.repetitions = 0;
+export function fadeToAction(action1, action2, duration, repetitions = 0) {
+	action1.repetitions = repetitions;
 	action1.paused = true;
 	action1.fadeOut(duration);
 	action2

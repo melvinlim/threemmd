@@ -37,12 +37,16 @@ function shadowHelper() {
     }
 }
 
+function waitToHappy() {
+    fadeToAction(pMixers['miku1'].existingAction('wait'), pMixers['miku1'].existingAction('happy'), 5);
+}
 function danceToWait() {
     fadeToAction(pMixers['miku2'].existingAction('dance'), pMixers['miku2'].existingAction('wait'), 5);
 }
 
 const actions = {
     danceToWait: danceToWait,
+    waitToHappy: waitToHappy
 };
 
 export function initGUI(scene, renderer, helper, ambientLight, pointLight, mixers) {
@@ -72,6 +76,7 @@ export function initGUI(scene, renderer, helper, ambientLight, pointLight, mixer
         .onChange(shadowHelper);
 
     //gui.add(actions, 'danceToWait').name('danceToWait');
+    gui.add(actions, 'waitToHappy').name('waitToHappy');
 
     //set default values to avoid warnings.
     gui.children[0].$text.id = 'color-selector';
