@@ -1,6 +1,6 @@
 export class Logger {
     constructor() {
-        this.timer;
+        this.timer = undefined;
         this.line = 0;
         this.lines = 10;
         this.msgs = [];
@@ -12,6 +12,7 @@ export class Logger {
         document.getElementById('info').textContent = '';
     }
     log(msg) {
+        window.clearInterval(this.timer);
         if (this.line >= this.lines) {
             this.msgs.shift();
         }
@@ -22,7 +23,6 @@ export class Logger {
             content += x + '\n';
         });
         document.getElementById('info').textContent = content;
-        window.clearInterval(this.timer);
-        this.timer = setInterval(this.clearText, this.textTime);
+        this.timer = setTimeout(this.clearText, this.textTime);
     }
 }
