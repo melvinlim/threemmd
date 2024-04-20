@@ -211,4 +211,25 @@ export function loadMMD2(helper, scene, mmdName, modelPath, data, offset = undef
 		}
 	}
 	waitForModel();
+
+	const waitForAnimations = function () {
+		if (!helper || !helper.meshes || !mmdModelObj || !mmdModelObj.animations ||
+			mmdModelObj.animations.length < data.length
+		) {
+			setTimeout(waitForAnimations, timeOutDelay);
+		} else {
+			//the helper.add function called in loadMMD resets all durations to most recent model.
+			helper.meshes.forEach(
+				function (mesh) {
+					mesh.animations.forEach(
+						function (animation) {
+							animation.resetDuration();
+						}
+					);
+				}
+			);
+		}
+	}
+	waitForAnimations();
+
 }

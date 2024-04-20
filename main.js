@@ -147,8 +147,6 @@ const waitForAnimations = function () {
 		mixers['miku2'].existingAction('sing').play();
 		mixers['miku2'].addEventListener('loop', loopCallback);
 		mixers['miku2'].addEventListener('finished', finishedCallback);
-		//the helper.add function called in loadMMD resets all durations to most recent model.
-		helper.meshes.forEach(function (mesh) { mesh.animations[0].resetDuration(); });
 		mixers['miku1']._actions[0].setLoop(THREE.LoopPingPong);
 		if (mixers['camera']) {
 			mixers['camera']._actions[0].reset();
