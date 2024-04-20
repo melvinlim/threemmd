@@ -101,7 +101,6 @@ loadMMD2(helper, scene, 'miku2', modelPath, data, miku2_offset);
 loadMMDCamera(helper, camera, 'camera', CameraPath);
 
 const logger = new Logger();
-logger.log('fdsa\nasdf');
 
 let miku1, miku2, floor;
 const waitForModels = function () {
