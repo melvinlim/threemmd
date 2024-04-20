@@ -133,8 +133,12 @@ function loopCallback(ev) {
 function finishedCallback(ev) {
 	logger.log('finished: ' + ev.action._clip.name)
 	if (ev.action._clip.name == 'dance') {
-		mixers['miku2'].existingAction('wait').setLoop(THREE.LoopRepeat, Infinity);
-		fadeToAction(mixers['miku2'].existingAction('dance'), mixers['miku2'].existingAction('wait'), 20);
+		ev.target.existingAction('wait').setLoop(THREE.LoopRepeat, Infinity);
+		fadeToAction(ev.target.existingAction('dance'), ev.target.existingAction('wait'), 5);
+	}
+	if (ev.action._clip.name == 'happy') {
+		ev.target.existingAction('wait').setLoop(THREE.LoopRepeat, Infinity);
+		fadeToAction(ev.target.existingAction('happy'), ev.target.existingAction('wait'), 5);
 	}
 }
 const waitForAnimations = function () {
@@ -155,6 +159,8 @@ const waitForAnimations = function () {
 		mixers['miku2'].existingAction('sing').play();
 		mixers['miku2'].addEventListener('loop', loopCallback);
 		mixers['miku2'].addEventListener('finished', finishedCallback);
+		mixers['miku1'].addEventListener('loop', loopCallback);
+		mixers['miku1'].addEventListener('finished', finishedCallback);
 		mixers['miku1']._actions[0].setLoop(THREE.LoopPingPong);
 		if (mixers['camera']) {
 			mixers['camera']._actions[0].reset();
