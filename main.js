@@ -98,6 +98,8 @@ loadMMD2(helper, scene, 'miku2', modelPath, data, miku2_offset);
 
 loadMMDCamera(helper, camera, 'camera', CameraPath);
 
+document.getElementById('info').textContent = '';
+
 let miku1, miku2, floor;
 const waitForModels = function () {
 	if (!scene.getObjectByName('miku1') ||
