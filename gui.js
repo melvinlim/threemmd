@@ -16,6 +16,7 @@ let scenePtr;
 let rendererPtr;
 let helperPtr;
 let pMixers;
+let pLogger;
 function updateGravity(value) {
     helperPtr.meshes.forEach(function (mesh) {
         let gravity = helperPtr.objects.get(mesh).physics.gravity
@@ -49,11 +50,21 @@ const actions = {
     waitToHappy: waitToHappy
 };
 
-export function initGUI(scene, renderer, helper, ambientLight, pointLight, mixers) {
+function logCallback(value) {
+    if (value == false) {
+        pLogger.clearText();
+    } else {
+        
+    }
+    console.log(value);
+}
+
+export function initGUI(logger, scene, renderer, helper, ambientLight, pointLight, mixers) {
     scenePtr = scene;
     rendererPtr = renderer;
     helperPtr = helper;
     pMixers = mixers;
+    pLogger = logger;
     var gui = new GUI({ injectStyles: false });
 
     const colorHelper = new ColorGUIHelper(ambientLight, 'color');
@@ -78,6 +89,9 @@ export function initGUI(scene, renderer, helper, ambientLight, pointLight, mixer
     //gui.add(actions, 'danceToWait').name('danceToWait');
     gui.add(actions, 'waitToHappy').name('waitToHappy');
 
+    gui.add(logger, 'logging').name('logging')
+        .onChange(logCallback);
+
     //set default values to avoid warnings.
     gui.children[0].$text.id = 'color-selector';
     gui.children[1].$input.id = 'light-slider1';
@@ -88,4 +102,5 @@ export function initGUI(scene, renderer, helper, ambientLight, pointLight, mixer
     gui.children[6].$input.id = 'gravity-slider';
     gui.children[7].$input.id = 'shadows-checkbox';
     //gui.children[8].$input.id = 'dance2wait-button';
+    gui.children[9].$input.id = 'logging-checkbox';
 }

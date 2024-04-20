@@ -165,7 +165,7 @@ const waitForAnimations = function () {
 			mixers['camera']._actions[0].stop();
 		}
 
-		initGUI(scene, renderer, helper, ambientLight, pointLight, mixers);
+		initGUI(logger, scene, renderer, helper, ambientLight, pointLight, mixers);
 	}
 }
 waitForAnimations();
