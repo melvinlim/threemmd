@@ -70,15 +70,15 @@ const helper = new MMDAnimationHelper();
 helper.configuration.resetPhysicsOnLoop = false;
 helper.enabled.cameraAnimation = false;
 
-const goodMoodLoopPath = 'mmdanimations/good_mood_loop/good_mood_loop_140f_no_movement.vmd';
-const waitingLoopPath = 'mmdanimations/waiting_loop/waiting_465f.vmd'
+const HappyPath = 'mmdanimations/good_mood_loop/good_mood_loop_140f_no_movement.vmd';
+const WaitingPath = 'mmdanimations/waiting_loop/waiting_465f.vmd'
 const CameraPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor-camera-yyb-miku-nt.vmd';
 
 const miku1_offset = new THREE.Vector3(10, 0, 0);
 const miku2_offset = new THREE.Vector3(-10, 0, 0);
 
-loadMMD(helper, scene, 'miku1', modelPath, 'wait', waitingLoopPath, miku1_offset);
-loadMMD(helper, scene, 'miku2', modelPath, 'wait', waitingLoopPath, miku2_offset);
+loadMMD(helper, scene, 'miku1', modelPath, 'wait', WaitingPath, miku1_offset);
+loadMMD(helper, scene, 'miku2', modelPath, 'wait', WaitingPath, miku2_offset);
 
 loadMMDCamera(helper, camera, 'camera', CameraPath);
 
@@ -113,7 +113,7 @@ const waitForModel = function () {
 		const DancePath = 'mmdanimations/highway_lover/highway_lover_motion.vmd'
 		loadMMDAnimation(helper, miku2, 'dance', DancePath);
 		loadMMDAnimation(helper, miku2, 'face', FacePath);
-		loadMMDAnimation(helper, miku2, 'happy', goodMoodLoopPath);
+		loadMMDAnimation(helper, miku2, 'happy', HappyPath);
 		loadMMDAnimation(helper, miku2, 'sing', LipPath);
 	}
 }
