@@ -3,6 +3,8 @@ import { LoadingManager } from 'three';
 //import * as THREE from 'three';
 import { LoopOnce } from 'three';
 
+const timeOutDelay = 100;
+
 //loadMMDModel does not work because helper.mixer is never created and set up.
 //i could create helper.mixer manually in loadMMDModel, but it wouldn't be configured...
 //not doing it for now because it's a hassle to implement.
@@ -118,7 +120,7 @@ export function loadMMD(helper, scene, mmdName, modelPath, animName, animationPa
 		const waitForAnimation = function () {
 			if (!mmdModel ||
 				!mmdModel.animation) {
-				setTimeout(waitForAnimation, 100);
+				setTimeout(waitForAnimation, timeOutDelay);
 			} else {
 				mmdModel.animation.name = animName;
 				mmdModel.animation.resetDuration();
@@ -183,6 +185,28 @@ export function loadMMD(helper, scene, mmdName, modelPath, animName, animationPa
 }
 
 export function loadMMD2(helper, scene, mmdName, modelPath, data, offset = undefined) {
-	firstData = data[0];
+	let mmdModelObj;
+	const firstData = data[0];
 	loadMMD(helper, scene, mmdName, modelPath, firstData.name, firstData.path, offset);
+	const waitForModels = function () {
+		if (!scene.getObjectByName(mmdName)) {
+			setTimeout(waitForModels, timeOutDelay);
+		} else {
+			mmdModelObj = scene.getObjectByName(mmdName);
+		}
+	}
+	waitForModels();
+
+	const waitForModel = function () {
+		if (!helper || !helper.objects || !helper.meshes ||
+			!helper.objects.get(mmdModelObj) ||
+			!helper.objects.get(mmdModelObj).mixer) {
+			setTimeout(waitForModel, timeOutDelay);
+		} else {
+			for (let i = 1; i < data.length; i++) {
+				loadMMDAnimation(helper, mmdModelObj, data[i].name, data[i].path);
+			}
+		}
+	}
+	waitForModel();
 }

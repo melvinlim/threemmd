@@ -8,6 +8,7 @@ import { loadMMDModel } from './mmd.js';
 import { loadMMDAnimation } from './mmd.js';
 import { loadMMDCamera } from './mmd.js';
 import { loadMMD } from './mmd.js';
+import { loadMMD2 } from './mmd.js';
 import { fadeToAction } from './misc.js';
 
 import { createCheckerboard } from './misc.js';
@@ -93,12 +94,11 @@ const miku1_offset = new THREE.Vector3(10, 0, 0);
 const miku2_offset = new THREE.Vector3(-10, 0, 0);
 
 loadMMD(helper, scene, 'miku1', modelPath, 'wait', WaitingPath, miku1_offset);
-loadMMD(helper, scene, 'miku2', modelPath, 'wait', WaitingPath, miku2_offset);
+loadMMD2(helper, scene, 'miku2', modelPath, data, miku2_offset);
 
 loadMMDCamera(helper, camera, 'camera', CameraPath);
 
 let miku1, miku2, floor;
-
 const waitForModels = function () {
 	if (!scene.getObjectByName('miku1') ||
 		!scene.getObjectByName('miku2') ||
@@ -117,22 +117,7 @@ const waitForModels = function () {
 }
 waitForModels();
 
-const waitForModel = function () {
-	if (!helper || !helper.objects || !helper.meshes ||
-		!helper.objects.get(miku2) ||
-		!helper.objects.get(miku2).mixer) {
-		setTimeout(waitForModel, timeOutDelay);
-	} else {
-		loadMMDAnimation(helper, miku2, 'dance', DancePath);
-		loadMMDAnimation(helper, miku2, 'face', FacePath);
-		loadMMDAnimation(helper, miku2, 'happy', HappyPath);
-		loadMMDAnimation(helper, miku2, 'sing', LipPath);
-	}
-}
-waitForModel();
-
 const mixers = {};
-
 
 function loopCallback(ev) {
 	console.log('looped: ' + ev.action._clip.name)
@@ -145,7 +130,7 @@ function finishedCallback(ev) {
 	}
 }
 const waitForAnimations = function () {
-	if (!miku2 || miku2.animations.length < 5 ||
+	if (!miku2 || miku2.animations.length < data.length ||
 		!helper.objects.get(miku2).mixer
 	) {
 		setTimeout(waitForAnimations, timeOutDelay);
