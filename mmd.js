@@ -181,3 +181,8 @@ export function loadMMD(helper, scene, mmdName, modelPath, animName, animationPa
 		}
 	);
 }
+
+export function loadMMD2(helper, scene, mmdName, modelPath, data, offset = undefined) {
+	firstData = data[0];
+	loadMMD(helper, scene, mmdName, modelPath, firstData.name, firstData.path, offset);
+}

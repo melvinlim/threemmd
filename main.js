@@ -70,16 +70,24 @@ const CameraPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tric
 //const FacePath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_face_expressions_YYB_miku.vmd';
 //const DancePath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor-motion-yyb-miku-nt.vmd'
 //const DancePath = 'mmdanimations/realize_motion/realize_motion.vmd'
+
+const data = []
+
 const FacePath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_face_expressions_light_blinking_eyes.vmd';
 const FaceName = 'face';
+data.push({ name: FaceName, path: FacePath });
 const LipPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_lip_motion_nothing.vmd';
 const LipName = 'sing';
+data.push({ name: LipName, path: LipPath });
 const DancePath = 'mmdanimations/highway_lover/highway_lover_motion.vmd';
 const DanceName = 'dance';
+data.push({ name: DanceName, path: DancePath });
 const HappyPath = 'mmdanimations/good_mood_loop/good_mood_loop_140f_no_movement.vmd';
 const HappyName = 'happy';
+data.push({ name: HappyName, path: HappyPath });
 const WaitingPath = 'mmdanimations/waiting_loop/waiting_465f.vmd';
 const WaitingName = 'wait';
+data.push({ name: WaitingName, path: WaitingPath });
 
 const miku1_offset = new THREE.Vector3(10, 0, 0);
 const miku2_offset = new THREE.Vector3(-10, 0, 0);
