@@ -12,6 +12,8 @@ export class Logger {
         document.getElementById('info').textContent = '';
     }
     log(msg) {
+//        document.getElementById('info').style.color = '#FF0000';
+        document.getElementById('info').style.color = '#FFFFFF';
         window.clearInterval(this.timer);
         if (this.line >= this.lines) {
             this.msgs.shift();
