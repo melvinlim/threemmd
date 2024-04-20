@@ -62,9 +62,9 @@ scene.add(pointLight);
 
 const modelPath = 'mmdmodels/miku4.3/miku4.3.pmx'
 
-//const FaceAnimationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_face_expressions_YYB_miku.vmd';
-const FaceAnimationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_face_expressions_light_blinking_eyes.vmd';
-const LipAnimationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_lip_motion_nothing.vmd';
+//const FacePath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_face_expressions_YYB_miku.vmd';
+const FacePath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_face_expressions_light_blinking_eyes.vmd';
+const LipPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_lip_motion_nothing.vmd';
 
 const helper = new MMDAnimationHelper();
 helper.configuration.resetPhysicsOnLoop = false;
@@ -72,7 +72,7 @@ helper.enabled.cameraAnimation = false;
 
 const goodMoodLoopPath = 'mmdanimations/good_mood_loop/good_mood_loop_140f_no_movement.vmd';
 const waitingLoopPath = 'mmdanimations/waiting_loop/waiting_465f.vmd'
-const cameraAnimationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor-camera-yyb-miku-nt.vmd';
+const CameraPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor-camera-yyb-miku-nt.vmd';
 
 const miku1_offset = new THREE.Vector3(10, 0, 0);
 const miku2_offset = new THREE.Vector3(-10, 0, 0);
@@ -80,7 +80,7 @@ const miku2_offset = new THREE.Vector3(-10, 0, 0);
 loadMMD(helper, scene, 'miku1', modelPath, 'wait', waitingLoopPath, miku1_offset);
 loadMMD(helper, scene, 'miku2', modelPath, 'wait', waitingLoopPath, miku2_offset);
 
-loadMMDCamera(helper, camera, 'camera', cameraAnimationPath);
+loadMMDCamera(helper, camera, 'camera', CameraPath);
 
 let miku1, miku2, floor;
 
@@ -108,13 +108,13 @@ const waitForModel = function () {
 		!helper.objects.get(miku2).mixer) {
 		setTimeout(waitForModel, timeOutDelay);
 	} else {
-		//const animationPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor-motion-yyb-miku-nt.vmd'
-		//const animationPath = 'mmdanimations/realize_motion/realize_motion.vmd'
-		const animationPath = 'mmdanimations/highway_lover/highway_lover_motion.vmd'
-		loadMMDAnimation(helper, miku2, 'dance', animationPath);
-		loadMMDAnimation(helper, miku2, 'face', FaceAnimationPath);
+		//const DancePath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor-motion-yyb-miku-nt.vmd'
+		//const DancePath = 'mmdanimations/realize_motion/realize_motion.vmd'
+		const DancePath = 'mmdanimations/highway_lover/highway_lover_motion.vmd'
+		loadMMDAnimation(helper, miku2, 'dance', DancePath);
+		loadMMDAnimation(helper, miku2, 'face', FacePath);
 		loadMMDAnimation(helper, miku2, 'happy', goodMoodLoopPath);
-		loadMMDAnimation(helper, miku2, 'sing', LipAnimationPath);
+		loadMMDAnimation(helper, miku2, 'sing', LipPath);
 	}
 }
 waitForModel();
