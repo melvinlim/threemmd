@@ -11,6 +11,8 @@ import { loadMMD } from './mmd.js';
 import { loadMMD2 } from './mmd.js';
 import { fadeToAction } from './misc.js';
 
+import { Logger } from './logger.js';
+
 import { createCheckerboard } from './misc.js';
 
 const shadows = true;
@@ -98,7 +100,8 @@ loadMMD2(helper, scene, 'miku2', modelPath, data, miku2_offset);
 
 loadMMDCamera(helper, camera, 'camera', CameraPath);
 
-document.getElementById('info').textContent = '';
+const logger = new Logger();
+logger.log('fdsa\nasdf');
 
 let miku1, miku2, floor;
 const waitForModels = function () {
