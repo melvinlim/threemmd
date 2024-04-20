@@ -130,6 +130,8 @@ export function loadMMD(helper, scene, mmdName, modelPath, animName, animationPa
 				});
 				mmdModel.mesh.name = mmdName;
 				mmdModel.mesh.animations.push(mmdModel.animation);
+				let action = helper.objects.get(mmdModel.mesh).mixer.clipAction(mmdModel.animation);
+				action.stop();
 				if (offset) {
 					mmdModel.mesh.position.x += offset.x;
 					mmdModel.mesh.position.y += offset.y;

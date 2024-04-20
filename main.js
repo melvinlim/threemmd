@@ -130,7 +130,8 @@ function finishedCallback(ev) {
 	}
 }
 const waitForAnimations = function () {
-	if (!miku2 || miku2.animations.length < data.length ||
+	if (!miku1 || !miku2 || !miku2.animations ||
+		miku2.animations.length < data.length ||
 		!helper.objects.get(miku2).mixer
 	) {
 		setTimeout(waitForAnimations, timeOutDelay);
@@ -140,20 +141,12 @@ const waitForAnimations = function () {
 		mixers['miku1'] = helper.objects.get(miku1).mixer;
 		mixers['miku2'] = helper.objects.get(miku2).mixer;
 		mixers['camera'] = helper.objects.get(camera).mixer;
+		mixers['miku1'].existingAction('wait').play();
+		mixers['miku2'].existingAction('dance').play();
 		mixers['miku2'].existingAction('face').play();
 		mixers['miku2'].existingAction('sing').play();
-		mixers['miku2'].existingAction('face').stop();
-		mixers['miku2'].existingAction('sing').stop();
-		mixers['miku2'].existingAction('wait').stop();
-		//mixers['miku2'].existingAction('wait').play();
-		//mixers['miku2'].existingAction('dance').stop();
-		//mixers['miku2'].existingAction('dance').reset();
-		mixers['miku2'].existingAction('dance').play();
-		mixers['miku2'].existingAction('happy').stop();
-		//mixers['miku2'].existingAction('happy').play();
 		mixers['miku2'].addEventListener('loop', loopCallback);
 		mixers['miku2'].addEventListener('finished', finishedCallback);
-		//fadeToAction(mixers['miku2'].existingAction('wait'), mixers['miku2'].existingAction('happy'), 20);
 		//the helper.add function called in loadMMD resets all durations to most recent model.
 		helper.meshes.forEach(function (mesh) { mesh.animations[0].resetDuration(); });
 		mixers['miku1']._actions[0].setLoop(THREE.LoopPingPong);
