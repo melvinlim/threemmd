@@ -52,7 +52,7 @@ const actions = {
 
 function logCallback(value) {
     if (value == false) {
-        pLogger._clearText();
+        pLogger.clearText();
     } else {
         pLogger.display();
     }

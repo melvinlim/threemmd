@@ -7,14 +7,10 @@ export class Logger {
         this.msgs = [];
         this.textTime = 5000;   //milliseconds to display text.
     }
-    _clearText() {
-        document.getElementById('info').textContent = '';
-    }
     clearText() {
         //this.msgs = [];
         //this.line = 0;
         document.getElementById('info').textContent = '';
-        //this._clearText();
     }
     error(msg) {
         console.error(msg);
