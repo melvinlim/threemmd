@@ -166,7 +166,8 @@ export function loadMMD(helper, scene, mmdName, modelPath, animName, animationPa
 	*/
 	};
 	manager.onProgress = function (url, itemsLoaded, itemsTotal) {
-		logger.log('Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
+		logger.log('Loading file: ' + url + '.');
+		logger.log('Loaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
 	};
 
 	manager.onError = function (url) {

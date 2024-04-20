@@ -27,6 +27,8 @@ export class Logger {
             this.msgs.shift();
         }
         this.line += 1;
+        const date = new Date();
+        msg = Math.floor(date.getTime() / 1000) + ':' + msg;
         this.msgs.push(msg);
         let content = '';
         this.msgs.forEach(function (x) {
