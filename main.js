@@ -11,7 +11,7 @@ import { loadMMD } from './mmd.js';
 import { loadMMD2 } from './mmd.js';
 import { fadeToAction } from './misc.js';
 
-import { Logger } from './logger.js';
+import { logger } from './logger.js';
 
 import { createCheckerboard } from './misc.js';
 
@@ -30,8 +30,6 @@ const texture = loader.load(
 		scene.background = texture;
 	});
 scene.background = texture;
-
-const logger = new Logger();
 
 if (shadows) {
 	renderer.shadowMap.enabled = true;

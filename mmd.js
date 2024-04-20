@@ -3,9 +3,7 @@ import { LoadingManager } from 'three';
 //import * as THREE from 'three';
 import { LoopOnce } from 'three';
 
-import { Logger } from './logger.js';
-
-const logger = new Logger();
+import { logger } from './logger.js';
 
 const timeOutDelay = 100;
 

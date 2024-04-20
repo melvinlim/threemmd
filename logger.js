@@ -1,5 +1,6 @@
 export class Logger {
     constructor() {
+        this.logging = true;
         this.timer = undefined;
         this.line = 0;
         this.lines = 10;
@@ -30,6 +31,9 @@ export class Logger {
         const date = new Date();
         msg = Math.floor(date.getTime() / 1000) + ':' + msg;
         this.msgs.push(msg);
+        if (!this.logging) {
+            return;
+        }
         let content = '';
         this.msgs.forEach(function (x) {
             content += x + '\n';
@@ -38,3 +42,5 @@ export class Logger {
         this.timer = setTimeout(this.clearText, this.textTime);
     }
 }
+
+export const logger = new Logger();
