@@ -1,8 +1,15 @@
 export class Logger {
     constructor() {
+        this.timer;
         this.line = 0;
         this.lines = 10;
         this.msgs = [];
+        this.textTime = 5000;   //milliseconds to display text.
+    }
+    clearText() {
+        this.msgs = [];
+        this.line = 0;
+        document.getElementById('info').textContent = '';
     }
     log(msg) {
         if (this.line >= this.lines) {
@@ -15,5 +22,7 @@ export class Logger {
             content += x + '\n';
         });
         document.getElementById('info').textContent = content;
+        window.clearInterval(this.timer);
+        this.timer = setInterval(this.clearText, this.textTime);
     }
 }
