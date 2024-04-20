@@ -31,6 +31,8 @@ const texture = loader.load(
 	});
 scene.background = texture;
 
+const logger = new Logger();
+
 if (shadows) {
 	renderer.shadowMap.enabled = true;
 }
@@ -100,8 +102,6 @@ loadMMD2(helper, scene, 'miku2', modelPath, data, miku2_offset);
 
 loadMMDCamera(helper, camera, 'camera', CameraPath);
 
-const logger = new Logger();
-
 let miku1, miku2, floor;
 const waitForModels = function () {
 	if (!scene.getObjectByName('miku1') ||
@@ -124,10 +124,10 @@ waitForModels();
 const mixers = {};
 
 function loopCallback(ev) {
-	console.log('looped: ' + ev.action._clip.name)
+	logger.log('looped: ' + ev.action._clip.name)
 }
 function finishedCallback(ev) {
-	console.log('finished: ' + ev.action._clip.name)
+	logger.log('finished: ' + ev.action._clip.name)
 	if (ev.action._clip.name == 'dance') {
 		mixers['miku2'].existingAction('wait').setLoop(THREE.LoopRepeat, Infinity);
 		fadeToAction(mixers['miku2'].existingAction('dance'), mixers['miku2'].existingAction('wait'), 20);

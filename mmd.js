@@ -3,6 +3,10 @@ import { LoadingManager } from 'three';
 //import * as THREE from 'three';
 import { LoopOnce } from 'three';
 
+import { Logger } from './logger.js';
+
+const logger = new Logger();
+
 const timeOutDelay = 100;
 
 //loadMMDModel does not work because helper.mixer is never created and set up.
@@ -13,10 +17,10 @@ export function loadMMDModel(helper, scene, mmdName, modelPath, offset = undefin
 	let mmdModel;
 	const manager = new LoadingManager();
 	manager.onStart = function (url, itemsLoaded, itemsTotal) {
-		console.log('Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
+		logger.log('Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
 	};
 	manager.onLoad = function () {
-		//console.log('Loading complete!');
+		//logger.log('Loading complete!');
 		mmdModel.name = mmdName;
 		if (offset) {
 			mmdModel.position.x += offset.x;
@@ -30,7 +34,7 @@ export function loadMMDModel(helper, scene, mmdName, modelPath, offset = undefin
 		scene.add(mmdModel);
 	};
 	manager.onProgress = function (url, itemsLoaded, itemsTotal) {
-		console.log('Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
+		logger.log('Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
 	};
 
 	manager.onError = function (url) {
@@ -47,7 +51,7 @@ export function loadMMDModel(helper, scene, mmdName, modelPath, offset = undefin
 		//scene.add( mesh );
 		},
 		function (xhr) {
-			//console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+			//logger.log((xhr.loaded / xhr.total * 100) + '% loaded');
 		},
 		function (error) {
 			console.error(error);
@@ -61,7 +65,7 @@ export function loadMMDCamera(helper, mmdModel, animationName, animationPath) {
 		animationPath,
 		mmdModel,
 		function (animationClip) {
-			console.log('loaded animation.');
+			logger.log('loaded animation.');
 			animationClip.name = animationName;
 			animationClip.resetDuration();
 			mmdModel.animations.push(animationClip);
@@ -72,7 +76,7 @@ export function loadMMDCamera(helper, mmdModel, animationName, animationPath) {
 			});
 		},
 		function (xhr) {
-			//console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+			//logger.log((xhr.loaded / xhr.total * 100) + '% loaded');
 		},
 		function (error) {
 			console.error(error);
@@ -86,7 +90,7 @@ export function loadMMDAnimation(helper, mmdModel, animationName, animationPath)
 		animationPath,
 		mmdModel,
 		function (animationClip) {
-			console.log('loaded animation.');
+			logger.log('loaded animation.');
 			animationClip.name = animationName;
 			animationClip.resetDuration();
 			mmdModel.animations.push(animationClip);
@@ -98,7 +102,7 @@ export function loadMMDAnimation(helper, mmdModel, animationName, animationPath)
 			action.clampWhenFinished = true;
 		},
 		function (xhr) {
-			//console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+			//logger.log((xhr.loaded / xhr.total * 100) + '% loaded');
 		},
 		function (error) {
 			console.error(error);
@@ -111,11 +115,11 @@ export function loadMMD(helper, scene, mmdName, modelPath, animName, animationPa
 	const manager = new LoadingManager();
 
 	manager.onStart = function (url, itemsLoaded, itemsTotal) {
-		console.log('Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
+		logger.log('Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
 	};
 
 	manager.onLoad = function () {
-		//console.log('Loading complete!');
+		//logger.log('Loading complete!');
 
 		const waitForAnimation = function () {
 			if (!mmdModel ||
@@ -162,7 +166,7 @@ export function loadMMD(helper, scene, mmdName, modelPath, animName, animationPa
 	*/
 	};
 	manager.onProgress = function (url, itemsLoaded, itemsTotal) {
-		console.log('Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
+		logger.log('Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
 	};
 
 	manager.onError = function (url) {
@@ -178,7 +182,7 @@ export function loadMMD(helper, scene, mmdName, modelPath, animName, animationPa
 			mmdModel = mmd;
 		},
 		function (xhr) {
-			//console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+			//logger.log((xhr.loaded / xhr.total * 100) + '% loaded');
 		},
 		function (error) {
 			console.error(error);
