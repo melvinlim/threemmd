@@ -151,10 +151,12 @@ const waitForAnimations = function () {
 		mixers['miku1'] = helper.objects.get(miku1).mixer;
 		mixers['miku2'] = helper.objects.get(miku2).mixer;
 		mixers['camera'] = helper.objects.get(camera).mixer;
+		
 		mixers['miku1'].existingAction('wait').play();
 		mixers['miku2'].existingAction('dance').play();
 		mixers['miku2'].existingAction('face').play();
 		mixers['miku2'].existingAction('sing').play();
+		
 		mixers['miku2'].addEventListener('loop', loopCallback);
 		mixers['miku2'].addEventListener('finished', finishedCallback);
 		mixers['miku1'].addEventListener('loop', loopCallback);

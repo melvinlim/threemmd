@@ -59,6 +59,21 @@ function logCallback(value) {
     console.log(value);
 }
 
+let pMiku1;
+
+const morphs = [];
+const morphCallbacks = [];
+for (let i = 0; i < 10; i++) {
+    function morphCallback(value) {
+        pMixers['miku1'].stopAllAction();
+        pMiku1.morphTargetInfluences[i] = value;
+    }
+    morphCallbacks.push(morphCallback);
+    morphs.push({
+        val: 0,
+    });
+}
+
 export function initGUI(logger, scene, renderer, helper, ambientLight, pointLight, mixers) {
     scenePtr = scene;
     rendererPtr = renderer;
@@ -91,6 +106,14 @@ export function initGUI(logger, scene, renderer, helper, ambientLight, pointLigh
 
     gui.add(logger, 'logging').name('logging')
         .onChange(logCallback);
+
+    pMiku1 = scene.getObjectByName('miku1');
+    const folder = gui.addFolder('Morphs');
+    folder.close();
+    for (let i = 0; i < 10; i++) {
+        folder.add(morphs[i], 'val', 0, 1, 0.1)
+            .onChange(morphCallbacks[i]);
+    }
 
     //set default values to avoid warnings.
     gui.children[0].$text.id = 'color-selector';
