@@ -69,6 +69,13 @@ export function initGUI(logger, scene, renderer, helper, ambientLight, pointLigh
     let pMiku1;
     pMiku1 = scene.getObjectByName('miku1');
 
+    const morphKeys = Object.keys(pMiku1.morphTargetDictionary);
+    let morphVals = new Array(pMiku1.morphTargetInfluences.length);
+    for (let i = 0; i < pMiku1.morphTargetInfluences.length; i++) {
+        let tmpvar = pMiku1.morphTargetDictionary[morphKeys[i]];
+        morphVals[tmpvar] = morphKeys[i];
+    }
+
     const morphs = [];
     const morphCallbacks = [];
     for (let i = 0; i < pMiku1.morphTargetInfluences.length; i++) {
@@ -78,7 +85,7 @@ export function initGUI(logger, scene, renderer, helper, ambientLight, pointLigh
         }
         morphCallbacks.push(morphCallback);
         morphs.push({
-            val: 0,
+            [morphVals[i]]: 0,
         });
     }
 
@@ -111,8 +118,9 @@ export function initGUI(logger, scene, renderer, helper, ambientLight, pointLigh
 
     const folder = gui.addFolder('Morphs');
     folder.close();
+
     for (let i = 0; i < pMiku1.morphTargetInfluences.length; i++) {
-        folder.add(morphs[i], 'val', 0, 1, 0.1)
+        folder.add(morphs[i], morphVals[i], 0, 1, 0.1)
             .onChange(morphCallbacks[i]);
         folder.children[i].$input.id = 'morph-slider' + i;
     }
