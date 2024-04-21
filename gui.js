@@ -114,6 +114,7 @@ export function initGUI(logger, scene, renderer, helper, ambientLight, pointLigh
     for (let i = 0; i < pMiku1.morphTargetInfluences.length; i++) {
         folder.add(morphs[i], 'val', 0, 1, 0.1)
             .onChange(morphCallbacks[i]);
+        folder.children[i].$input.id = 'morph-slider' + i;
     }
 
     //set default values to avoid warnings.
