@@ -45,6 +45,32 @@ function danceToWait() {
     fadeToAction(pMixers['miku2'].existingAction('dance'), pMixers['miku2'].existingAction('wait'), 5);
 }
 
+function helloCallback(val) {
+    const synth = window.speechSynthesis;
+    let ourText = "Hey there what's up!!!!";
+    const utterThis = new SpeechSynthesisUtterance(ourText);
+
+    let voices = synth.getVoices();
+    utterThis.voice = voices[2];
+
+    const speak = function () {
+        if (voices.length == 0 ||
+            utterThis.voice != voices[2]) {
+            voices = synth.getVoices();
+            utterThis.voice = voices[2];
+            setTimeout(speak, 100);
+        } else {
+            synth.speak(utterThis);
+        }
+    }
+    speak();
+
+}
+
+const button = {
+    hello: helloCallback
+};
+
 const actions = {
     danceToWait: danceToWait,
     waitToHappy: waitToHappy
@@ -123,6 +149,13 @@ export function initGUI(logger, scene, renderer, helper, ambientLight, pointLigh
         folder.add(morphs[i], morphVals[i], 0, 1, 0.1)
             .onChange(morphCallbacks[i]);
         folder.children[i].$input.id = 'morph-slider' + i;
+    }
+
+    if ('speechSynthesis' in window) {
+        console.log("Web Speech API supported!");
+        gui.add(button, 'hello');
+    } else {
+        console.log("Web Speech API not supported.");
     }
 
     //set default values to avoid warnings.
