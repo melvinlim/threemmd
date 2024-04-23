@@ -50,6 +50,15 @@ function helloCallback(val) {
     let ourText = "Hey there what's up!!!!";
     const utterThis = new SpeechSynthesisUtterance(ourText);
 
+    utterThis.onstart = function (event) {
+        console.log('Speech has started');
+        pMixers['miku1'].existingAction('talk').play();
+    };
+    utterThis.onend = function (event) {
+        console.log('Speech has ended');
+        pMixers['miku1'].existingAction('talk').stop();
+    };
+
     let voices = synth.getVoices();
     utterThis.voice = voices[2];
 
