@@ -1,5 +1,6 @@
 import GUI from 'lilgui';
 import { fadeToAction } from './misc.js';
+import { LoopRepeat } from 'three';
 class ColorGUIHelper {
     constructor(object, prop) {
         this.object = object;
@@ -51,6 +52,7 @@ function speakText(ourText) {
 
     utterThis.onstart = function (event) {
         console.log('Speech has started');
+        pMixers['miku1'].existingAction('talk').setLoop(LoopRepeat, Infinity);
         pMixers['miku1'].existingAction('talk').play();
     };
     utterThis.onend = function (event) {
