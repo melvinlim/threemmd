@@ -76,8 +76,31 @@ function helloCallback(val) {
 
 }
 
+function storyCallback(val) {
+    const url = 'https://bookshelf-jhr6l6besa-uc.a.run.app/';
+    //const url = 'https://google.com';
+    //fetch(url).then(function (response) {
+    fetch(url, {
+        method: 'GET',
+        mode: 'cors',
+        cache: 'no-cache',
+        headers: {
+            "Content-Type": "text/plain"
+        }
+    }).then(function (response) {
+        pLogger.log(response);
+        return response.text();
+        //return response.json();
+    }).then(function (data) {
+        pLogger.log(data);
+    }).catch(function (err) {
+        //pLogger.log('Fetch Error: ' + err);
+    });
+}
+
 const button = {
-    hello: helloCallback
+    hello: helloCallback,
+    story: storyCallback
 };
 
 const actions = {
@@ -166,6 +189,7 @@ export function initGUI(logger, scene, renderer, helper, ambientLight, pointLigh
     } else {
         console.log("Web Speech API not supported.");
     }
+    gui.add(button, 'story');
 
     gui.close();
 
