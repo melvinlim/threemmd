@@ -45,9 +45,8 @@ function danceToWait() {
     fadeToAction(pMixers['miku2'].existingAction('dance'), pMixers['miku2'].existingAction('wait'), 5);
 }
 
-function helloCallback(val) {
+function speakText(ourText) {
     const synth = window.speechSynthesis;
-    let ourText = "Hey there what's up!!!!";
     const utterThis = new SpeechSynthesisUtterance(ourText);
 
     utterThis.onstart = function (event) {
@@ -73,7 +72,11 @@ function helloCallback(val) {
         }
     }
     speak();
+}
 
+function helloCallback(val) {
+    let greeting = "Hey there what's up!!!!";
+    speakText(greeting);
 }
 
 function storyCallback(val) {
@@ -93,6 +96,9 @@ function storyCallback(val) {
         //return response.json();
     }).then(function (data) {
         pLogger.log(data);
+        if (data && data.length > 0) {
+            speakText(data);
+        }
     }).catch(function (err) {
         //pLogger.log('Fetch Error: ' + err);
     });
