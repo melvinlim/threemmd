@@ -167,6 +167,8 @@ export function initGUI(logger, scene, renderer, helper, ambientLight, pointLigh
         console.log("Web Speech API not supported.");
     }
 
+    gui.close();
+
     //set default values to avoid warnings.
     gui.children[0].$text.id = 'color-selector';
     gui.children[1].$input.id = 'light-slider1';
