@@ -23,7 +23,7 @@ const camera = initCamera(renderer);
 
 const loader = new THREE.TextureLoader();
 const texture = loader.load(
-	'nightsky_1k.jpg',
+	'starmap.png',
 	() => {
 		texture.mapping = THREE.EquirectangularReflectionMapping;
 		texture.colorSpace = THREE.SRGBColorSpace;

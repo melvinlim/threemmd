@@ -20,7 +20,7 @@
 [Highway Lover ƒ‚[ƒVƒ‡ƒ“](https://www.nicovideo.jp/watch/sm43444918)
 
 ## Equirectangular Skymap
-[Kloppenheim 02 (Pure Sky)](https://polyhaven.com/a/kloppenheim_02_puresky)
+[Armchair Astronautics](https://armchairastronautics.blogspot.com/2014/06/blank-sky-maps.html)
 
 ### Support or Contact
 My email address is : dxlim@outlook.com
