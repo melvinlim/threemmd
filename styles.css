@@ -4,6 +4,7 @@
 }
 
 #info {
+    pointer-events: none;
     color: white;
     position: absolute;
     top: 10px;

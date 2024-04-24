@@ -51,12 +51,12 @@ function speakText(ourText) {
     const utterThis = new SpeechSynthesisUtterance(ourText);
 
     utterThis.onstart = function (event) {
-        console.log('Speech has started');
+        pLogger.log('Speech has started');
         pMixers['miku1'].existingAction('talk').setLoop(LoopRepeat, Infinity);
         pMixers['miku1'].existingAction('talk').play();
     };
     utterThis.onend = function (event) {
-        console.log('Speech has ended');
+        pLogger.log('Speech has ended');
         pMixers['miku1'].existingAction('talk').stop();
     };
 
@@ -82,6 +82,7 @@ function helloCallback(val) {
 }
 
 function storyCallback(val) {
+    pLogger.log('preparing to speak.');
     const url = 'https://bookshelf-jhr6l6besa-uc.a.run.app/';
     //const url = 'https://google.com';
     //fetch(url).then(function (response) {
