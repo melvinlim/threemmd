@@ -38,6 +38,9 @@ function shadowHelper() {
         scenePtr.children[0].receiveShadow = false;
     }
 }
+function waitToWalk() {
+    fadeToAction(pMixers['miku1'].existingAction('wait'), pMixers['miku1'].existingAction('walk'), 5);
+}
 
 function waitToHappy() {
     fadeToAction(pMixers['miku1'].existingAction('wait'), pMixers['miku1'].existingAction('happy'), 5);
@@ -114,7 +117,8 @@ const button = {
 
 const actions = {
     danceToWait: danceToWait,
-    waitToHappy: waitToHappy
+    waitToHappy: waitToHappy,
+    waitToWalk: waitToWalk,
 };
 
 function logCallback(value) {
@@ -199,6 +203,8 @@ export function initGUI(logger, scene, renderer, helper, ambientLight, pointLigh
         console.log("Web Speech API not supported.");
     }
     gui.add(button, 'story');
+
+    gui.add(actions, 'waitToWalk').name('waitToWalk');
 
     gui.close();
 

@@ -94,11 +94,14 @@ Miku2Data.push({ name: WaitingName, path: WaitingPath });
 
 const TalkPath = 'mmdanimations/talk.vmd';
 const TalkName = 'talk';
+const WalkPath = 'mmdanimations/walk.vmd';
+const WalkName = 'walk';
 
 const Miku1Data = [];
 Miku1Data.push({ name: WaitingName, path: WaitingPath });
 Miku1Data.push({ name: HappyName, path: HappyPath });
 Miku1Data.push({ name: TalkName, path: TalkPath });
+Miku1Data.push({ name: WalkName, path: WalkPath });
 
 const miku1_offset = new THREE.Vector3(10, 0, 0);
 const miku2_offset = new THREE.Vector3(-10, 0, 0);

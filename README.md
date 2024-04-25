@@ -18,6 +18,8 @@
 [リアライズ モーション](https://www.nicovideo.jp/watch/sm43256748)
 <br>
 [Highway Lover モーション](https://www.nicovideo.jp/watch/sm43444918)
+<br>
+[Walking Animation](https://github.com/bear0830/mmd)
 
 ## Equirectangular Skymap
 [Armchair Astronautics](https://armchairastronautics.blogspot.com/2014/06/blank-sky-maps.html)
