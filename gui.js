@@ -112,8 +112,19 @@ function storyCallback(val) {
 
 const button = {
     hello: helloCallback,
-    story: storyCallback
+    story: storyCallback,
+    msg: '',
 };
+
+let msgController;
+
+function msgCallback(val) {
+    pLogger.log(val);
+    //button.msg = '';
+    if (msgController) {
+        msgController.setValue('');
+    }
+}
 
 const actions = {
     danceToWait: danceToWait,
@@ -202,9 +213,12 @@ export function initGUI(logger, scene, renderer, helper, ambientLight, pointLigh
     } else {
         console.log("Web Speech API not supported.");
     }
-    gui.add(button, 'story');
+    gui.add(button, 'story').name('story');
 
     gui.add(actions, 'waitToWalk').name('waitToWalk');
+
+    msgController = gui.add(button, 'msg').name('msg')
+        .onFinishChange(msgCallback);
 
     gui.close();
 
@@ -219,4 +233,6 @@ export function initGUI(logger, scene, renderer, helper, ambientLight, pointLigh
     gui.children[7].$input.id = 'shadows-checkbox';
     //gui.children[8].$input.id = 'dance2wait-button';
     gui.children[9].$input.id = 'logging-checkbox';
+    gui.children[14].$input.id = 'msg-textbox';
+    gui.children[14].$input.name = 'msg-textbox';
 }
