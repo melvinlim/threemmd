@@ -145,6 +145,10 @@ function finishedCallback(ev) {
 		ev.target.existingAction('wait').setLoop(THREE.LoopRepeat, Infinity);
 		fadeToAction(ev.target.existingAction('happy'), ev.target.existingAction('wait'), 5);
 	}
+	if (ev.action._clip.name == 'walk') {
+		ev.target.existingAction('wait').setLoop(THREE.LoopRepeat, Infinity);
+		fadeToAction(ev.target.existingAction('walk'), ev.target.existingAction('wait'), 5);
+	}
 }
 const waitForAnimations = function () {
 	if (!miku1 || !miku2 || !miku2.animations ||
