@@ -110,6 +110,31 @@ function storyCallback(val) {
         //pLogger.log('Fetch Error: ' + err);
     });
 }
+function chatCallback(val) {
+    pLogger.log('responding to: ' + val);
+    let encodedVal = encodeURIComponent(val);
+    pLogger.log('responding to: ' + encodedVal);
+    pLogger.log('waiting for response...');
+    const url = 'https://bookshelf-jhr6l6besa-uc.a.run.app/?data=' + encodedVal;
+    fetch(url, {
+        method: 'GET',
+        mode: 'cors',
+        cache: 'no-cache',
+        headers: {
+            "Content-Type": "text/plain"
+        }
+    }).then(function (response) {
+        pLogger.log(response);
+        return response.text();
+    }).then(function (data) {
+        pLogger.log(data);
+        if (data && data.length > 0) {
+            speakText(data);
+        }
+    }).catch(function (err) {
+        pLogger.log('Fetch Error: ' + err);
+    });
+}
 
 const button = {
     hello: helloCallback,
@@ -120,7 +145,8 @@ const button = {
 let msgController;
 
 function msgCallback(val) {
-    pLogger.log(val);
+    //pLogger.log(val);
+    chatCallback(val);
     //button.msg = '';
     if (msgController) {
         msgController.setValue('');
