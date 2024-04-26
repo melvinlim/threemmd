@@ -86,7 +86,8 @@ function helloCallback(val) {
 
 function storyCallback(val) {
     pLogger.log('preparing to speak.');
-    const url = 'https://bookshelf-jhr6l6besa-uc.a.run.app/';
+    //const url = 'https://bookshelf-jhr6l6besa-uc.a.run.app/';
+    const url = 'https://bookshelf-jhr6l6besa-uc.a.run.app/story';
     //const url = 'https://google.com';
     //fetch(url).then(function (response) {
     fetch(url, {
