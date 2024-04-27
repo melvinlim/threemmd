@@ -138,7 +138,7 @@ function chatCallback(val) {
             speakText(data);
         }
     }).catch(function (err) {
-        pLogger.log('Fetch Error: ' + err);
+        //pLogger.log('Error: ' + err);
     });
 }
 
