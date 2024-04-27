@@ -151,9 +151,16 @@ const button = {
 let msgController;
 
 function msgCallback(val) {
-    //pLogger.log(val);
+    //pLogger.log(val.charCodeAt(val.length - 1));
+    if (val.charCodeAt(val.length - 1) == 13) {     //smart phone go/submit button keycode.
+        chatCallback(val);
+        if (msgController) {
+            msgController.setValue('');
+        }
+    }
+}
+function msgFinishedCallback(val) {
     chatCallback(val);
-    //button.msg = '';
     if (msgController) {
         msgController.setValue('');
     }
@@ -251,7 +258,8 @@ export function initGUI(logger, scene, renderer, helper, ambientLight, pointLigh
     gui.add(actions, 'waitToWalk').name('waitToWalk');
 
     msgController = gui.add(button, 'msg').name('msg')
-        .onFinishChange(msgCallback);
+        .onChange(msgCallback)
+        .onFinishChange(msgFinishedCallback);
 
     gui.close();
 
