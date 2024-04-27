@@ -110,6 +110,12 @@ function storyCallback(val) {
         //pLogger.log('Fetch Error: ' + err);
     });
 }
+/*
+//this encodes %20 to + for some reason.
+const url = 'https://bookshelf-jhr6l6besa-uc.a.run.app/?' + new URLSearchParams({
+    data: val,
+});
+*/
 function chatCallback(val) {
     pLogger.log('responding to: ' + val);
     let encodedVal = encodeURIComponent(val);
