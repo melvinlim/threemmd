@@ -151,7 +151,7 @@ function bunnyCallback(){
 const button = {
     hello: helloCallback,
     story: storyCallback,
-    msg: '',
+    message: '',
     bunny: bunnyCallback,
 };
 
@@ -266,11 +266,11 @@ export function initGUI(logger, scene, renderer, helper, ambientLight, pointLigh
 
     gui.add(actions, 'waitToWalk').name('waitToWalk');
 
-    msgController = gui.add(button, 'msg').name('msg')
+    gui.add(button, 'bunny').name('bunny');
+
+    msgController = gui.add(button, 'message').name('message')
         .onChange(msgCallback)
         .onFinishChange(msgFinishedCallback);
-
-    gui.add(button, 'bunny').name('bunny');
 
     gui.close();
 
