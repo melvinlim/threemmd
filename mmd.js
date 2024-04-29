@@ -1,6 +1,6 @@
 import { MMDLoader } from 'three/addons/loaders/MMDLoader.js';
 import { LoadingManager } from 'three';
-//import * as THREE from 'three';
+import * as THREE from 'three';
 import { LoopOnce } from 'three';
 
 import { logger } from './logger.js';
@@ -107,6 +107,52 @@ export function loadMMDAnimation(helper, mmdModel, animationName, animationPath)
 		}
 	);
 }
+
+export function replaceModel(helper, scene, mmdName, modelPath) {
+	const HappyPath = 'mmdanimations/good_mood_loop/good_mood_loop_140f_no_movement.vmd';
+	const HappyName = 'happy';
+	const WaitingPath = 'mmdanimations/waiting_loop/waiting_465f.vmd';
+	const WaitingName = 'wait';
+	const TalkPath = 'mmdanimations/talk.vmd';
+	const TalkName = 'talk';
+	const WalkPath = 'mmdanimations/walk.vmd';
+	const WalkName = 'walk';
+
+	const Miku1Data = [];
+	Miku1Data.push({ name: WaitingName, path: WaitingPath });
+	Miku1Data.push({ name: HappyName, path: HappyPath });
+	Miku1Data.push({ name: TalkName, path: TalkPath });
+	Miku1Data.push({ name: WalkName, path: WalkPath });
+
+	const miku1_offset = new THREE.Vector3(10, 0, 0);
+
+	let previousModel = scene.getObjectByName(mmdName);
+	previousModel.visible = false;
+	scene.remove(previousModel);
+	let prevIdx = helper.meshes.indexOf(previousModel);
+	helper.meshes.splice(prevIdx, 1);
+	helper.objects.delete(previousModel);
+
+	loadMMD2(helper, scene, mmdName, modelPath, Miku1Data, miku1_offset);
+
+	let mmdModel;
+
+	const waitForAnimations = function () {
+		if (!mmdModel || !mmdModel.animations ||
+			mmdModel.animations.length < Miku1Data.length ||
+			!helper.objects.get(mmdModel).mixer
+		) {
+			mmdModel = scene.getObjectByName(mmdName);
+			setTimeout(waitForAnimations, timeOutDelay);
+		} else {
+			let mixer = helper.objects.get(mmdModel).mixer;
+			mixer.existingAction('wait').play();
+			mmdModel.visible = true;
+		}
+	}
+	waitForAnimations();
+}
+
 export function loadMMD(helper, scene, mmdName, modelPath, animName, animationPath, offset = undefined) {
 
 	let mmdModel;

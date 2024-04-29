@@ -1,6 +1,8 @@
 import GUI from 'lilgui';
 import { fadeToAction } from './misc.js';
 import { LoopRepeat } from 'three';
+import { replaceModel } from './mmd.js';
+
 class ColorGUIHelper {
     constructor(object, prop) {
         this.object = object;
@@ -142,10 +144,15 @@ function chatCallback(val) {
     });
 }
 
+function bunnyCallback(){
+    replaceModel(helperPtr, scenePtr, 'miku1', 'mmdmodels/miku4.3/miku4.3.pmx');
+}
+
 const button = {
     hello: helloCallback,
     story: storyCallback,
     msg: '',
+    bunny: bunnyCallback,
 };
 
 let msgController;
@@ -263,6 +270,8 @@ export function initGUI(logger, scene, renderer, helper, ambientLight, pointLigh
         .onChange(msgCallback)
         .onFinishChange(msgFinishedCallback);
 
+    gui.add(button, 'bunny').name('bunny');
+
     gui.close();
 
     //set default values to avoid warnings.
@@ -278,4 +287,5 @@ export function initGUI(logger, scene, renderer, helper, ambientLight, pointLigh
     gui.children[9].$input.id = 'logging-checkbox';
     gui.children[14].$input.id = 'msg-textbox';
     gui.children[14].$input.name = 'msg-textbox';
+    //gui.children[15].$input.id = 'bunny-button';
 }
