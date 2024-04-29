@@ -67,7 +67,8 @@ const helper = new MMDAnimationHelper();
 helper.configuration.resetPhysicsOnLoop = false;
 helper.enabled.cameraAnimation = false;
 
-const modelPath = 'mmdmodels/miku4.3/miku4.3.pmx';
+const mikuModelPath = 'mmdmodels/miku4.3/miku4.3.pmx';
+const bunnyModelPath = 'mmdmodels/bunny_toon/bunny_toon.pmx';
 const CameraPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor-camera-yyb-miku-nt.vmd';
 
 //const FacePath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_face_expressions_YYB_miku.vmd';
@@ -106,8 +107,8 @@ Miku1Data.push({ name: WalkName, path: WalkPath });
 const miku1_offset = new THREE.Vector3(10, 0, 0);
 const miku2_offset = new THREE.Vector3(-10, 0, 0);
 
-loadMMD2(helper, scene, 'miku1', modelPath, Miku1Data, miku1_offset);
-loadMMD2(helper, scene, 'miku2', modelPath, Miku2Data, miku2_offset);
+loadMMD2(helper, scene, 'miku1', bunnyModelPath, Miku1Data, miku1_offset);
+loadMMD2(helper, scene, 'miku2', mikuModelPath, Miku2Data, miku2_offset);
 
 loadMMDCamera(helper, camera, 'camera', CameraPath);
 

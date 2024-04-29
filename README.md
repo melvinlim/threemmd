@@ -10,6 +10,8 @@
 ## MMD Models
 [Miku4.3](https://bowlroll.net/file/145960)
 <br>
+[Bunny](https://3d-arts.misanyan.jp/articles/3005)
+<br>
 [Miku-YYB-default](https://bowlroll.net/file/284016)
 
 ## MMD Animations
