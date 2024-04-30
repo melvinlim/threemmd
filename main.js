@@ -107,7 +107,7 @@ Miku1Data.push({ name: WalkName, path: WalkPath });
 const miku1_offset = new THREE.Vector3(10, 0, 0);
 const miku2_offset = new THREE.Vector3(-10, 0, 0);
 
-const miku1ActiveAnims = [WalkName]
+const miku1ActiveAnims = [WaitingName, FaceName]
 const miku2ActiveAnims = [DanceName, FaceName, LipName]
 
 const mixers = {};

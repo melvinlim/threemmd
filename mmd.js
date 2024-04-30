@@ -156,7 +156,7 @@ export function replaceModel(helper, scene, mmdName, modelPath) {
 	waitForAnimations();
 }
 
-export function loadMMD(helper, scene, mmdName, modelPath, animName, animationPath, offset = undefined) {
+export function loadMMD(helper, scene, mmdName, modelPath, animName, animationPath, offset = undefined, runAnim = false) {
 
 	let mmdModel;
 	const manager = new LoadingManager();
@@ -190,6 +190,9 @@ export function loadMMD(helper, scene, mmdName, modelPath, animName, animationPa
 				}
 				mmdModel.mesh.visible = false;
 				scene.add(mmdModel.mesh);
+				if (runAnim) {
+					action.play();
+				}
 			}
 		}
 		waitForAnimation();
@@ -241,7 +244,17 @@ export function loadMMD(helper, scene, mmdName, modelPath, animName, animationPa
 export function loadMMD2(mixers, helper, scene, mmdName, modelPath, data, offset = undefined, activeAnims = undefined) {
 	let mmdModelObj;
 	const firstData = data[0];
-	loadMMD(helper, scene, mmdName, modelPath, firstData.name, firstData.path, offset);
+	let runAnim = false;
+	var j = 0;
+	const len = activeAnims.length;
+	while (j < len) {
+		if (activeAnims[j] == firstData.name) {
+			runAnim = true;
+		}
+		j += 1;
+	}
+
+	loadMMD(helper, scene, mmdName, modelPath, firstData.name, firstData.path, offset, runAnim);
 	const waitForModels = function () {
 		if (!scene.getObjectByName(mmdName)) {
 			setTimeout(waitForModels, timeOutDelay);
