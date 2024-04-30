@@ -285,7 +285,7 @@ export function initGUI(logger, scene, renderer, helper, ambientLight, pointLigh
     gui.children[7].$input.id = 'shadows-checkbox';
     //gui.children[8].$input.id = 'dance2wait-button';
     gui.children[9].$input.id = 'logging-checkbox';
-    gui.children[14].$input.id = 'msg-textbox';
-    gui.children[14].$input.name = 'msg-textbox';
+    gui.children[15].$input.id = 'msg-textbox';
+    gui.children[15].$input.name = 'msg-textbox';
     //gui.children[15].$input.id = 'bunny-button';
 }
