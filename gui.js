@@ -93,7 +93,7 @@ function storyCallback(val) {
     //const url = 'https://google.com';
     //fetch(url).then(function (response) {
     fetch(url, {
-        method: 'GET',
+        method: 'POST',
         mode: 'cors',
         cache: 'no-cache',
         headers: {
