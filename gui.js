@@ -137,7 +137,7 @@ function chatCallback(val) {
 }
 
 function bunnyCallback(){
-    replaceModel(pHelper, pScene, 'miku1', 'mmdmodels/miku4.3/miku4.3.pmx');
+    replaceModel(pMixers, pHelper, pScene, 'miku1', 'mmdmodels/miku4.3/miku4.3.pmx');
 }
 
 const button = {

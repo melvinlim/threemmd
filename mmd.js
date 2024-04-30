@@ -111,7 +111,7 @@ export function loadMMDAnimation(helper, mmdModel, animationName, animationPath,
 	);
 }
 
-export function replaceModel(helper, scene, mmdName, modelPath) {
+export function replaceModel(mixers, helper, scene, mmdName, modelPath) {
 	const HappyPath = 'mmdanimations/good_mood_loop/good_mood_loop_140f_no_movement.vmd';
 	const HappyName = 'happy';
 	const WaitingPath = 'mmdanimations/waiting_loop/waiting_465f.vmd';
@@ -136,7 +136,7 @@ export function replaceModel(helper, scene, mmdName, modelPath) {
 	helper.meshes.splice(prevIdx, 1);
 	helper.objects.delete(previousModel);
 
-	loadMMD2(helper, scene, mmdName, modelPath, Miku1Data, miku1_offset);
+	loadMMD2(mixers, helper, scene, mmdName, modelPath, Miku1Data, miku1_offset);
 
 	let mmdModel;
 
@@ -241,7 +241,7 @@ export function loadMMD(helper, scene, mmdName, modelPath, animName, animationPa
 	);
 }
 
-export function loadMMD2(mixers, helper, scene, mmdName, modelPath, data, offset = undefined, activeAnims = undefined) {
+export function loadMMD2(mixers, helper, scene, mmdName, modelPath, data, offset = undefined, activeAnims = []) {
 	let mmdModelObj;
 	const firstData = data[0];
 	let runAnim = false;
