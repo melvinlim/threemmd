@@ -97,10 +97,7 @@ const reqSettings = {
 
 function storyCallback(val) {
     pLogger.log('preparing to speak.');
-    //const url = 'https://bookshelf-jhr6l6besa-uc.a.run.app/';
     const url = 'https://bookshelf-jhr6l6besa-uc.a.run.app/story';
-    //const url = 'https://google.com';
-    //fetch(url).then(function (response) {
     fetch(url, reqSettings).then(function (response) {
         pLogger.log(response);
         return response.text();
@@ -182,7 +179,6 @@ function logCallback(value) {
     } else {
         pLogger.display();
     }
-    console.log(value);
 }
 
 export function initGUI(logger, scene, renderer, helper, ambientLight, pointLight, mixers) {
@@ -252,10 +248,10 @@ export function initGUI(logger, scene, renderer, helper, ambientLight, pointLigh
     }
 
     if ('speechSynthesis' in window) {
-        console.log("Web Speech API supported!");
+        logger.log("Web Speech API supported!");
         gui.add(button, 'hello');
     } else {
-        console.log("Web Speech API not supported.");
+        logger.log("Web Speech API not supported.");
     }
     gui.add(button, 'story').name('story');
 
