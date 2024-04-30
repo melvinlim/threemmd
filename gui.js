@@ -15,29 +15,29 @@ class ColorGUIHelper {
         this.object[this.prop].set(hexString);
     }
 }
-let scenePtr;
-let rendererPtr;
-let helperPtr;
+let pScene;
+let pRenderer;
+let pHelper;
 let pMixers;
 let pLogger;
 function updateGravity(value) {
-    helperPtr.meshes.forEach(function (mesh) {
-        let gravity = helperPtr.objects.get(mesh).physics.gravity
+    pHelper.meshes.forEach(function (mesh) {
+        let gravity = pHelper.objects.get(mesh).physics.gravity
         gravity.y = value;
-        helperPtr.objects.get(mesh).physics.setGravity(gravity);
+        pHelper.objects.get(mesh).physics.setGravity(gravity);
     });
 }
 function updateSpeed(value) {
-    helperPtr.meshes.forEach(function (mesh) {
-        helperPtr.objects.get(mesh).mixer.timeScale = value;
+    pHelper.meshes.forEach(function (mesh) {
+        pHelper.objects.get(mesh).mixer.timeScale = value;
     });
 }
 
 function shadowHelper() {
-    if (rendererPtr.shadowMap.enabled) {
-        scenePtr.children[0].receiveShadow = true;
+    if (pRenderer.shadowMap.enabled) {
+        pScene.children[0].receiveShadow = true;
     } else {
-        scenePtr.children[0].receiveShadow = false;
+        pScene.children[0].receiveShadow = false;
     }
 }
 function waitToWalk() {
@@ -137,7 +137,7 @@ function chatCallback(val) {
 }
 
 function bunnyCallback(){
-    replaceModel(helperPtr, scenePtr, 'miku1', 'mmdmodels/miku4.3/miku4.3.pmx');
+    replaceModel(pHelper, pScene, 'miku1', 'mmdmodels/miku4.3/miku4.3.pmx');
 }
 
 const button = {
@@ -182,9 +182,9 @@ function logCallback(value) {
 }
 
 export function initGUI(logger, scene, renderer, helper, ambientLight, pointLight, mixers) {
-    scenePtr = scene;
-    rendererPtr = renderer;
-    helperPtr = helper;
+    pScene = scene;
+    pRenderer = renderer;
+    pHelper = helper;
     pMixers = mixers;
     pLogger = logger;
 
