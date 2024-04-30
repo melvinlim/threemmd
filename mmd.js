@@ -82,7 +82,7 @@ export function loadMMDCamera(helper, mmdModel, animationName, animationPath) {
 	);
 }
 
-export function loadMMDAnimation(helper, mmdModel, animationName, animationPath) {
+export function loadMMDAnimation(helper, mmdModel, animationName, animationPath, runAnim = false) {
 	const loader = new MMDLoader();
 	loader.loadAnimation(
 		animationPath,
@@ -98,6 +98,9 @@ export function loadMMDAnimation(helper, mmdModel, animationName, animationPath)
 			//action.setLoop(THREE.LoopPingPong);
 			//action.repetitions = 1;
 			action.clampWhenFinished = true;
+			if (runAnim) {
+				action.play();
+			}
 		},
 		function (xhr) {
 			//logger.log((xhr.loaded / xhr.total * 100) + '% loaded');
@@ -235,7 +238,7 @@ export function loadMMD(helper, scene, mmdName, modelPath, animName, animationPa
 	);
 }
 
-export function loadMMD2(helper, scene, mmdName, modelPath, data, offset = undefined) {
+export function loadMMD2(mixers, helper, scene, mmdName, modelPath, data, offset = undefined, activeAnims = undefined) {
 	let mmdModelObj;
 	const firstData = data[0];
 	loadMMD(helper, scene, mmdName, modelPath, firstData.name, firstData.path, offset);
@@ -255,7 +258,16 @@ export function loadMMD2(helper, scene, mmdName, modelPath, data, offset = undef
 			setTimeout(waitForModel, timeOutDelay);
 		} else {
 			for (let i = 1; i < data.length; i++) {
-				loadMMDAnimation(helper, mmdModelObj, data[i].name, data[i].path);
+				let runAnim = false;
+				var j = 0;
+				const len = activeAnims.length;
+				while (j < len) {
+					if (data[i].name == activeAnims[j]) {
+						runAnim = true;
+					}
+					j++;
+				}
+				loadMMDAnimation(helper, mmdModelObj, data[i].name, data[i].path, runAnim);
 			}
 		}
 	}
@@ -267,6 +279,7 @@ export function loadMMD2(helper, scene, mmdName, modelPath, data, offset = undef
 		) {
 			setTimeout(waitForAnimations, timeOutDelay);
 		} else {
+			mixers[mmdName] = helper.objects.get(mmdModelObj).mixer;
 			//the helper.add function called in loadMMD resets all durations to most recent model.
 			helper.meshes.forEach(
 				function (mesh) {
@@ -280,5 +293,4 @@ export function loadMMD2(helper, scene, mmdName, modelPath, data, offset = undef
 		}
 	}
 	waitForAnimations();
-
 }

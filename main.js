@@ -107,8 +107,13 @@ Miku1Data.push({ name: WalkName, path: WalkPath });
 const miku1_offset = new THREE.Vector3(10, 0, 0);
 const miku2_offset = new THREE.Vector3(-10, 0, 0);
 
-loadMMD2(helper, scene, 'miku1', bunnyModelPath, Miku1Data, miku1_offset);
-loadMMD2(helper, scene, 'miku2', mikuModelPath, Miku2Data, miku2_offset);
+const miku1ActiveAnims = [WalkName]
+const miku2ActiveAnims = [DanceName, FaceName, LipName]
+
+const mixers = {};
+
+loadMMD2(mixers, helper, scene, 'miku1', bunnyModelPath, Miku1Data, miku1_offset, miku1ActiveAnims);
+loadMMD2(mixers, helper, scene, 'miku2', mikuModelPath, Miku2Data, miku2_offset, miku2ActiveAnims);
 
 loadMMDCamera(helper, camera, 'camera', CameraPath);
 
@@ -130,8 +135,6 @@ const waitForModels = function () {
 	}
 }
 waitForModels();
-
-const mixers = {};
 
 function loopCallback(ev) {
 	logger.log('looped: ' + ev.action._clip.name)
@@ -160,14 +163,9 @@ const waitForAnimations = function () {
 	} else {
 		miku1.visible = true;
 		miku2.visible = true;
+		mixers['camera'] = helper.objects.get(camera).mixer;
 		mixers['miku1'] = helper.objects.get(miku1).mixer;
 		mixers['miku2'] = helper.objects.get(miku2).mixer;
-		mixers['camera'] = helper.objects.get(camera).mixer;
-		
-		mixers['miku1'].existingAction('wait').play();
-		mixers['miku2'].existingAction('dance').play();
-		mixers['miku2'].existingAction('face').play();
-		mixers['miku2'].existingAction('sing').play();
 		
 		mixers['miku2'].addEventListener('loop', loopCallback);
 		mixers['miku2'].addEventListener('finished', finishedCallback);
