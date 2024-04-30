@@ -86,20 +86,22 @@ function helloCallback(val) {
     speakText(greeting);
 }
 
+const reqSettings = {
+    method: 'POST',
+    mode: 'cors',
+    cache: 'no-cache',
+    headers: {
+        "Content-Type": "text/plain"
+    }
+}
+
 function storyCallback(val) {
     pLogger.log('preparing to speak.');
     //const url = 'https://bookshelf-jhr6l6besa-uc.a.run.app/';
     const url = 'https://bookshelf-jhr6l6besa-uc.a.run.app/story';
     //const url = 'https://google.com';
     //fetch(url).then(function (response) {
-    fetch(url, {
-        method: 'POST',
-        mode: 'cors',
-        cache: 'no-cache',
-        headers: {
-            "Content-Type": "text/plain"
-        }
-    }).then(function (response) {
+    fetch(url, reqSettings).then(function (response) {
         pLogger.log(response);
         return response.text();
         //return response.json();
@@ -124,14 +126,7 @@ function chatCallback(val) {
     pLogger.log('responding to: ' + encodedVal);
     pLogger.log('waiting for response...');
     const url = 'https://bookshelf-jhr6l6besa-uc.a.run.app/?data=' + encodedVal;
-    fetch(url, {
-        method: 'GET',
-        mode: 'cors',
-        cache: 'no-cache',
-        headers: {
-            "Content-Type": "text/plain"
-        }
-    }).then(function (response) {
+    fetch(url, reqSettings).then(function (response) {
         pLogger.log(response);
         return response.text();
     }).then(function (data) {
