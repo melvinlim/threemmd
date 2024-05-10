@@ -69,6 +69,7 @@ helper.enabled.cameraAnimation = false;
 
 const mikuModelPath = 'mmdmodels/miku4.3/miku4.3.pmx';
 const bunnyModelPath = 'mmdmodels/bunny_toon/bunny_toon.pmx';
+//const bunnyModelPath = 'mmdmodels/wooddoll/wooddoll.pmx';
 const CameraPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor-camera-yyb-miku-nt.vmd';
 
 //const FacePath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_face_expressions_YYB_miku.vmd';
