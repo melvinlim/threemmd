@@ -9,6 +9,7 @@ import { loadMMDAnimation } from './mmd.js';
 import { loadMMDCamera } from './mmd.js';
 import { loadMMD } from './mmd.js';
 import { loadMMD2 } from './mmd.js';
+import { replaceModel } from './mmd.js';
 import { fadeToAction } from './misc.js';
 
 import { logger } from './logger.js';
@@ -132,8 +133,8 @@ function finishedCallback(ev) {
 	}
 }
 
-loadMMD2(mixers,helper,scene,'miku1',bunnyModelPath,Miku1Data,miku1_offset,miku1ActiveAnims,loopCallback,finishedCallback,shadows);
-loadMMD2(mixers,helper,scene,'miku2',mikuModelPath,Miku2Data,miku2_offset,miku2ActiveAnims,loopCallback,finishedCallback,shadows);
+replaceModel(mixers,helper,scene,'miku1',bunnyModelPath,Miku1Data,miku1_offset,miku1ActiveAnims,loopCallback,finishedCallback,shadows);
+replaceModel(mixers,helper,scene,'miku2',mikuModelPath,Miku2Data,miku2_offset,miku2ActiveAnims,loopCallback,finishedCallback,shadows);
 
 loadMMDCamera(helper, camera, 'camera', CameraPath);
 
