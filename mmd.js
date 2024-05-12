@@ -120,42 +120,7 @@ export function loadMMDAnimation(helper, mmdModel, animationName, animationPath,
 	);
 }
 
-function finishedCallback(ev) {
-  logger.log('finished: ' + ev.action._clip.name)
-  if (ev.action._clip.name == 'dance') {
-    ev.target.existingAction('wait').setLoop(THREE.LoopRepeat, Infinity);
-    fadeToAction(ev.target.existingAction('dance'), ev.target.existingAction('wait'), 5);
-  }
-  if (ev.action._clip.name == 'happy') {
-    ev.target.existingAction('wait').setLoop(THREE.LoopRepeat, Infinity);
-    fadeToAction(ev.target.existingAction('happy'), ev.target.existingAction('wait'), 5);
-  }
-  if (ev.action._clip.name == 'walk') {
-    ev.target.existingAction('wait').setLoop(THREE.LoopRepeat, Infinity);
-    fadeToAction(ev.target.existingAction('walk'), ev.target.existingAction('wait'), 5);
-  }
-}
-
-export function replaceModel(mixers, helper, scene, mmdName, modelPath) {
-	const HappyPath = 'mmdanimations/good_mood_loop/good_mood_loop_140f_no_movement.vmd';
-	const HappyName = 'happy';
-	const WaitingPath = 'mmdanimations/waiting_loop/waiting_465f.vmd';
-	const WaitingName = 'wait';
-	const TalkPath = 'mmdanimations/talk.vmd';
-	const TalkName = 'talk';
-	const WalkPath = 'mmdanimations/walk.vmd';
-	const WalkName = 'walk';
-	const DancePath = 'mmdanimations/realize_motion/realize_motion.vmd';
-	const DanceName = 'dance';
-
-	const Miku1Data = [];
-	Miku1Data.push({ name: WaitingName, path: WaitingPath });
-	Miku1Data.push({ name: HappyName, path: HappyPath });
-	Miku1Data.push({ name: TalkName, path: TalkPath });
-	Miku1Data.push({ name: WalkName, path: WalkPath });
-	Miku1Data.push({ name: DanceName, path: DancePath });
-
-	const miku1_offset = new THREE.Vector3(10, 0, 0);
+export function replaceModel(mixers, helper, scene, mmdName, modelPath, data, offset = undefined, activeAnims = [], loopCallback=undefined, finishedCallback=undefined, shadows=false) {
 
 	let previousModel = scene.getObjectByName(mmdName);
 	previousModel.visible = false;
@@ -167,10 +132,7 @@ export function replaceModel(mixers, helper, scene, mmdName, modelPath) {
 	helper.objects.delete(previousMixer);
 	previousMixer=undefined;
 
-	let shadows=true;
-
-	//loadMMD2(mixers,helper,scene,mmdName,modelPath,Miku1Data,miku1_offset,[WaitingName],undefined,finishedCallback,shadows);
-	loadMMD2(mixers,helper,scene,mmdName,modelPath,Miku1Data,miku1_offset,[DanceName],undefined,finishedCallback,shadows);
+	loadMMD2(mixers,helper,scene,mmdName,modelPath,data,offset,activeAnims,undefined,finishedCallback,shadows);
 
 }
 

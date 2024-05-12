@@ -1,6 +1,7 @@
 import GUI from 'lilgui';
 import { fadeToAction } from './misc.js';
 import { LoopRepeat } from 'three';
+import { Vector3 } from 'three';
 import { replaceModel } from './mmd.js';
 
 class ColorGUIHelper {
@@ -135,13 +136,51 @@ function chatCallback(val) {
         //pLogger.log('Error: ' + err);
     });
 }
+
+function finishedCallback(ev) {
+  logger.log('finished: ' + ev.action._clip.name)
+  if (ev.action._clip.name == 'dance') {
+    ev.target.existingAction('wait').setLoop(LoopRepeat, Infinity);
+    fadeToAction(ev.target.existingAction('dance'), ev.target.existingAction('wait'), 5);
+  }
+  if (ev.action._clip.name == 'happy') {
+    ev.target.existingAction('wait').setLoop(LoopRepeat, Infinity);
+    fadeToAction(ev.target.existingAction('happy'), ev.target.existingAction('wait'), 5);
+  }
+  if (ev.action._clip.name == 'walk') {
+    ev.target.existingAction('wait').setLoop(LoopRepeat, Infinity);
+    fadeToAction(ev.target.existingAction('walk'), ev.target.existingAction('wait'), 5);
+  }
+}
+
 let previousModel='bunny';
 function bunnyCallback(){
+  const HappyPath = 'mmdanimations/good_mood_loop/good_mood_loop_140f_no_movement.vmd';
+  const HappyName = 'happy';
+  const WaitingPath = 'mmdanimations/waiting_loop/waiting_465f.vmd';
+  const WaitingName = 'wait';
+  const TalkPath = 'mmdanimations/talk.vmd';
+  const TalkName = 'talk';
+  const WalkPath = 'mmdanimations/walk.vmd';
+  const WalkName = 'walk';
+  const DancePath = 'mmdanimations/realize_motion/realize_motion.vmd';
+  const DanceName = 'dance';
+
+  const Miku1Data = [];
+  Miku1Data.push({ name: WaitingName, path: WaitingPath });
+  Miku1Data.push({ name: HappyName, path: HappyPath });
+  Miku1Data.push({ name: TalkName, path: TalkPath });
+  Miku1Data.push({ name: WalkName, path: WalkPath });
+  Miku1Data.push({ name: DanceName, path: DancePath });
+
+	let shadows=true;
+
+  const miku1_offset = new Vector3(10, 0, 0);
 	if(previousModel=='bunny'){
-    replaceModel(pMixers, pHelper, pScene, 'miku1', 'mmdmodels/miku4.3/miku4.3.pmx');
+    replaceModel(pMixers,pHelper,pScene,'miku1','mmdmodels/miku4.3/miku4.3.pmx',Miku1Data,miku1_offset,[DanceName],undefined,finishedCallback,shadows);
 		previousModel='miku';
 	}else{
-    replaceModel(pMixers, pHelper, pScene, 'miku1', 'mmdmodels/bunny_toon/bunny_toon.pmx');
+    replaceModel(pMixers,pHelper,pScene,'miku1','mmdmodels/bunny_toon/bunny_toon.pmx',Miku1Data,miku1_offset,[DanceName],undefined,finishedCallback,shadows);
 		previousModel='bunny';
 	}
 }
