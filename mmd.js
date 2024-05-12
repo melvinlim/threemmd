@@ -145,12 +145,15 @@ export function replaceModel(mixers, helper, scene, mmdName, modelPath) {
 	const TalkName = 'talk';
 	const WalkPath = 'mmdanimations/walk.vmd';
 	const WalkName = 'walk';
+	const DancePath = 'mmdanimations/realize_motion/realize_motion.vmd';
+	const DanceName = 'dance';
 
 	const Miku1Data = [];
 	Miku1Data.push({ name: WaitingName, path: WaitingPath });
 	Miku1Data.push({ name: HappyName, path: HappyPath });
 	Miku1Data.push({ name: TalkName, path: TalkPath });
 	Miku1Data.push({ name: WalkName, path: WalkPath });
+	Miku1Data.push({ name: DanceName, path: DancePath });
 
 	const miku1_offset = new THREE.Vector3(10, 0, 0);
 
@@ -166,7 +169,8 @@ export function replaceModel(mixers, helper, scene, mmdName, modelPath) {
 
 	let shadows=true;
 
-	loadMMD2(mixers,helper,scene,mmdName,modelPath,Miku1Data,miku1_offset,[WaitingName],undefined,finishedCallback,shadows);
+	//loadMMD2(mixers,helper,scene,mmdName,modelPath,Miku1Data,miku1_offset,[WaitingName],undefined,finishedCallback,shadows);
+	loadMMD2(mixers,helper,scene,mmdName,modelPath,Miku1Data,miku1_offset,[DanceName],undefined,finishedCallback,shadows);
 
 }
 
