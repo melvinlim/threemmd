@@ -166,7 +166,6 @@ const waitForAnimations = function () {
 		mixers['miku2'].addEventListener('finished', finishedCallback);
 		mixers['miku1'].addEventListener('loop', loopCallback);
 		mixers['miku1'].addEventListener('finished', finishedCallback);
-		mixers['miku1']._actions[0].setLoop(THREE.LoopPingPong);
 
 	}
 }
