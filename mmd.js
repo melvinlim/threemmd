@@ -67,11 +67,19 @@ export function loadMMDCamera(helper, mmdModel, animationName, animationPath) {
 			animationClip.name = animationName;
 			animationClip.resetDuration();
 			mmdModel.animations.push(animationClip);
-			//helper.objects.get(mmdModel).mixer.clipAction(animationClip).play();
 			helper.add(mmdModel, {
 				animation: animationClip,
 				physics: false
 			});
+			function waitForAction(){
+				if(!helper.objects.get(mmdModel).mixer._actions[0]){
+					setTimer(waitForAction,200);
+				}else{
+					helper.objects.get(mmdModel).mixer._actions[0].reset();
+					helper.objects.get(mmdModel).mixer._actions[0].stop();
+					//helper.objects.get(mmdModel).mixer._actions[0].play();
+				}
+			}
 		},
 		function (xhr) {
 			//logger.log((xhr.loaded / xhr.total * 100) + '% loaded');

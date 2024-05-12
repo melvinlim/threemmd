@@ -161,7 +161,6 @@ const waitForAnimations = function () {
 	} else {
 		miku1.visible = true;
 		miku2.visible = true;
-		mixers['camera'] = helper.objects.get(camera).mixer;
 		mixers['miku1'] = helper.objects.get(miku1).mixer;
 		mixers['miku2'] = helper.objects.get(miku2).mixer;
 		
@@ -170,10 +169,6 @@ const waitForAnimations = function () {
 		mixers['miku1'].addEventListener('loop', loopCallback);
 		mixers['miku1'].addEventListener('finished', finishedCallback);
 		mixers['miku1']._actions[0].setLoop(THREE.LoopPingPong);
-		if (mixers['camera']) {
-			mixers['camera']._actions[0].reset();
-			mixers['camera']._actions[0].stop();
-		}
 
 		initGUI(logger, scene, renderer, helper, ambientLight, pointLight, mixers);
 	}
