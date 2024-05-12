@@ -121,8 +121,7 @@ loadMMDCamera(helper, camera, 'camera', CameraPath);
 let miku1, miku2;
 const waitForModels = function () {
 	if (!scene.getObjectByName('miku1') ||
-		!scene.getObjectByName('miku2') ||
-		!scene.getObjectByName('checkerboard')) {
+		!scene.getObjectByName('miku2')	){
 		setTimeout(waitForModels, timeOutDelay);
 	} else {
 		miku1 = scene.getObjectByName('miku1');
