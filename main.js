@@ -132,26 +132,10 @@ function finishedCallback(ev) {
 	}
 }
 
-loadMMD2(mixers, helper, scene, 'miku1', bunnyModelPath, Miku1Data, miku1_offset, miku1ActiveAnims, loopCallback, finishedCallback);
-loadMMD2(mixers, helper, scene, 'miku2', mikuModelPath, Miku2Data, miku2_offset, miku2ActiveAnims, loopCallback, finishedCallback);
+loadMMD2(mixers,helper,scene,'miku1',bunnyModelPath,Miku1Data,miku1_offset,miku1ActiveAnims,loopCallback,finishedCallback,shadows);
+loadMMD2(mixers,helper,scene,'miku2',mikuModelPath,Miku2Data,miku2_offset,miku2ActiveAnims,loopCallback,finishedCallback,shadows);
 
 loadMMDCamera(helper, camera, 'camera', CameraPath);
-
-let miku1, miku2;
-const waitForModels = function () {
-	if (!scene.getObjectByName('miku1') ||
-		!scene.getObjectByName('miku2')	){
-		setTimeout(waitForModels, timeOutDelay);
-	} else {
-		miku1 = scene.getObjectByName('miku1');
-		miku2 = scene.getObjectByName('miku2');
-		if (shadows) {
-			miku1.castShadow = true;
-			miku2.castShadow = true;
-		}
-	}
-}
-waitForModels();
 
 initGUI(logger, scene, renderer, helper, ambientLight, pointLight, mixers);
 

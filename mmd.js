@@ -270,7 +270,7 @@ export function loadMMD(helper, scene, mmdName, modelPath, animName, animationPa
 	);
 }
 
-export function loadMMD2(mixers, helper, scene, mmdName, modelPath, data, offset = undefined, activeAnims = [], loopCallback=undefined, finishedCallback=undefined) {
+export function loadMMD2(mixers, helper, scene, mmdName, modelPath, data, offset = undefined, activeAnims = [], loopCallback=undefined, finishedCallback=undefined, shadows=false) {
 	let mmdModelObj;
 	const firstData = data[0];
 	let runAnim = false;
@@ -289,6 +289,9 @@ export function loadMMD2(mixers, helper, scene, mmdName, modelPath, data, offset
 			setTimeout(waitForModels, timeOutDelay);
 		} else {
 			mmdModelObj = scene.getObjectByName(mmdName);
+			if (shadows) {
+				mmdModelObj.castShadow = true;
+			}
 		}
 	}
 	waitForModels();
