@@ -47,7 +47,7 @@ document.body.append(renderer.domElement);
 const timeOutDelay = 100;
 
 const planeSize = 40;
-createCheckerboard(scene, planeSize);
+createCheckerboard(scene,planeSize,shadows);
 
 const color = 0xFFFFFF;
 const ambientIntensity = 0.05;
@@ -69,7 +69,7 @@ helper.enabled.cameraAnimation = false;
 
 const mikuModelPath = 'mmdmodels/miku4.3/miku4.3.pmx';
 const bunnyModelPath = 'mmdmodels/bunny_toon/bunny_toon.pmx';
-//const bunnyModelPath = 'mmdmodels/wooddoll/wooddoll.pmx';
+const dollPath = 'mmdmodels/wooddoll/wooddoll.pmx';
 const CameraPath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor-camera-yyb-miku-nt.vmd';
 
 //const FacePath = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor_lip_and_face_motions_by_non/just_face_expressions_YYB_miku.vmd';
@@ -118,7 +118,7 @@ loadMMD2(mixers, helper, scene, 'miku2', mikuModelPath, Miku2Data, miku2_offset,
 
 loadMMDCamera(helper, camera, 'camera', CameraPath);
 
-let miku1, miku2, floor;
+let miku1, miku2;
 const waitForModels = function () {
 	if (!scene.getObjectByName('miku1') ||
 		!scene.getObjectByName('miku2') ||
@@ -127,9 +127,7 @@ const waitForModels = function () {
 	} else {
 		miku1 = scene.getObjectByName('miku1');
 		miku2 = scene.getObjectByName('miku2');
-		floor = scene.getObjectByName('checkerboard');
 		if (shadows) {
-			floor.receiveShadow = true;
 			miku1.castShadow = true;
 			miku2.castShadow = true;
 		}

@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-export function createCheckerboard(scene, planeSize) {
+export function createCheckerboard(scene, planeSize, shadows=true) {
 
 	const texLoader = new THREE.TextureLoader();
 	const texture = texLoader.load('checker.png');
@@ -24,6 +24,9 @@ export function createCheckerboard(scene, planeSize) {
 	mesh.updateMatrixWorld();
 
 	mesh.name = 'checkerboard';
+	if (shadows) {
+		mesh.receiveShadow = true;
+	}
 	scene.add(mesh);
 }
 
