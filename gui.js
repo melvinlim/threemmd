@@ -135,9 +135,15 @@ function chatCallback(val) {
         //pLogger.log('Error: ' + err);
     });
 }
-
+let previousModel='bunny';
 function bunnyCallback(){
+	if(previousModel=='bunny'){
     replaceModel(pMixers, pHelper, pScene, 'miku1', 'mmdmodels/miku4.3/miku4.3.pmx');
+		previousModel='miku';
+	}else{
+    replaceModel(pMixers, pHelper, pScene, 'miku1', 'mmdmodels/bunny_toon/bunny_toon.pmx');
+		previousModel='bunny';
+	}
 }
 
 const button = {
