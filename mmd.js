@@ -332,6 +332,7 @@ export function loadMMD2(mixers, helper, scene, mmdName, modelPath, data, offset
 					);
 				}
 			);
+			mmdModelObj.visible = true;
 		}
 	}
 	waitForAnimations();

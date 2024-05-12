@@ -159,8 +159,6 @@ const waitForAnimations = function () {
 	) {
 		setTimeout(waitForAnimations, timeOutDelay);
 	} else {
-		miku1.visible = true;
-		miku2.visible = true;
 		mixers['miku1'] = helper.objects.get(miku1).mixer;
 		mixers['miku2'] = helper.objects.get(miku2).mixer;
 		
