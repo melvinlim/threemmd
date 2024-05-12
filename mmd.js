@@ -164,25 +164,10 @@ export function replaceModel(mixers, helper, scene, mmdName, modelPath) {
 	helper.objects.delete(previousMixer);
 	previousMixer=undefined;
 
-	loadMMD2(mixers, helper, scene, mmdName, modelPath, Miku1Data, miku1_offset);
+	let shadows=true;
 
-	let mmdModel;
+	loadMMD2(mixers,helper,scene,mmdName,modelPath,Miku1Data,miku1_offset,[WaitingName],undefined,finishedCallback,shadows);
 
-	const waitForAnimations = function () {
-		if (!mmdModel || !mmdModel.animations ||
-			mmdModel.animations.length < Miku1Data.length ||
-			!helper.objects.get(mmdModel).mixer
-		) {
-			mmdModel = scene.getObjectByName(mmdName);
-			setTimeout(waitForAnimations, timeOutDelay);
-		} else {
-			let mixer = helper.objects.get(mmdModel).mixer;
-			mixer.existingAction('wait').play();
-			mmdModel.visible = true;
-			mixer.addEventListener('finished', finishedCallback);
-		}
-	}
-	waitForAnimations();
 }
 
 export function loadMMD(helper, scene, mmdName, modelPath, animName, animationPath, offset = undefined, runAnim = false) {
