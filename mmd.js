@@ -4,6 +4,7 @@ import * as THREE from 'three';
 import { LoopOnce } from 'three';
 
 import { logger } from './logger.js';
+import {fadeToAction} from './misc.js';
 
 const timeOutDelay = 100;
 
@@ -119,6 +120,22 @@ export function loadMMDAnimation(helper, mmdModel, animationName, animationPath,
 	);
 }
 
+function finishedCallback(ev) {
+  logger.log('finished: ' + ev.action._clip.name)
+  if (ev.action._clip.name == 'dance') {
+    ev.target.existingAction('wait').setLoop(THREE.LoopRepeat, Infinity);
+    fadeToAction(ev.target.existingAction('dance'), ev.target.existingAction('wait'), 5);
+  }
+  if (ev.action._clip.name == 'happy') {
+    ev.target.existingAction('wait').setLoop(THREE.LoopRepeat, Infinity);
+    fadeToAction(ev.target.existingAction('happy'), ev.target.existingAction('wait'), 5);
+  }
+  if (ev.action._clip.name == 'walk') {
+    ev.target.existingAction('wait').setLoop(THREE.LoopRepeat, Infinity);
+    fadeToAction(ev.target.existingAction('walk'), ev.target.existingAction('wait'), 5);
+  }
+}
+
 export function replaceModel(mixers, helper, scene, mmdName, modelPath) {
 	const HappyPath = 'mmdanimations/good_mood_loop/good_mood_loop_140f_no_movement.vmd';
 	const HappyName = 'happy';
@@ -142,7 +159,10 @@ export function replaceModel(mixers, helper, scene, mmdName, modelPath) {
 	scene.remove(previousModel);
 	let prevIdx = helper.meshes.indexOf(previousModel);
 	helper.meshes.splice(prevIdx, 1);
+	let previousMixer = helper.objects.get(previousModel).mixer
 	helper.objects.delete(previousModel);
+	helper.objects.delete(previousMixer);
+	previousMixer=undefined;
 
 	loadMMD2(mixers, helper, scene, mmdName, modelPath, Miku1Data, miku1_offset);
 
@@ -159,6 +179,7 @@ export function replaceModel(mixers, helper, scene, mmdName, modelPath) {
 			let mixer = helper.objects.get(mmdModel).mixer;
 			mixer.existingAction('wait').play();
 			mmdModel.visible = true;
+			mixer.addEventListener('finished', finishedCallback);
 		}
 	}
 	waitForAnimations();
