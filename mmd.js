@@ -123,14 +123,18 @@ export function loadMMDAnimation(helper, mmdModel, animationName, animationPath,
 export function replaceModel(mixers, helper, scene, mmdName, modelPath, data, offset = undefined, activeAnims = [], loopCallback=undefined, finishedCallback=undefined, shadows=false) {
 
 	let previousModel = scene.getObjectByName(mmdName);
-	previousModel.visible = false;
-	scene.remove(previousModel);
-	let prevIdx = helper.meshes.indexOf(previousModel);
-	helper.meshes.splice(prevIdx, 1);
-	let previousMixer = helper.objects.get(previousModel).mixer
-	helper.objects.delete(previousModel);
-	helper.objects.delete(previousMixer);
-	previousMixer=undefined;
+	if(previousModel){
+		previousModel.visible = false;
+		scene.remove(previousModel);
+		if(helper){
+			let prevIdx = helper.meshes.indexOf(previousModel);
+			helper.meshes.splice(prevIdx, 1);
+			let previousMixer = helper.objects.get(previousModel).mixer
+			helper.objects.delete(previousModel);
+			helper.objects.delete(previousMixer);
+			previousMixer=undefined;
+		}
+	}
 
 	loadMMD2(mixers,helper,scene,mmdName,modelPath,data,offset,activeAnims,undefined,finishedCallback,shadows);
 
