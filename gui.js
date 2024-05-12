@@ -181,7 +181,7 @@ function logCallback(value) {
     }
 }
 
-export function initGUI(logger, scene, renderer, helper, ambientLight, pointLight, mixers) {
+export function _initGUI(logger, scene, renderer, helper, ambientLight, pointLight, mixers) {
     pScene = scene;
     pRenderer = renderer;
     pHelper = helper;
@@ -279,4 +279,18 @@ export function initGUI(logger, scene, renderer, helper, ambientLight, pointLigh
     gui.children[15].$input.id = 'msg-textbox';
     gui.children[15].$input.name = 'msg-textbox';
     //gui.children[15].$input.id = 'bunny-button';
+}
+
+export function initGUI(logger, scene, renderer, helper, ambientLight, pointLight, mixers) {
+    pMixers = mixers;
+    let pMiku1;
+    function waitForMixers(){
+      if(!pMixers || !pMixers['miku1'] || !pMiku1 || !pMiku1.morphTargetDictionary || !pMiku1.morphTargetInfluences){
+				pMiku1 = scene.getObjectByName('miku1');
+        setTimeout(waitForMixers,200);
+      }else{
+				_initGUI(logger, scene, renderer, helper, ambientLight, pointLight, mixers);
+			}
+		}
+    waitForMixers();
 }

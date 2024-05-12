@@ -170,10 +170,10 @@ const waitForAnimations = function () {
 		mixers['miku1'].addEventListener('finished', finishedCallback);
 		mixers['miku1']._actions[0].setLoop(THREE.LoopPingPong);
 
-		initGUI(logger, scene, renderer, helper, ambientLight, pointLight, mixers);
 	}
 }
 waitForAnimations();
+initGUI(logger, scene, renderer, helper, ambientLight, pointLight, mixers);
 
 const clock = new THREE.Clock();
 clock.start();
