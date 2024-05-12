@@ -270,7 +270,7 @@ export function loadMMD(helper, scene, mmdName, modelPath, animName, animationPa
 	);
 }
 
-export function loadMMD2(mixers, helper, scene, mmdName, modelPath, data, offset = undefined, activeAnims = []) {
+export function loadMMD2(mixers, helper, scene, mmdName, modelPath, data, offset = undefined, activeAnims = [], loopCallback=undefined, finishedCallback=undefined) {
 	let mmdModelObj;
 	const firstData = data[0];
 	let runAnim = false;
@@ -333,6 +333,11 @@ export function loadMMD2(mixers, helper, scene, mmdName, modelPath, data, offset
 				}
 			);
 			mmdModelObj.visible = true;
+			
+			if(loopCallback)
+				mixers[mmdName].addEventListener('loop', loopCallback);
+			if(finishedCallback)
+				mixers[mmdName].addEventListener('finished', finishedCallback);
 		}
 	}
 	waitForAnimations();

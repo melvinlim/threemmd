@@ -113,8 +113,27 @@ const miku2ActiveAnims = [DanceName, FaceName, LipName]
 
 const mixers = {};
 
-loadMMD2(mixers, helper, scene, 'miku1', bunnyModelPath, Miku1Data, miku1_offset, miku1ActiveAnims);
-loadMMD2(mixers, helper, scene, 'miku2', mikuModelPath, Miku2Data, miku2_offset, miku2ActiveAnims);
+function loopCallback(ev) {
+	logger.log('looped: ' + ev.action._clip.name)
+}
+function finishedCallback(ev) {
+	logger.log('finished: ' + ev.action._clip.name)
+	if (ev.action._clip.name == 'dance') {
+		ev.target.existingAction('wait').setLoop(THREE.LoopRepeat, Infinity);
+		fadeToAction(ev.target.existingAction('dance'), ev.target.existingAction('wait'), 5);
+	}
+	if (ev.action._clip.name == 'happy') {
+		ev.target.existingAction('wait').setLoop(THREE.LoopRepeat, Infinity);
+		fadeToAction(ev.target.existingAction('happy'), ev.target.existingAction('wait'), 5);
+	}
+	if (ev.action._clip.name == 'walk') {
+		ev.target.existingAction('wait').setLoop(THREE.LoopRepeat, Infinity);
+		fadeToAction(ev.target.existingAction('walk'), ev.target.existingAction('wait'), 5);
+	}
+}
+
+loadMMD2(mixers, helper, scene, 'miku1', bunnyModelPath, Miku1Data, miku1_offset, miku1ActiveAnims, loopCallback, finishedCallback);
+loadMMD2(mixers, helper, scene, 'miku2', mikuModelPath, Miku2Data, miku2_offset, miku2ActiveAnims, loopCallback, finishedCallback);
 
 loadMMDCamera(helper, camera, 'camera', CameraPath);
 
@@ -134,42 +153,6 @@ const waitForModels = function () {
 }
 waitForModels();
 
-function loopCallback(ev) {
-	logger.log('looped: ' + ev.action._clip.name)
-}
-function finishedCallback(ev) {
-	logger.log('finished: ' + ev.action._clip.name)
-	if (ev.action._clip.name == 'dance') {
-		ev.target.existingAction('wait').setLoop(THREE.LoopRepeat, Infinity);
-		fadeToAction(ev.target.existingAction('dance'), ev.target.existingAction('wait'), 5);
-	}
-	if (ev.action._clip.name == 'happy') {
-		ev.target.existingAction('wait').setLoop(THREE.LoopRepeat, Infinity);
-		fadeToAction(ev.target.existingAction('happy'), ev.target.existingAction('wait'), 5);
-	}
-	if (ev.action._clip.name == 'walk') {
-		ev.target.existingAction('wait').setLoop(THREE.LoopRepeat, Infinity);
-		fadeToAction(ev.target.existingAction('walk'), ev.target.existingAction('wait'), 5);
-	}
-}
-const waitForAnimations = function () {
-	if (!miku1 || !miku2 || !miku2.animations ||
-		miku2.animations.length < Miku2Data.length ||
-		!helper.objects.get(miku2).mixer
-	) {
-		setTimeout(waitForAnimations, timeOutDelay);
-	} else {
-		mixers['miku1'] = helper.objects.get(miku1).mixer;
-		mixers['miku2'] = helper.objects.get(miku2).mixer;
-		
-		mixers['miku2'].addEventListener('loop', loopCallback);
-		mixers['miku2'].addEventListener('finished', finishedCallback);
-		mixers['miku1'].addEventListener('loop', loopCallback);
-		mixers['miku1'].addEventListener('finished', finishedCallback);
-
-	}
-}
-waitForAnimations();
 initGUI(logger, scene, renderer, helper, ambientLight, pointLight, mixers);
 
 const clock = new THREE.Clock();
