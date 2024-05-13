@@ -165,6 +165,8 @@ function bunnyCallback(){
   const WalkName = 'walk';
   const DancePath = 'mmdanimations/realize_motion/realize_motion.vmd';
   const DanceName = 'dance';
+	const Dance2Path = 'mmdanimations/tricolor_motion_kozakuramiru_distribution/tricolor-motion-yyb-miku-nt.vmd';
+	const Dance2Name = 'dance2';
 
   const Miku1Data = [];
   Miku1Data.push({ name: WaitingName, path: WaitingPath });
@@ -172,6 +174,7 @@ function bunnyCallback(){
   Miku1Data.push({ name: TalkName, path: TalkPath });
   Miku1Data.push({ name: WalkName, path: WalkPath });
   Miku1Data.push({ name: DanceName, path: DancePath });
+  Miku1Data.push({ name: Dance2Name, path: Dance2Path });
 
 	let shadows=true;
 
@@ -180,7 +183,8 @@ function bunnyCallback(){
     replaceModel(pMixers,pHelper,pScene,'miku1','mmdmodels/miku4.3/miku4.3.pmx',Miku1Data,miku1_offset,[DanceName],undefined,finishedCallback,shadows);
 		previousModel='miku';
 	}else{
-    replaceModel(pMixers,pHelper,pScene,'miku1','mmdmodels/bunny_toon/bunny_toon.pmx',Miku1Data,miku1_offset,[DanceName],undefined,finishedCallback,shadows);
+    //replaceModel(pMixers,pHelper,pScene,'miku1','mmdmodels/bunny_toon/bunny_toon.pmx',Miku1Data,miku1_offset,[DanceName],undefined,finishedCallback,shadows);
+    replaceModel(pMixers,pHelper,pScene,'miku1','mmdmodels/miku4.3/miku4.3.pmx',Miku1Data,miku1_offset,[Dance2Name],undefined,finishedCallback,shadows);
 		previousModel='bunny';
 	}
 }

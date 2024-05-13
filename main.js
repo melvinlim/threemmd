@@ -133,7 +133,8 @@ function finishedCallback(ev) {
 	}
 }
 
-replaceModel(mixers,helper,scene,'miku1',bunnyModelPath,Miku1Data,miku1_offset,miku1ActiveAnims,loopCallback,finishedCallback,shadows);
+//replaceModel(mixers,helper,scene,'miku1',bunnyModelPath,Miku1Data,miku1_offset,miku1ActiveAnims,loopCallback,finishedCallback,shadows);
+replaceModel(mixers,helper,scene,'miku1',mikuModelPath,Miku1Data,miku1_offset,miku1ActiveAnims,loopCallback,finishedCallback,shadows);
 replaceModel(mixers,helper,scene,'miku2',mikuModelPath,Miku2Data,miku2_offset,miku2ActiveAnims,loopCallback,finishedCallback,shadows);
 
 loadMMDCamera(helper, camera, 'camera', CameraPath);
