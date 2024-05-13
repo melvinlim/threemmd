@@ -3,6 +3,7 @@ import { fadeToAction } from './misc.js';
 import { LoopRepeat } from 'three';
 import { Vector3 } from 'three';
 import { replaceModel } from './mmd.js';
+import { logger } from './logger.js';
 
 class ColorGUIHelper {
     constructor(object, prop) {
@@ -20,7 +21,6 @@ let pScene;
 let pRenderer;
 let pHelper;
 let pMixers;
-let pLogger;
 function updateGravity(value) {
     pHelper.meshes.forEach(function (mesh) {
         let gravity = pHelper.objects.get(mesh).physics.gravity
@@ -57,12 +57,12 @@ function speakText(ourText) {
     const utterThis = new SpeechSynthesisUtterance(ourText);
 
     utterThis.onstart = function (event) {
-        pLogger.log('Speech has started');
+        logger.log('Speech has started');
         pMixers['miku1'].existingAction('talk').setLoop(LoopRepeat, Infinity);
         pMixers['miku1'].existingAction('talk').play();
     };
     utterThis.onend = function (event) {
-        pLogger.log('Speech has ended');
+        logger.log('Speech has ended');
         pMixers['miku1'].existingAction('talk').stop();
     };
 
@@ -97,19 +97,19 @@ const reqSettings = {
 }
 
 function storyCallback(val) {
-    pLogger.log('preparing to speak.');
+    logger.log('preparing to speak.');
     const url = 'https://bookshelf-jhr6l6besa-uc.a.run.app/story';
     fetch(url, reqSettings).then(function (response) {
-        pLogger.log(response);
+        logger.log(response);
         return response.text();
         //return response.json();
     }).then(function (data) {
-        pLogger.log(data);
+        logger.log(data);
         if (data && data.length > 0) {
             speakText(data);
         }
     }).catch(function (err) {
-        //pLogger.log('Fetch Error: ' + err);
+        //logger.log('Fetch Error: ' + err);
     });
 }
 /*
@@ -119,26 +119,26 @@ const url = 'https://bookshelf-jhr6l6besa-uc.a.run.app/?' + new URLSearchParams(
 });
 */
 function chatCallback(val) {
-    pLogger.log('responding to: ' + val);
+    logger.log('responding to: ' + val);
     let encodedVal = encodeURIComponent(val);
-    pLogger.log('responding to: ' + encodedVal);
-    pLogger.log('waiting for response...');
+    logger.log('responding to: ' + encodedVal);
+    logger.log('waiting for response...');
     const url = 'https://bookshelf-jhr6l6besa-uc.a.run.app/?data=' + encodedVal;
     fetch(url, reqSettings).then(function (response) {
-        pLogger.log(response);
+        logger.log(response);
         return response.text();
     }).then(function (data) {
-        pLogger.log(data);
+        logger.log(data);
         if (data && data.length > 0) {
             speakText(data);
         }
     }).catch(function (err) {
-        //pLogger.log('Error: ' + err);
+        //logger.log('Error: ' + err);
     });
 }
 
 function finishedCallback(ev) {
-  pLogger.log('finished: ' + ev.action._clip.name)
+  logger.log('finished: ' + ev.action._clip.name)
   if (ev.action._clip.name == 'dance') {
     ev.target.existingAction('wait').setLoop(LoopRepeat, Infinity);
     fadeToAction(ev.target.existingAction('dance'), ev.target.existingAction('wait'), 5);
@@ -195,7 +195,7 @@ const button = {
 let msgController;
 
 function msgCallback(val) {
-    //pLogger.log(val.charCodeAt(val.length - 1));
+    //logger.log(val.charCodeAt(val.length - 1));
     if (val.charCodeAt(val.length - 1) == 13) {     //smart phone go/submit button keycode.
 /*
         chatCallback(val);
@@ -220,18 +220,17 @@ const actions = {
 
 function logCallback(value) {
     if (value == false) {
-        pLogger.clearText();
+        logger.clearText();
     } else {
-        pLogger.display();
+        logger.display();
     }
 }
 
-export function _initGUI(logger, scene, renderer, helper, ambientLight, pointLight, mixers) {
+export function _initGUI(scene, renderer, helper, ambientLight, pointLight, mixers) {
     pScene = scene;
     pRenderer = renderer;
     pHelper = helper;
     pMixers = mixers;
-    pLogger = logger;
 
     let pMiku1;
     pMiku1 = scene.getObjectByName('miku1');
@@ -326,7 +325,7 @@ export function _initGUI(logger, scene, renderer, helper, ambientLight, pointLig
     //gui.children[15].$input.id = 'bunny-button';
 }
 
-export function initGUI(logger, scene, renderer, helper, ambientLight, pointLight, mixers) {
+export function initGUI(scene, renderer, helper, ambientLight, pointLight, mixers) {
     pMixers = mixers;
     let pMiku1;
     function waitForMixers(){
@@ -334,7 +333,7 @@ export function initGUI(logger, scene, renderer, helper, ambientLight, pointLigh
 				pMiku1 = scene.getObjectByName('miku1');
         setTimeout(waitForMixers,200);
       }else{
-				_initGUI(logger, scene, renderer, helper, ambientLight, pointLight, mixers);
+				_initGUI(scene, renderer, helper, ambientLight, pointLight, mixers);
 			}
 		}
     waitForMixers();

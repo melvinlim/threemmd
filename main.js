@@ -138,7 +138,7 @@ replaceModel(mixers,helper,scene,'miku2',mikuModelPath,Miku2Data,miku2_offset,mi
 
 loadMMDCamera(helper, camera, 'camera', CameraPath);
 
-initGUI(logger, scene, renderer, helper, ambientLight, pointLight, mixers);
+initGUI(scene, renderer, helper, ambientLight, pointLight, mixers);
 
 const clock = new THREE.Clock();
 clock.start();
