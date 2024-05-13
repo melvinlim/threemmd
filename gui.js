@@ -180,11 +180,13 @@ function bunnyCallback(){
 
   const miku1_offset = new Vector3(10, 0, 0);
 	if(previousModel=='bunny'){
-    replaceModel(pMixers,pHelper,pScene,'miku1','mmdmodels/miku4.3/miku4.3.pmx',Miku1Data,miku1_offset,[DanceName],undefined,finishedCallback,shadows);
+    //replaceModel(pMixers,pHelper,pScene,'miku1','mmdmodels/miku4.3/miku4.3.pmx',Miku1Data,miku1_offset,[DanceName],undefined,finishedCallback,shadows);
+    replaceModel(pMixers,pHelper,pScene,'miku1','mmdmodels/tetosan2.2/tetosan2.2.pmx',Miku1Data,miku1_offset,[DanceName],undefined,finishedCallback,shadows);
 		previousModel='miku';
 	}else{
     //replaceModel(pMixers,pHelper,pScene,'miku1','mmdmodels/bunny_toon/bunny_toon.pmx',Miku1Data,miku1_offset,[DanceName],undefined,finishedCallback,shadows);
-    replaceModel(pMixers,pHelper,pScene,'miku1','mmdmodels/miku4.3/miku4.3.pmx',Miku1Data,miku1_offset,[Dance2Name],undefined,finishedCallback,shadows);
+    //replaceModel(pMixers,pHelper,pScene,'miku1','mmdmodels/miku4.3/miku4.3.pmx',Miku1Data,miku1_offset,[Dance2Name],undefined,finishedCallback,shadows);
+    replaceModel(pMixers,pHelper,pScene,'miku1','mmdmodels/tetosan2.2/tetosan2.2.pmx',Miku1Data,miku1_offset,[Dance2Name],undefined,finishedCallback,shadows);
 		previousModel='bunny';
 	}
 }
