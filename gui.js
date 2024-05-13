@@ -138,7 +138,7 @@ function chatCallback(val) {
 }
 
 function finishedCallback(ev) {
-  logger.log('finished: ' + ev.action._clip.name)
+  pLogger.log('finished: ' + ev.action._clip.name)
   if (ev.action._clip.name == 'dance') {
     ev.target.existingAction('wait').setLoop(LoopRepeat, Infinity);
     fadeToAction(ev.target.existingAction('dance'), ev.target.existingAction('wait'), 5);
